@@ -1,0 +1,93 @@
+# Project Memory
+
+This file stores persistent project context for Codex and contributors.
+
+## Project
+
+Name: AEMET A1 Trainer
+
+Purpose:
+A web/PWA app for preparing the Spanish public opposition exam:
+Grupo A1 – Cuerpo Superior de Meteorólogos del Estado, AEMET.
+
+## User
+
+The primary user is preparing for the next AEMET A1 opening.
+
+Known constraints:
+- Works 12:30–23:00.
+- Best study time: morning.
+- Background: Meteorology degree from Cuba.
+- Spanish qualification: Master in Meteorology and Geophysics.
+- Wants calendar-based checklist and focus support.
+- Wants a question bank from past exams.
+- Wants countdowns for future openings and exam phases.
+- Wants official BOE/AEMET monitoring.
+- Husband is a software developer and wants this as a GitHub portfolio project.
+
+## Study defaults
+
+Morning deep work is preferred.
+
+Default weekday plan:
+- 07:30–09:00 deep technical study
+- 09:10–10:10 problems/practical case
+- 10:20–11:00 legal/informatics/flashcards
+- 23:30–00:00 optional light review
+
+Avoid heavy study after 23:00.
+
+## Official syllabus size
+
+Current known structure from latest referenced A1 programme:
+- Mathematics: 18 topics
+- Physics: 18 topics
+- Meteorology and Climatology: 59 topics
+- Informatics and Communications: 10 topics
+- General/Common topics: 22 topics
+
+Total: 127 topics
+
+Important:
+The exact topic wording must be verified against the official BOE call before importing.
+
+## Core app modules
+
+1. Dashboard
+2. Official topic checklist
+3. Question bank
+4. Practical case trainer
+5. Focus mode
+6. Calendar planner
+7. Countdown system
+8. BOE/AEMET monitor
+9. Notion sync
+10. Progress analytics
+
+## Architecture direction
+
+Preferred stack:
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase PostgreSQL
+- Supabase Auth
+- Notion API
+- Google Calendar API later
+- Vercel deployment
+- PWA-first design
+
+## Official-source policy
+
+Only official-source verified data may be displayed as official.
+
+Official preferred sources:
+- BOE
+- AEMET
+- Spanish government legal sources
+- WMO
+- ECMWF
+- EUMETSAT
+
+Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
