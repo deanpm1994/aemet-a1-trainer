@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { topics as topicFixtures } from "./mock-data";
 import type { Topic } from "./types";
 import {
   buildBlockSummaries,
@@ -77,18 +78,18 @@ describe("topic progress helpers", () => {
   it("selects weak topics by low confidence and excludes exam ready topics", () => {
     expect(selectWeakTopics(topics)).toEqual([
       {
-        id: "math-01",
-        label: "Mathematics: Calculus foundations",
-        confidence: 2,
-        status: "in_progress",
-        verificationStatus: "unverified",
-      },
-      {
         id: "met-01",
         label: "Meteorology and Climatology: Atmospheric thermodynamics",
         confidence: 1,
         status: "not_started",
         verificationStatus: "needs_review",
+      },
+      {
+        id: "math-01",
+        label: "Mathematics: Calculus foundations",
+        confidence: 2,
+        status: "in_progress",
+        verificationStatus: "unverified",
       },
     ]);
   });
@@ -114,5 +115,10 @@ describe("topic progress helpers", () => {
         examReadyTopics: 0,
       },
     ]);
+  });
+
+  it("keeps TODO_VERIFY_OFFICIAL_SOURCE metadata intact in the topic fixtures", () => {
+    expect(topicFixtures[0]?.officialTitle).toBe("TODO_VERIFY_OFFICIAL_SOURCE");
+    expect(topicFixtures[0]?.sourceUrl).toBe("TODO_VERIFY_OFFICIAL_SOURCE");
   });
 });
