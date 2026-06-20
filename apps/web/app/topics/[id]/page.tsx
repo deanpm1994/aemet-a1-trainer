@@ -4,13 +4,14 @@ import { PageHeader } from "@/components/page-header";
 import { topics } from "@/lib/mock-data";
 
 type TopicDetailPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default function TopicDetailPage({ params }: TopicDetailPageProps) {
-  const topic = topics.find((entry) => entry.id === params.id);
+export default async function TopicDetailPage({ params }: TopicDetailPageProps) {
+  const { id } = await params;
+  const topic = topics.find((entry) => entry.id === id);
 
   if (!topic) {
     notFound();

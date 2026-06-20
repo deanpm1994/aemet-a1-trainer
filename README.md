@@ -27,7 +27,7 @@ Grupo A1 – Cuerpo Superior de Meteorólogos del Estado, AEMET.
 
 ## Current status
 
-Foundation phase.
+Phase 1 in progress: read-only study checklist MVP.
 
 ## Safety
 

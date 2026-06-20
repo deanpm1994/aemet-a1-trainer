@@ -1,7 +1,11 @@
 import { MetricCard } from "@/components/metric-card";
 import { PageHeader } from "@/components/page-header";
 import { PlaceholderPanel } from "@/components/placeholder-panel";
-import { dashboardMetrics, studyMission, topicSummaries } from "@/lib/mock-data";
+import { buildDashboardMetrics, studyMission, topics } from "@/lib/mock-data";
+import { selectWeakTopics } from "@/lib/topic-progress";
+
+const dashboardMetrics = buildDashboardMetrics();
+const weakTopics = selectWeakTopics(topics);
 
 export default function DashboardPage() {
   return (
@@ -9,7 +13,7 @@ export default function DashboardPage() {
       <PageHeader
         eyebrow="Dashboard"
         title="Morning mission and progress overview"
-        description="Dashboard scaffold for the candidate’s default study rhythm. All numbers are placeholders until topic, session, and monitoring data are implemented."
+        description="Dashboard scaffold for the candidate’s default study rhythm. Topic progress is derived from the shared read-only Phase 1 checklist, while monitoring and countdown data remain placeholders."
       />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -31,10 +35,10 @@ export default function DashboardPage() {
         />
         <PlaceholderPanel
           title="Weak topics"
-          description="Mock topic list to prove route structure and UI shape before Supabase or Notion are connected."
-          bullets={topicSummaries.map(
+          description="Lowest-confidence topics from the shared mock checklist, shown here to keep review priorities visible."
+          bullets={weakTopics.map(
             (topic) =>
-              `${topic.block}: ${topic.shortTitle} (${topic.status}, confidence ${topic.confidence}/5, ${topic.verificationStatus})`,
+              `${topic.label} (${topic.status}, confidence ${topic.confidence}/5, ${topic.verificationStatus})`,
           )}
         />
       </section>
