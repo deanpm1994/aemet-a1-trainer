@@ -11,16 +11,40 @@ export type TopicStatus =
   | "reviewed"
   | "exam_ready";
 
-export type TopicSummary = {
+export type TopicPriority = "high" | "medium" | "low";
+
+export type Topic = {
   id: string;
   block: string;
   officialNumber: string;
-  shortTitle: string;
+  officialTitle: string;
+  normalizedTitle: string;
   status: TopicStatus;
   confidence: number;
-  priority: "high" | "medium" | "low";
+  priority: TopicPriority;
   nextReviewAt: string;
   verificationStatus: VerificationStatus;
+  sourceUrl: string;
+  retrievedAt: string;
+  shortDescription?: string;
+  studyFocus?: string;
+  relatedQuestionCount?: number;
+  notesStatus?: string;
+};
+
+export type TopicWeakness = {
+  id: string;
+  label: string;
+  confidence: number;
+  status: TopicStatus;
+  verificationStatus: VerificationStatus;
+};
+
+export type TopicBlockSummary = {
+  block: string;
+  totalTopics: number;
+  touchedTopics: number;
+  examReadyTopics: number;
 };
 
 export type DashboardMetric = {
