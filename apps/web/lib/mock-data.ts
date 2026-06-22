@@ -18,7 +18,7 @@ export const routeCards: RouteCard[] = [
   {
     href: "/topics",
     title: "Topics",
-    description: "Official syllabus checklist placeholder with mock unverified items.",
+    description: "Live-capable Notion-backed topic checklist with explicit local fallback.",
   },
   {
     href: "/questions",

@@ -1,19 +1,23 @@
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { topics } from "@/lib/mock-data";
+import { SourceStateBanner } from "@/components/source-state-banner";
+import { loadTopicsSource } from "@/lib/notion-topics";
 import { buildBlockSummaries } from "@/lib/topic-progress";
 
-const blockSummaries = buildBlockSummaries(topics);
+export default async function TopicsPage() {
+  const { topics, sourceState, message } = await loadTopicsSource();
+  const blockSummaries = buildBlockSummaries(topics);
 
-export default function TopicsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Topics"
         title="Study checklist"
-        description="Read-only Phase 1 checklist built from mock topic data. Exact BOE wording, numbering, and sources remain TODO_VERIFY_OFFICIAL_SOURCE until official verification is added."
+        description="Phase 4 topic sync prefers one dedicated Notion workspace and falls back to local topic data when live sync is unavailable. Official BOE wording and numbering remain explicitly marked until verified."
       />
+
+      <SourceStateBanner sourceState={sourceState} message={message} />
 
       <section className="grid gap-4 md:grid-cols-3">
         {blockSummaries.map((summary) => (

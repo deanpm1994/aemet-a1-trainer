@@ -27,7 +27,7 @@
 - Add attempt tracking
 - Add mistake log
 
-## Phase 3 — Focus and calendar (current)
+## Phase 3 — Focus and calendar (complete)
 
 - Add focus timer
 - Add study session model
@@ -35,7 +35,7 @@
 - Add default schedule based on user work hours
 - Add session completion checklist
 
-## Phase 4 — Notion integration
+## Phase 4 — Notion integration (current)
 
 - Create Notion database mapping
 - Sync topics from Notion

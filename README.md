@@ -29,7 +29,25 @@ Grupo A1 – Cuerpo Superior de Meteorólogos del Estado, AEMET.
 
 Phase 1 complete: read-only study checklist MVP.
 Phase 2 complete: question bank MVP.
-Phase 3 active: focus and calendar MVP.
+Phase 3 complete: focus and calendar MVP.
+Phase 4 active: Notion topics sync.
+
+## Notion topic sync
+
+Phase 4.1 uses a server-side Notion integration for the `/topics` routes.
+
+Required environment variables:
+
+- `NOTION_TOKEN`
+- `NOTION_TOPICS_DATA_SOURCE_ID`
+
+Behavior:
+
+- when both values are configured and the Notion sync succeeds, `/topics` and `/topics/[id]` use live Notion topic data
+- when configuration is missing, the app shows local fallback topic data with an explicit warning
+- when the sync fails or mapping is invalid, the app shows local fallback topic data with an explicit error
+
+The app does not expose the Notion token to the browser.
 
 ## Safety
 
