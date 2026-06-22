@@ -47,6 +47,54 @@ export type TopicBlockSummary = {
   examReadyTopics: number;
 };
 
+export type QuestionType =
+  | "multiple_choice"
+  | "practical_case"
+  | "formula"
+  | "flashcard"
+  | "legal_short_answer";
+
+export type AnswerSourceStatus = "official" | "inferred" | "user" | "unknown";
+
+export type MistakeType =
+  | "concept"
+  | "formula"
+  | "units"
+  | "reading"
+  | "legal_wording"
+  | "time_management"
+  | "none";
+
+export type Question = {
+  id: string;
+  name: string;
+  type: QuestionType;
+  sourceYear: number;
+  sourceExam: string;
+  sourceUrl: string;
+  retrievedAt: string;
+  verificationStatus: VerificationStatus;
+  questionNumber: string;
+  statement: string;
+  options: string[];
+  correctAnswer: string;
+  answerSourceStatus: AnswerSourceStatus;
+  explanation: string;
+  topicIds: string[];
+  difficulty: 1 | 2 | 3 | 4 | 5;
+  attemptsCount: number;
+  lastAttemptAt: string;
+  nextReviewAt: string;
+  mistakeTypes: MistakeType[];
+};
+
+export type QuestionFilters = {
+  type: QuestionType | "all";
+  verificationStatus: VerificationStatus | "all";
+  difficulty: Question["difficulty"] | "all";
+  mistakeType: MistakeType | "all";
+};
+
 export type DashboardMetric = {
   label: string;
   value: string;

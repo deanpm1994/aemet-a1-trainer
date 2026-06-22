@@ -1,4 +1,10 @@
-import type { DashboardMetric, RouteCard, StudyMission, Topic } from "./types";
+import type {
+  DashboardMetric,
+  Question,
+  RouteCard,
+  StudyMission,
+  Topic,
+} from "./types";
 
 import { countExamReadyTopics, countTouchedTopics } from "./topic-progress";
 
@@ -16,7 +22,7 @@ export const routeCards: RouteCard[] = [
   {
     href: "/questions",
     title: "Questions",
-    description: "Practice bank placeholder for past exams and practical cases.",
+    description: "Read-only question bank for past-exam practice, formulas, and legal review.",
   },
   {
     href: "/calendar",
@@ -119,6 +125,113 @@ export const topics: Topic[] = [
     studyFocus: "Link constitutional structure to common exam prompts.",
     relatedQuestionCount: 0,
     notesStatus: "Outline complete",
+  },
+];
+
+export const questions: Question[] = [
+  {
+    id: "q-met-thermo-01",
+    name: "Atmospheric stability basics",
+    type: "multiple_choice",
+    sourceYear: 2024,
+    sourceExam: "Mock AEMET A1 set",
+    sourceUrl: "TODO_VERIFY_OFFICIAL_SOURCE",
+    retrievedAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    verificationStatus: "unverified",
+    questionNumber: "1",
+    statement:
+      "Which process most directly increases the relative humidity of an unsaturated air parcel if water vapor content stays constant?",
+    options: [
+      "Increasing parcel temperature",
+      "Decreasing parcel temperature",
+      "Increasing pressure altitude definition only",
+      "Reducing cloud condensation nuclei",
+    ],
+    correctAnswer: "Decreasing parcel temperature",
+    answerSourceStatus: "inferred",
+    explanation:
+      "Cooling an unsaturated parcel raises relative humidity when vapor content does not change.",
+    topicIds: ["met-01"],
+    difficulty: 2,
+    attemptsCount: 3,
+    lastAttemptAt: "2026-06-20",
+    nextReviewAt: "2026-06-21",
+    mistakeTypes: ["concept"],
+  },
+  {
+    id: "q-math-calc-01",
+    name: "Gradient and extrema review",
+    type: "formula",
+    sourceYear: 2023,
+    sourceExam: "Mock AEMET A1 set",
+    sourceUrl: "TODO_VERIFY_OFFICIAL_SOURCE",
+    retrievedAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    verificationStatus: "needs_review",
+    questionNumber: "7",
+    statement:
+      "For a differentiable function, what condition must hold at an interior local maximum point?",
+    options: [
+      "The derivative must be zero if it exists",
+      "The second derivative must always be positive",
+      "The function must be discontinuous nearby",
+      "The gradient must increase without bound",
+    ],
+    correctAnswer: "The derivative must be zero if it exists",
+    answerSourceStatus: "inferred",
+    explanation:
+      "At an interior local maximum, the first derivative vanishes when the derivative exists.",
+    topicIds: ["math-01"],
+    difficulty: 3,
+    attemptsCount: 5,
+    lastAttemptAt: "2026-06-18",
+    nextReviewAt: "2026-06-19",
+    mistakeTypes: ["formula", "time_management"],
+  },
+  {
+    id: "q-gen-admin-01",
+    name: "Public administration fundamentals",
+    type: "legal_short_answer",
+    sourceYear: 2022,
+    sourceExam: "Mock AEMET A1 set",
+    sourceUrl: "TODO_VERIFY_OFFICIAL_SOURCE",
+    retrievedAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    verificationStatus: "unverified",
+    questionNumber: "12",
+    statement:
+      "Name one constitutional principle that constrains public administration action and explain it briefly.",
+    options: [],
+    correctAnswer: "TODO_VERIFY_OFFICIAL_SOURCE",
+    answerSourceStatus: "unknown",
+    explanation:
+      "Short-answer review item used to rehearse legal wording before verified sources are imported.",
+    topicIds: ["gen-01"],
+    difficulty: 4,
+    attemptsCount: 1,
+    lastAttemptAt: "2026-06-21",
+    nextReviewAt: "2026-06-25",
+    mistakeTypes: ["legal_wording"],
+  },
+  {
+    id: "q-inf-networks-01",
+    name: "TCP/IP protocol stack quick check",
+    type: "flashcard",
+    sourceYear: 2024,
+    sourceExam: "Mock AEMET A1 set",
+    sourceUrl: "TODO_VERIFY_OFFICIAL_SOURCE",
+    retrievedAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    verificationStatus: "unverified",
+    questionNumber: "19",
+    statement: "Which transport protocol is connection-oriented: TCP or UDP?",
+    options: ["TCP", "UDP"],
+    correctAnswer: "TCP",
+    answerSourceStatus: "inferred",
+    explanation: "TCP is connection-oriented and adds reliability guarantees.",
+    topicIds: ["inf-01"],
+    difficulty: 1,
+    attemptsCount: 2,
+    lastAttemptAt: "2026-06-22",
+    nextReviewAt: "2026-06-27",
+    mistakeTypes: ["none"],
   },
 ];
 
