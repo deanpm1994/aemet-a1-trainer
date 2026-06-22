@@ -95,6 +95,67 @@ export type QuestionFilters = {
   mistakeType: MistakeType | "all";
 };
 
+export type SessionType =
+  | "deep_topic"
+  | "questions"
+  | "practical_case"
+  | "legal"
+  | "informatics"
+  | "flashcards"
+  | "review";
+
+export type StudySessionStatus =
+  | "scheduled"
+  | "in_progress"
+  | "ready_for_review"
+  | "completed"
+  | "extended"
+  | "abandoned";
+
+export type TimerStatus = "idle" | "running" | "paused" | "finished";
+
+export type ReviewState = "not_needed" | "waiting" | "done";
+
+export type StudySession = {
+  id: string;
+  name: string;
+  sessionType: SessionType;
+  objective: string;
+  topicIds: string[];
+  questionIds: string[];
+  plannedDate: string;
+  plannedStartTime: string;
+  plannedEndTime: string;
+  plannedDurationMinutes: number;
+  status: StudySessionStatus;
+  timerStatus: TimerStatus;
+  completed: boolean;
+  reviewState: ReviewState;
+  notesCreated: boolean;
+  questionsSolved: number;
+  flashcardsCreated: number;
+  mistakesLogged: number;
+  confidenceAfter: number | null;
+  nextReviewAt: string;
+  notes: string;
+  isTemplate: boolean;
+  isPersisted: boolean;
+};
+
+export type PlannerDay = {
+  date: string;
+  label: string;
+  sessions: StudySession[];
+};
+
+export type PlannerWeekSummary = {
+  totalSessions: number;
+  completedSessions: number;
+  readyForReviewSessions: number;
+  totalPlannedMinutes: number;
+  completedMinutes: number;
+};
+
 export type DashboardMetric = {
   label: string;
   value: string;

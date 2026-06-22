@@ -18,7 +18,7 @@
 - Add status and confidence fields
 - Add progress dashboard
 
-## Phase 2 — Question bank MVP (current)
+## Phase 2 — Question bank MVP (complete)
 
 - Add question data model
 - Add manual question entry
@@ -27,7 +27,7 @@
 - Add attempt tracking
 - Add mistake log
 
-## Phase 3 — Focus and calendar
+## Phase 3 — Focus and calendar (current)
 
 - Add focus timer
 - Add study session model
