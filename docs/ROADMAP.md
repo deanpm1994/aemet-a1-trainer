@@ -35,7 +35,7 @@
 - Add default schedule based on user work hours
 - Add session completion checklist
 
-## Phase 4 — Notion integration (current)
+## Phase 4 — Notion integration (complete)
 
 - Create Notion database mapping
 - Sync topics from Notion

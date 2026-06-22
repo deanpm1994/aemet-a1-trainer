@@ -30,7 +30,7 @@ Grupo A1 – Cuerpo Superior de Meteorólogos del Estado, AEMET.
 Phase 1 complete: read-only study checklist MVP.
 Phase 2 complete: question bank MVP.
 Phase 3 complete: focus and calendar MVP.
-Phase 4 active: Notion topics sync.
+Phase 4 complete: Notion sync for topics, questions, and resources.
 
 ## Notion sync
 
