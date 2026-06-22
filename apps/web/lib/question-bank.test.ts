@@ -130,4 +130,11 @@ describe("question bank helpers", () => {
       },
     ]);
   });
+
+  it("exposes real question-bank summary counts for the route", () => {
+    const stats = buildQuestionStats(questions);
+
+    expect(stats.total).toBe(4);
+    expect(getOverdueQuestions(questions, "2026-06-22")).toHaveLength(2);
+  });
 });
