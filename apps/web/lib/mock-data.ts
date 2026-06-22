@@ -1,4 +1,5 @@
 import type {
+  BibliographyItem,
   DashboardMetric,
   Question,
   RouteCard,
@@ -23,7 +24,12 @@ export const routeCards: RouteCard[] = [
   {
     href: "/questions",
     title: "Questions",
-    description: "Read-only question bank for past-exam practice, formulas, and legal review.",
+    description: "Live-capable question bank with explicit local fallback and review metadata.",
+  },
+  {
+    href: "/resources",
+    title: "Resources",
+    description: "Study resources from bibliography data with explicit access and verification context.",
   },
   {
     href: "/calendar",
@@ -233,6 +239,37 @@ export const questions: Question[] = [
     lastAttemptAt: "2026-06-22",
     nextReviewAt: "2026-06-27",
     mistakeTypes: ["none"],
+  },
+];
+
+export const bibliography: BibliographyItem[] = [
+  {
+    id: "wallace-hobbs-2006",
+    title: "Atmospheric Science: An Introductory Survey",
+    authors: "Wallace, J. M.; Hobbs, P. V.",
+    year: 2006,
+    blocks: ["Meteorology and Climatology"],
+    category: "General",
+    priority: "core",
+    sourceType: "aemet_recommended",
+    sourceUrl:
+      "https://www.aemet.es/documentos/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/otras_convocatorias/Relacion_Bibliografia_Recomendada_AEMET_Meteorologos.pdf",
+    verificationStatus: "verified",
+    notes: "General atmospheric science reference.",
+  },
+  {
+    id: "salby-2012",
+    title: "Physics of the Atmosphere and Climate",
+    authors: "Salby, M. L.",
+    year: 2012,
+    blocks: ["Meteorology and Climatology"],
+    category: "General",
+    priority: "core",
+    sourceType: "aemet_recommended",
+    sourceUrl:
+      "https://www.aemet.es/documentos/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/otras_convocatorias/Relacion_Bibliografia_Recomendada_AEMET_Meteorologos.pdf",
+    verificationStatus: "verified",
+    notes: "Broad physical atmosphere and climate reference.",
   },
 ];
 

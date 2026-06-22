@@ -95,6 +95,27 @@ export type QuestionFilters = {
   mistakeType: MistakeType | "all";
 };
 
+export type ResourcePriority = "core" | "useful" | "optional";
+
+export type ResourceSourceType =
+  | "aemet_recommended"
+  | "official"
+  | "complementary";
+
+export type BibliographyItem = {
+  id: string;
+  title: string;
+  authors: string;
+  year: number | null;
+  blocks: string[];
+  category: string;
+  priority: ResourcePriority;
+  sourceType: ResourceSourceType;
+  sourceUrl: string;
+  verificationStatus: VerificationStatus;
+  notes: string;
+};
+
 export type SessionType =
   | "deep_topic"
   | "questions"
