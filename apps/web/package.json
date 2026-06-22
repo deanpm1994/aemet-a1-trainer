@@ -10,6 +10,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@notionhq/client": "^5.22.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

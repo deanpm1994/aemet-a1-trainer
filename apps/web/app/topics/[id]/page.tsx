@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
-import { topics } from "@/lib/mock-data";
+import { SourceStateBanner } from "@/components/source-state-banner";
+import { loadTopicsSource } from "@/lib/notion-topics";
 
 type TopicDetailPageProps = {
   params: Promise<{
@@ -11,6 +12,7 @@ type TopicDetailPageProps = {
 
 export default async function TopicDetailPage({ params }: TopicDetailPageProps) {
   const { id } = await params;
+  const { topics, sourceState, message } = await loadTopicsSource();
   const topic = topics.find((entry) => entry.id === id);
 
   if (!topic) {
@@ -22,8 +24,10 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
       <PageHeader
         eyebrow={topic.block}
         title={topic.normalizedTitle}
-        description="Read-only Phase 1 topic detail. Official wording and source metadata remain explicitly marked until verified official imports exist."
+        description="Phase 4 topic detail uses the same Notion-first loader as the checklist and keeps fallback behavior explicit when live sync is unavailable."
       />
+
+      <SourceStateBanner sourceState={sourceState} message={message} />
 
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <article className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">

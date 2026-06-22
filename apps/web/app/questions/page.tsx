@@ -1,4 +1,6 @@
 import { PageHeader } from "@/components/page-header";
+import { SourceStateBanner } from "@/components/source-state-banner";
+import { loadQuestionsSource } from "@/lib/notion-questions";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -6,24 +8,26 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
-import { questions } from "@/lib/mock-data";
 
-const filters = getDefaultQuestionFilters();
-const visibleQuestions = questions.filter((question) =>
-  matchesQuestionFilters(question, filters),
-);
-const stats = buildQuestionStats(questions);
-const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
-const painPoints = getPracticePainPoints(questions);
+export default async function QuestionsPage() {
+  const { questions, sourceState, message } = await loadQuestionsSource();
+  const filters = getDefaultQuestionFilters();
+  const visibleQuestions = questions.filter((question) =>
+    matchesQuestionFilters(question, filters),
+  );
+  const stats = buildQuestionStats(questions);
+  const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
+  const painPoints = getPracticePainPoints(questions);
 
-export default function QuestionsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Questions"
         title="Question bank MVP"
-        description="Read-only Phase 2 question bank built from local mock data. Official wording, answer keys, and source metadata remain TODO_VERIFY_OFFICIAL_SOURCE until verified imports exist."
+        description="Phase 4 question sync prefers one dedicated Notion workspace and falls back to local question data when live sync is unavailable. Official wording and answer-source claims remain explicit through the stored verification metadata."
       />
+
+      <SourceStateBanner sourceState={sourceState} message={message} />
 
       <section className="grid gap-4 md:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -53,7 +57,7 @@ export default function QuestionsPage() {
       <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
         <h2 className="text-lg font-semibold text-slate-900">Filter baseline</h2>
         <p className="mt-2 text-sm text-slate-600">
-          Phase 2 ships read-only default filters only. Interactive filter controls and
+          Phase 4 ships read-only default filters only. Interactive filter controls and
           editing stay out of scope until later phases.
         </p>
         <dl className="mt-4 grid gap-3 text-sm text-slate-700 md:grid-cols-4">
