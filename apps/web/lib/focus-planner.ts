@@ -129,3 +129,26 @@ export function resetSessionsToRecommendedWeek(
 ): StudySession[] {
   return recommendedSessions.map((session) => ({ ...session }));
 }
+
+export function startSessionTimer(session: StudySession): StudySession {
+  return {
+    ...session,
+    status: "in_progress",
+    timerStatus: "running",
+    completed: false,
+  };
+}
+
+export function pauseSessionTimer(session: StudySession): StudySession {
+  return {
+    ...session,
+    timerStatus: "paused",
+  };
+}
+
+export function resetSessionTimer(session: StudySession): StudySession {
+  return {
+    ...session,
+    timerStatus: "idle",
+  };
+}

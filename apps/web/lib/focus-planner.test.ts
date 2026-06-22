@@ -8,6 +8,9 @@ import {
   extendSession,
   getTodayMissionSession,
   moveSessionToReview,
+  pauseSessionTimer,
+  resetSessionTimer,
+  startSessionTimer,
 } from "./focus-planner";
 
 describe("study session fixtures", () => {
@@ -91,5 +94,40 @@ describe("planner helpers", () => {
     expect(updated.status).toBe("extended");
     expect(updated.timerStatus).toBe("running");
     expect(updated.plannedDurationMinutes).toBe(75);
+  });
+});
+
+describe("timer helpers", () => {
+  it("starts a scheduled session without completing it", () => {
+    const updated = startSessionTimer(studySessions[2]);
+
+    expect(updated.status).toBe("in_progress");
+    expect(updated.timerStatus).toBe("running");
+    expect(updated.completed).toBe(false);
+  });
+
+  it("pauses a running session without changing review state", () => {
+    const updated = pauseSessionTimer({
+      ...studySessions[2],
+      status: "in_progress",
+      timerStatus: "running",
+    });
+
+    expect(updated.status).toBe("in_progress");
+    expect(updated.timerStatus).toBe("paused");
+    expect(updated.reviewState).toBe("not_needed");
+  });
+
+  it("resets the timer state but preserves checklist outputs", () => {
+    const updated = resetSessionTimer({
+      ...studySessions[1],
+      timerStatus: "paused",
+      notesCreated: true,
+      questionsSolved: 5,
+    });
+
+    expect(updated.timerStatus).toBe("idle");
+    expect(updated.questionsSolved).toBe(5);
+    expect(updated.notesCreated).toBe(true);
   });
 });
