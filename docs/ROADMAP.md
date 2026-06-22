@@ -9,7 +9,7 @@
 - Create basic routes
 - Create design skeleton
 
-## Phase 1 — Study checklist MVP
+## Phase 1 — Study checklist MVP (complete)
 
 - Add topic data model
 - Add mock topic data
@@ -18,7 +18,7 @@
 - Add status and confidence fields
 - Add progress dashboard
 
-## Phase 2 — Question bank MVP
+## Phase 2 — Question bank MVP (current)
 
 - Add question data model
 - Add manual question entry
