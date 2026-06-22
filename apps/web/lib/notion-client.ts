@@ -36,7 +36,7 @@ export function getNotionConfig(env: NotionEnv = process.env): NotionConfig {
   };
 }
 
-export function createNotionClient(config: NotionConfig) {
+export function createNotionClient(config: { token: string }) {
   return new Client({
     auth: config.token,
   });

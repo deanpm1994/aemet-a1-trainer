@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { questions, routeCards } from "./mock-data";
+import { bibliography, questions, routeCards } from "./mock-data";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -32,7 +32,27 @@ describe("question fixtures", () => {
 
   it("updates the questions route card to describe a real question bank", () => {
     expect(routeCards.find((card) => card.href === "/questions")?.description).toContain(
-      "Read-only question bank",
+      "Live-capable question bank",
+    );
+  });
+});
+
+describe("resources fixtures", () => {
+  it("exposes a non-empty bibliography fallback list", () => {
+    expect(bibliography.length).toBeGreaterThan(0);
+  });
+
+  it("allows repeated source urls across bibliography items", () => {
+    const sharedUrls = bibliography
+      .map((item) => item.sourceUrl)
+      .filter((url, index, urls) => urls.indexOf(url) !== index);
+
+    expect(sharedUrls.length).toBeGreaterThan(0);
+  });
+
+  it("adds a resources route card", () => {
+    expect(routeCards.find((card) => card.href === "/resources")?.description).toContain(
+      "Study resources",
     );
   });
 });

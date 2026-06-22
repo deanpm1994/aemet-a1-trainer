@@ -54,7 +54,6 @@ describe("notion client config", () => {
 
     const client = createNotionClient({
       token: "secret_test_token",
-      topicsDataSourceId: "12345678-1234-1234-1234-123456789abc",
     });
 
     expect(clientMock).toHaveBeenCalledWith({
