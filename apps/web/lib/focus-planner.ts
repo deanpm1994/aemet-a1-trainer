@@ -113,3 +113,19 @@ export function extendSession(
     plannedDurationMinutes: session.plannedDurationMinutes + extraMinutes,
   };
 }
+
+export function updateSessionPlan(
+  sessions: StudySession[],
+  sessionId: string,
+  updates: Pick<StudySession, "objective" | "plannedStartTime" | "plannedEndTime">,
+): StudySession[] {
+  return sessions.map((session) =>
+    session.id === sessionId ? { ...session, ...updates } : session,
+  );
+}
+
+export function resetSessionsToRecommendedWeek(
+  recommendedSessions: StudySession[],
+): StudySession[] {
+  return recommendedSessions.map((session) => ({ ...session }));
+}
