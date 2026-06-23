@@ -17,6 +17,10 @@ type SignOutResponse = {
   error: { message: string } | null;
 };
 
+export type AuthFormState = {
+  message: string;
+};
+
 export type AuthActionResult = {
   ok: boolean;
   message: string;
@@ -71,7 +75,12 @@ export function buildSignOutResult(response: SignOutResponse) {
   };
 }
 
-export async function signUpWithEmailPassword(formData: FormData) {
+export async function signUpWithEmailPassword(
+  _previousState: AuthFormState,
+  formData: FormData,
+) {
+  "use server";
+
   const credentials = parseEmailPasswordForm(formData);
   const client = await createSupabaseServerClient();
   const result = buildSignUpResult(
@@ -81,10 +90,17 @@ export async function signUpWithEmailPassword(formData: FormData) {
     }),
   );
 
-  return result;
+  return {
+    message: result.message,
+  };
 }
 
-export async function signInWithEmailPassword(formData: FormData) {
+export async function signInWithEmailPassword(
+  _previousState: AuthFormState,
+  formData: FormData,
+) {
+  "use server";
+
   const credentials = parseEmailPasswordForm(formData);
   const client = await createSupabaseServerClient();
   const result = buildSignInResult(
@@ -98,10 +114,14 @@ export async function signInWithEmailPassword(formData: FormData) {
     redirect(result.redirectTo);
   }
 
-  return result;
+  return {
+    message: result.message,
+  };
 }
 
 export async function signOutCurrentUser() {
+  "use server";
+
   const client = await createSupabaseServerClient();
   const result = buildSignOutResult(await client.auth.signOut());
 

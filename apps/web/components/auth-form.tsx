@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 
-import type { AuthActionResult } from "@/lib/auth-actions";
+import type { AuthFormState } from "@/lib/auth-actions";
 
 type AuthFormProps = {
   title: string;
   description: string;
   submitLabel: string;
   helperText: string;
-  action: (formData: FormData) => Promise<AuthActionResult>;
+  action: (state: AuthFormState, formData: FormData) => Promise<AuthFormState>;
 };
 
 export function AuthForm({
@@ -19,8 +19,9 @@ export function AuthForm({
   helperText,
   action,
 }: AuthFormProps) {
-  const [message, setMessage] = useState(helperText);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: helperText,
+  });
 
   return (
     <section className="mx-auto max-w-xl rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
@@ -28,15 +29,7 @@ export function AuthForm({
         <h1 className="text-3xl font-semibold tracking-tight text-ink">{title}</h1>
         <p className="text-sm leading-6 text-ink/70">{description}</p>
       </div>
-      <form
-        className="mt-6 space-y-4"
-        action={async (formData) => {
-          setIsSubmitting(true);
-          const result = await action(formData);
-          setMessage(result.message);
-          setIsSubmitting(false);
-        }}
-      >
+      <form className="mt-6 space-y-4" action={formAction}>
         <label className="space-y-2 text-sm text-ink/80">
           <span>Email</span>
           <input
@@ -53,13 +46,13 @@ export function AuthForm({
             className="w-full rounded-2xl border border-ink/10 bg-surface px-4 py-3"
           />
         </label>
-        <p className="text-sm text-ink/70">{message}</p>
+        <p className="text-sm text-ink/70">{state.message}</p>
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isPending}
           className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-ink/40"
         >
-          {isSubmitting ? "Submitting..." : submitLabel}
+          {isPending ? "Submitting..." : submitLabel}
         </button>
       </form>
     </section>
