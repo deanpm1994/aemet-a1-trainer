@@ -1,5 +1,10 @@
 import "server-only";
 
+import { redirect } from "next/navigation";
+
+import { parseEmailPasswordForm } from "./auth-forms";
+import { createSupabaseServerClient } from "./supabase-server";
+
 type AuthResponse = {
   data: {
     user: { id: string; email?: string | null } | null;
@@ -64,4 +69,45 @@ export function buildSignOutResult(response: SignOutResponse) {
     ok: true,
     redirectTo: "/",
   };
+}
+
+export async function signUpWithEmailPassword(formData: FormData) {
+  const credentials = parseEmailPasswordForm(formData);
+  const client = await createSupabaseServerClient();
+  const result = buildSignUpResult(
+    await client.auth.signUp({
+      email: credentials.email,
+      password: credentials.password,
+    }),
+  );
+
+  return result;
+}
+
+export async function signInWithEmailPassword(formData: FormData) {
+  const credentials = parseEmailPasswordForm(formData);
+  const client = await createSupabaseServerClient();
+  const result = buildSignInResult(
+    await client.auth.signInWithPassword({
+      email: credentials.email,
+      password: credentials.password,
+    }),
+  );
+
+  if (result.ok && result.redirectTo) {
+    redirect(result.redirectTo);
+  }
+
+  return result;
+}
+
+export async function signOutCurrentUser() {
+  const client = await createSupabaseServerClient();
+  const result = buildSignOutResult(await client.auth.signOut());
+
+  if (result.ok && result.redirectTo) {
+    redirect(result.redirectTo);
+  }
+
+  return result;
 }
