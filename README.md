@@ -31,6 +31,7 @@ Phase 1 complete: read-only study checklist MVP.
 Phase 2 complete: question bank MVP.
 Phase 3 complete: focus and calendar MVP.
 Phase 4 complete: Notion sync for topics, questions, and resources.
+Phase 5.1 in progress: Supabase-backed user settings persistence for profile, study preferences, and reminder preferences.
 
 ## Notion sync
 
@@ -54,6 +55,20 @@ Behavior:
 - when the sync fails or mapping is invalid, the app shows local fallback data with an explicit error
 
 The app does not expose the Notion token to the browser.
+
+## Supabase settings persistence
+
+Phase 5.1 expects:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY`
+
+Current scope:
+
+- saves user settings when an authenticated Supabase session exists
+- does not yet provide login/signup UI
+- does not yet send notifications
 
 ## Safety
 

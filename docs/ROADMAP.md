@@ -45,6 +45,7 @@
 
 ## Phase 5 — Supabase persistence
 
+- Phase 5.1: persist profile, study preferences, and reminder preferences
 - Add Supabase schema
 - Add auth
 - Store topics/questions/sessions
