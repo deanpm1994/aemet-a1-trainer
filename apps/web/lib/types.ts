@@ -195,3 +195,26 @@ export type RouteCard = {
   title: string;
   description: string;
 };
+
+export type ReminderChannel = "in_app";
+
+export type UserSettings = {
+  profile: {
+    displayName: string;
+    timezone: string;
+  };
+  studyPreferences: {
+    studyStartTime: string;
+    deepWorkMinutes: number;
+    practiceMinutes: number;
+    reviewMinutes: number;
+    workdayStartTime: string;
+    workdayEndTime: string;
+  };
+  reminderPreferences: {
+    remindersEnabled: boolean;
+    reminderChannel: ReminderChannel;
+    morningReminderTime: string | null;
+    eveningReminderTime: string | null;
+  };
+};
