@@ -7,25 +7,16 @@ import {
 } from "./user-settings";
 
 type UserSettingsTableClient = {
-  from: (table: string) => {
-    select: (columns: string) => {
-      eq: (column: string, value: string) => {
-        maybeSingle: () => Promise<{ data: UserSettingsRow | null; error: Error | null }>;
-      };
-    };
-    upsert: (
-      values: Record<string, unknown>,
-      options: { onConflict: string },
-    ) => Promise<{ error: Error | null }>;
-  };
+  from: (table: string) => any;
 };
 
 export async function getUserSettings(client: UserSettingsTableClient, userId: string) {
-  const { data, error } = await client
+  const query = client
     .from("user_settings")
     .select("*")
     .eq("user_id", userId)
     .maybeSingle();
+  const { data, error } = await query;
 
   if (error) {
     throw error;
@@ -40,7 +31,8 @@ export async function saveUserSettings(
   settings: UserSettings,
 ) {
   const payload = mapUserSettingsToRowInput(userId, settings);
-  const { error } = await client.from("user_settings").upsert(payload, { onConflict: "user_id" });
+  const upsertQuery = client.from("user_settings").upsert(payload, { onConflict: "user_id" });
+  const { error } = await upsertQuery;
 
   if (error) {
     throw error;
