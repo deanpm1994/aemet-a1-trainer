@@ -32,6 +32,7 @@ Phase 2 complete: question bank MVP.
 Phase 3 complete: focus and calendar MVP.
 Phase 4 complete: Notion sync for topics, questions, and resources.
 Phase 5.1 in progress: Supabase-backed user settings persistence for profile, study preferences, and reminder preferences.
+Phase 5.2 in progress: Supabase email/password auth for sign-up, sign-in, and sign-out.
 
 ## Notion sync
 
@@ -67,8 +68,16 @@ Phase 5.1 expects:
 Current scope:
 
 - saves user settings when an authenticated Supabase session exists
-- does not yet provide login/signup UI
+- now provides email/password auth UI for sign-up and sign-in
 - does not yet send notifications
+
+Current auth scope:
+
+- email/password sign-up
+- email/password sign-in
+- sign-out
+- no Google auth yet
+- no password reset yet
 
 ## Safety
 
