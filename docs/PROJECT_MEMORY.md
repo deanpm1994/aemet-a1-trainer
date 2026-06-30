@@ -97,31 +97,33 @@ Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
 Date: 2026-06-30
 
 Branch:
-- `feature/session-persistence`
+- `develop`
 
 Phase 5 status:
 - Phase 5.1 Supabase-backed user settings persistence implemented
 - Phase 5.2 Supabase email/password auth implemented
-- Phase 5.3 Supabase-backed calendar study-session persistence in progress
+- Phase 5.3 Supabase-backed calendar study-session persistence implemented and merged
 - Broader topic/question progress persistence remains open and is tracked in GitHub issues
 
 Supabase notes:
 - Project URL configured in local env
+- Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
+- Remote migrations verified applied: `20260623`, `20260630`
 
 Verified working recently:
 - Sign-up and sign-in flow worked after env fix
 - `npm --prefix apps/web run lint`
 - `npm --prefix apps/web test`
-- `npm --prefix apps/web test -- focus-planner.test.ts study-sessions.test.ts study-sessions-repository.test.ts`
+- `npm --prefix apps/web run build`
+- Local `/calendar` smoke test returned HTTP 200 and rendered the planner
 
 Next persistence slices:
-- Finish and verify calendar session persistence on `feature/session-persistence`
 - Persist focus-session review outcomes after calendar persistence
 - Persist topic/question progress after session flows are stable
-- GitHub issues track sessions, focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
+- GitHub issues track focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`
