@@ -91,3 +91,37 @@ Official preferred sources:
 - EUMETSAT
 
 Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
+
+## Current implementation handoff
+
+Date: 2026-06-30
+
+Branch:
+- `feature/phase5` is ready to finish into `develop`
+
+Phase 5 status:
+- Phase 5.1 Supabase-backed user settings persistence implemented
+- Phase 5.2 Supabase email/password auth implemented
+- Latest auth fix committed as `bd80707` with message `fix(auth): bind email auth forms to server actions`
+- Broader persistence work remains open and is tracked in GitHub issues
+
+Supabase notes:
+- Project URL configured in local env
+- Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
+- Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
+- Dev server restart is required after local env changes
+
+Verified working recently:
+- Sign-up and sign-in flow worked after env fix
+- `npm --prefix apps/web run lint`
+- `npm --prefix apps/web test`
+
+Next persistence slices:
+- Persist study sessions in Supabase
+- Start with a narrow Phase 5.3 vertical slice instead of topics/questions
+- Persist calendar session list first, then focus-session review outcomes
+- GitHub issues created for sessions, focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
+
+Ignored local artifacts:
+- `apps/web/package-lock.json`
+- `supabase/.temp/`
