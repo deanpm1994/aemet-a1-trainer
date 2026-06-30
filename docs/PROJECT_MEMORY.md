@@ -97,13 +97,13 @@ Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
 Date: 2026-06-30
 
 Branch:
-- `feature/phase5` is ready to finish into `develop`
+- `feature/session-persistence`
 
 Phase 5 status:
 - Phase 5.1 Supabase-backed user settings persistence implemented
 - Phase 5.2 Supabase email/password auth implemented
-- Latest auth fix committed as `bd80707` with message `fix(auth): bind email auth forms to server actions`
-- Broader persistence work remains open and is tracked in GitHub issues
+- Phase 5.3 Supabase-backed calendar study-session persistence in progress
+- Broader topic/question progress persistence remains open and is tracked in GitHub issues
 
 Supabase notes:
 - Project URL configured in local env
@@ -115,12 +115,13 @@ Verified working recently:
 - Sign-up and sign-in flow worked after env fix
 - `npm --prefix apps/web run lint`
 - `npm --prefix apps/web test`
+- `npm --prefix apps/web test -- focus-planner.test.ts study-sessions.test.ts study-sessions-repository.test.ts`
 
 Next persistence slices:
-- Persist study sessions in Supabase
-- Start with a narrow Phase 5.3 vertical slice instead of topics/questions
-- Persist calendar session list first, then focus-session review outcomes
-- GitHub issues created for sessions, focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
+- Finish and verify calendar session persistence on `feature/session-persistence`
+- Persist focus-session review outcomes after calendar persistence
+- Persist topic/question progress after session flows are stable
+- GitHub issues track sessions, focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`
