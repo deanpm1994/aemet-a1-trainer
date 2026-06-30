@@ -1,5 +1,5 @@
 create table if not exists public.study_sessions (
-  id uuid primary key,
+  id text primary key,
   user_id uuid not null references auth.users (id) on delete cascade,
   name text not null,
   session_type text not null,
