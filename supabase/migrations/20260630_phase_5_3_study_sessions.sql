@@ -1,5 +1,5 @@
 create table if not exists public.study_sessions (
-  id text primary key,
+  id text not null,
   user_id uuid not null references auth.users (id) on delete cascade,
   name text not null,
   session_type text not null,
@@ -23,7 +23,8 @@ create table if not exists public.study_sessions (
   notes text not null default '',
   is_template boolean not null default false,
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+  primary key (user_id, id)
 );
 
 drop trigger if exists set_study_sessions_updated_at on public.study_sessions;

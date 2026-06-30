@@ -125,7 +125,7 @@ describe("study sessions repository", () => {
         user_id: "user-1",
         objective: "Review atmospheric stability",
       }),
-      { onConflict: "id" },
+      { onConflict: "user_id,id" },
     );
   });
 

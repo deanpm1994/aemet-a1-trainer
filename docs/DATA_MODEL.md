@@ -83,7 +83,7 @@ Fields:
 
 Persistence notes:
 - Calendar study sessions are stored in Supabase table `study_sessions`.
-- `id` is a stable text domain identifier so existing planner session IDs can persist without migration.
+- `id` is a stable text domain identifier and is unique together with `user_id`.
 - Rows are owned by `user_id` and protected by row-level security.
 - `isPersisted` is an app-derived flag, not an authoritative database field.
 - Focus review outcomes are not persisted yet; they are tracked as a separate follow-up.

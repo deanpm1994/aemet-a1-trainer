@@ -36,7 +36,7 @@ export async function saveStudySessionPlan(
   const payload = mapStudySessionToRowInput(userId, session);
   const { error } = await client
     .from("study_sessions")
-    .upsert(payload, { onConflict: "id" });
+    .upsert(payload, { onConflict: "user_id,id" });
 
   if (error) {
     throw error;
