@@ -107,6 +107,10 @@ Phase 5 status:
 - Phase 5.5 Supabase-backed topic progress overlay persistence implemented
 - Phase 5.6 Supabase-backed question progress overlay persistence implemented
 
+Phase 6 status:
+- Monitoring skeleton implemented as a read-only manual workflow dashboard
+- No BOE/AEMET polling, scraping, snapshot comparison, event detection, or alerts are active
+
 Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
@@ -124,10 +128,11 @@ Verified working recently:
 - Focus route now loads the next persisted actionable session for signed-in users and saves timer/review transitions through `study_sessions`
 - Topic list and detail routes overlay signed-in user progress from `topic_progress` without mutating source-owned official metadata
 - Question route overlays signed-in user practice progress from `question_progress` without mutating source-owned statements, options, answer keys, or verification metadata
+- Monitoring route shows manual-only source checklist and review queue placeholders; it does not claim active monitoring
 
 Next persistence slices:
 - Consider detailed question attempt history after the progress overlay is stable
-- GitHub issues track focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
+- GitHub issues track focus outcomes, progress persistence, live monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`

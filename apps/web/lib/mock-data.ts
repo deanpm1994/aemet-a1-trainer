@@ -1,6 +1,8 @@
 import type {
   BibliographyItem,
   DashboardMetric,
+  MonitoringEvent,
+  MonitoringSource,
   Question,
   RouteCard,
   StudyMission,
@@ -239,6 +241,70 @@ export const questions: Question[] = [
     lastAttemptAt: "2026-06-22",
     nextReviewAt: "2026-06-27",
     mistakeTypes: ["none"],
+  },
+];
+
+export const monitoringSources: MonitoringSource[] = [
+  {
+    id: "boe-search",
+    name: "BOE search and alerts",
+    url: "TODO_VERIFY_OFFICIAL_SOURCE",
+    sourceType: "boe",
+    keywords: [
+      "Cuerpo Superior de Meteorólogos del Estado",
+      "Meteorólogos del Estado",
+      "AEMET",
+      "convocatoria",
+    ],
+    checkFrequency: "manual",
+    lastCheckedAt: "",
+    lastChangeAt: "",
+    status: "manual_only",
+    notes: "Official BOE search URL must be verified before automated checks.",
+    verificationStatus: "needs_review",
+  },
+  {
+    id: "aemet-empleo-publico",
+    name: "AEMET empleo público",
+    url: "TODO_VERIFY_OFFICIAL_SOURCE",
+    sourceType: "aemet",
+    keywords: ["AEMET", "empleo público", "acceso libre", "grupo A1"],
+    checkFrequency: "manual",
+    lastCheckedAt: "",
+    lastChangeAt: "",
+    status: "manual_only",
+    notes: "Official AEMET employment page URL must be verified before automated checks.",
+    verificationStatus: "needs_review",
+  },
+  {
+    id: "aemet-convocatorias-anteriores",
+    name: "AEMET convocatorias anteriores",
+    url: "TODO_VERIFY_OFFICIAL_SOURCE",
+    sourceType: "aemet",
+    keywords: ["convocatorias anteriores", "plantilla", "ejercicio", "bibliografía"],
+    checkFrequency: "manual",
+    lastCheckedAt: "",
+    lastChangeAt: "",
+    status: "manual_only",
+    notes: "Use only after official historical call page URL is verified.",
+    verificationStatus: "needs_review",
+  },
+];
+
+export const monitoringEvents: MonitoringEvent[] = [
+  {
+    id: "monitoring-skeleton-review-sources",
+    sourceId: "boe-search",
+    detectedAt: "2026-07-01T00:00:00.000Z",
+    eventType: "generic_change",
+    title: "Verify official monitoring sources",
+    url: "TODO_VERIFY_OFFICIAL_SOURCE",
+    summary:
+      "Monitoring source URLs are placeholders and require manual verification before checks can run.",
+    confidence: 1,
+    requiresReview: true,
+    resolved: false,
+    verificationStatus: "needs_review",
   },
 ];
 

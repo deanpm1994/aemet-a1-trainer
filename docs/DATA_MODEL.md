@@ -117,6 +117,13 @@ Fields:
 - last_change_at
 - status
 - notes
+- verification_status
+
+Implementation notes:
+- Monitoring sources are currently local placeholder fixtures.
+- Placeholder URLs use `TODO_VERIFY_OFFICIAL_SOURCE`.
+- Sources with placeholder URLs or non-verified status are not counted as configured or active.
+- No monitoring source is persisted or polled yet.
 
 ## Entity: MonitoringEvent
 
@@ -131,6 +138,12 @@ Fields:
 - confidence
 - requires_action
 - resolved
+- verification_status
+
+Implementation notes:
+- Monitoring events are currently local workflow placeholders.
+- Events are not detected from BOE/AEMET yet.
+- Placeholder events must not be presented as official changes.
 
 ## Entity: Countdown
 

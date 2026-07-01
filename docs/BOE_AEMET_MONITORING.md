@@ -4,6 +4,25 @@
 
 Detect official changes relevant to AEMET A1 opposition preparation.
 
+## Current implementation status
+
+Implemented:
+- Read-only monitoring dashboard skeleton.
+- Local placeholder source checklist.
+- Local placeholder review queue.
+- Domain helpers for configured/active source counts and pending review events.
+
+Not implemented:
+- Network polling.
+- Scraping.
+- Snapshot comparison.
+- Alert delivery.
+- Official source URL verification.
+- Official event detection.
+
+The app must continue to describe monitoring as manual-only until automated checks
+exist and tests verify them.
+
 ## Sources
 
 Initial official sources:

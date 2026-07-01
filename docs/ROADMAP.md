@@ -59,7 +59,7 @@
 
 ## Phase 6 — Monitoring
 
-- Add BOE/AEMET source list
+- Add BOE/AEMET source list skeleton
 - Add snapshot checking
 - Add keyword detection
 - Add monitoring events

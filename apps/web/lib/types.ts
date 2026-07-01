@@ -218,3 +218,68 @@ export type UserSettings = {
     eveningReminderTime: string | null;
   };
 };
+
+export type MonitoringSourceType =
+  | "boe"
+  | "aemet"
+  | "inap"
+  | "government"
+  | "institutional";
+
+export type MonitoringCheckFrequency = "manual" | "daily" | "weekly";
+
+export type MonitoringSourceStatus =
+  | "manual_only"
+  | "configured"
+  | "active"
+  | "paused"
+  | "error";
+
+export type MonitoringEventType =
+  | "possible_oep"
+  | "convocatoria_detected"
+  | "application_deadline_detected"
+  | "admitidos_list_detected"
+  | "exam_date_detected"
+  | "answer_template_detected"
+  | "results_detected"
+  | "bibliography_update"
+  | "past_exam_update"
+  | "generic_change";
+
+export type MonitoringSource = {
+  id: string;
+  name: string;
+  url: string;
+  sourceType: MonitoringSourceType;
+  keywords: string[];
+  checkFrequency: MonitoringCheckFrequency;
+  lastCheckedAt: string;
+  lastChangeAt: string;
+  status: MonitoringSourceStatus;
+  notes: string;
+  verificationStatus: VerificationStatus;
+};
+
+export type MonitoringEvent = {
+  id: string;
+  sourceId: string;
+  detectedAt: string;
+  eventType: MonitoringEventType;
+  title: string;
+  url: string;
+  summary: string;
+  confidence: 1 | 2 | 3 | 4 | 5;
+  requiresReview: boolean;
+  resolved: boolean;
+  verificationStatus: VerificationStatus;
+};
+
+export type MonitoringSummary = {
+  totalSources: number;
+  configuredSources: number;
+  activeSources: number;
+  totalEvents: number;
+  pendingReviewEvents: number;
+  resolvedEvents: number;
+};
