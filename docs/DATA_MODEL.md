@@ -118,11 +118,15 @@ Fields:
 - status
 - notes
 - verification_status
+- last_verified_at
+- verified_by
+- expected_signals
 
 Implementation notes:
 - Monitoring sources are currently local placeholder fixtures.
 - Placeholder URLs use `TODO_VERIFY_OFFICIAL_SOURCE`.
 - Sources with placeholder URLs or non-verified status are not counted as configured or active.
+- Sources are not ready for automation until verification metadata and expected official signals are recorded.
 - No monitoring source is persisted or polled yet.
 
 ## Entity: MonitoringEvent

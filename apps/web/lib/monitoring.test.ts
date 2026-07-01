@@ -3,8 +3,11 @@ import { describe, expect, it } from "vitest";
 import type { MonitoringEvent, MonitoringSource } from "./types";
 import {
   buildMonitoringSummary,
+  buildSourceVerificationQueue,
   getPendingMonitoringEvents,
+  getSourceAutomationBlockers,
   isMonitoringSourceActive,
+  isMonitoringSourceReadyForAutomation,
   isMonitoringSourceConfigured,
 } from "./monitoring";
 
@@ -20,6 +23,9 @@ const source: MonitoringSource = {
   status: "manual_only",
   notes: "Official URL pending verification.",
   verificationStatus: "needs_review",
+  lastVerifiedAt: "",
+  verifiedBy: "",
+  expectedSignals: [],
 };
 
 const events: MonitoringEvent[] = [
@@ -107,6 +113,62 @@ describe("monitoring helpers", () => {
     expect(getPendingMonitoringEvents(events).map((event) => event.id)).toEqual([
       "event-newer",
       "event-older",
+    ]);
+  });
+
+  it("requires verification metadata before a source is ready for automation", () => {
+    expect(
+      isMonitoringSourceReadyForAutomation({
+        ...source,
+        url: "https://example.test/official-source",
+        verificationStatus: "verified",
+      }),
+    ).toBe(false);
+  });
+
+  it("returns source automation blockers", () => {
+    expect(getSourceAutomationBlockers(source)).toEqual([
+      "source_url_unverified",
+      "verification_status_not_verified",
+      "last_verified_at_missing",
+      "verified_by_missing",
+      "expected_signals_missing",
+    ]);
+  });
+
+  it("builds a verification queue with unready sources first", () => {
+    expect(
+      buildSourceVerificationQueue([
+        {
+          ...source,
+          id: "ready-source",
+          url: "https://example.test/official-source",
+          verificationStatus: "verified",
+          lastVerifiedAt: "2026-07-01",
+          verifiedBy: "manual-review",
+          expectedSignals: ["BOE title contains AEMET"],
+        },
+        source,
+      ]),
+    ).toEqual([
+      {
+        sourceId: "boe-search",
+        sourceName: "BOE search",
+        readyForAutomation: false,
+        blockers: [
+          "source_url_unverified",
+          "verification_status_not_verified",
+          "last_verified_at_missing",
+          "verified_by_missing",
+          "expected_signals_missing",
+        ],
+      },
+      {
+        sourceId: "ready-source",
+        sourceName: "BOE search",
+        readyForAutomation: true,
+        blockers: [],
+      },
     ]);
   });
 });

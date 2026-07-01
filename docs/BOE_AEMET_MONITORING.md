@@ -11,6 +11,7 @@ Implemented:
 - Local placeholder source checklist.
 - Local placeholder review queue.
 - Domain helpers for configured/active source counts and pending review events.
+- Source verification readiness queue.
 
 Not implemented:
 - Network polling.
@@ -22,6 +23,19 @@ Not implemented:
 
 The app must continue to describe monitoring as manual-only until automated checks
 exist and tests verify them.
+
+## Source verification readiness
+
+A source is not ready for automation unless all of the following are true:
+
+- Source URL is not `TODO_VERIFY_OFFICIAL_SOURCE`.
+- `verification_status` is `verified`.
+- `last_verified_at` is recorded.
+- `verified_by` is recorded.
+- Expected official signals are recorded.
+
+These rules only make a source ready for future automation. They do not by
+themselves mean polling, scraping, detection or alerts are active.
 
 ## Sources
 

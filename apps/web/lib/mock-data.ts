@@ -262,6 +262,9 @@ export const monitoringSources: MonitoringSource[] = [
     status: "manual_only",
     notes: "Official BOE search URL must be verified before automated checks.",
     verificationStatus: "needs_review",
+    lastVerifiedAt: "",
+    verifiedBy: "",
+    expectedSignals: [],
   },
   {
     id: "aemet-empleo-publico",
@@ -275,6 +278,9 @@ export const monitoringSources: MonitoringSource[] = [
     status: "manual_only",
     notes: "Official AEMET employment page URL must be verified before automated checks.",
     verificationStatus: "needs_review",
+    lastVerifiedAt: "",
+    verifiedBy: "",
+    expectedSignals: [],
   },
   {
     id: "aemet-convocatorias-anteriores",
@@ -288,6 +294,9 @@ export const monitoringSources: MonitoringSource[] = [
     status: "manual_only",
     notes: "Use only after official historical call page URL is verified.",
     verificationStatus: "needs_review",
+    lastVerifiedAt: "",
+    verifiedBy: "",
+    expectedSignals: [],
   },
 ];
 

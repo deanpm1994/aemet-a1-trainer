@@ -259,6 +259,9 @@ export type MonitoringSource = {
   status: MonitoringSourceStatus;
   notes: string;
   verificationStatus: VerificationStatus;
+  lastVerifiedAt: string;
+  verifiedBy: string;
+  expectedSignals: string[];
 };
 
 export type MonitoringEvent = {
@@ -282,4 +285,18 @@ export type MonitoringSummary = {
   totalEvents: number;
   pendingReviewEvents: number;
   resolvedEvents: number;
+};
+
+export type MonitoringAutomationBlocker =
+  | "source_url_unverified"
+  | "verification_status_not_verified"
+  | "last_verified_at_missing"
+  | "verified_by_missing"
+  | "expected_signals_missing";
+
+export type MonitoringSourceVerificationQueueItem = {
+  sourceId: string;
+  sourceName: string;
+  readyForAutomation: boolean;
+  blockers: MonitoringAutomationBlocker[];
 };

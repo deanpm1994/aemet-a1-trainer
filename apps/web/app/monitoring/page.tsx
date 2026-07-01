@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/page-header";
 import { monitoringEvents, monitoringSources } from "@/lib/mock-data";
 import {
   buildMonitoringSummary,
+  buildSourceVerificationQueue,
   getPendingMonitoringEvents,
   isMonitoringSourceActive,
   isMonitoringSourceConfigured,
@@ -10,6 +11,7 @@ import {
 export default function MonitoringPage() {
   const summary = buildMonitoringSummary(monitoringSources, monitoringEvents);
   const pendingEvents = getPendingMonitoringEvents(monitoringEvents);
+  const verificationQueue = buildSourceVerificationQueue(monitoringSources);
 
   return (
     <div className="space-y-8">
@@ -102,6 +104,52 @@ export default function MonitoringPage() {
                   <dd>{source.keywords.join(", ")}</dd>
                 </div>
               </dl>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold text-slate-900">
+            Source verification queue
+          </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            A source must have a verified official URL, reviewer metadata, and expected
+            official signals before it can be considered ready for automation.
+          </p>
+        </div>
+        <div className="space-y-3">
+          {verificationQueue.map((item) => (
+            <article
+              key={item.sourceId}
+              className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {item.sourceName}
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Ready for automation: {item.readyForAutomation ? "yes" : "no"}
+                  </p>
+                </div>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700">
+                  {item.blockers.length} blocker{item.blockers.length === 1 ? "" : "s"}
+                </span>
+              </div>
+              {item.blockers.length > 0 ? (
+                <ul className="mt-4 flex flex-wrap gap-2 text-xs text-slate-700">
+                  {item.blockers.map((blocker) => (
+                    <li
+                      key={blocker}
+                      className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1"
+                    >
+                      {blocker}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </article>
           ))}
         </div>

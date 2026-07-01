@@ -109,6 +109,7 @@ Phase 5 status:
 
 Phase 6 status:
 - Monitoring skeleton implemented as a read-only manual workflow dashboard
+- Monitoring source verification readiness queue implemented
 - No BOE/AEMET polling, scraping, snapshot comparison, event detection, or alerts are active
 
 Supabase notes:
