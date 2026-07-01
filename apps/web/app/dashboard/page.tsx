@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { MetricCard } from "@/components/metric-card";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -10,6 +11,7 @@ import {
   studySessions,
   topics as fallbackTopics,
 } from "@/lib/mock-data";
+import { buildContentReadiness } from "@/lib/content-readiness";
 import { buildTodayDashboard } from "@/lib/dashboard-today";
 import { loadQuestionsSource } from "@/lib/notion-questions";
 import { loadTopicsSource } from "@/lib/notion-topics";
@@ -74,6 +76,7 @@ export default async function DashboardPage() {
     monitoringEvents,
     today: new Date().toISOString().slice(0, 10),
   });
+  const contentReadiness = buildContentReadiness(topics, questions);
 
   return (
     <div className="space-y-8">
@@ -88,6 +91,8 @@ export default async function DashboardPage() {
           <MetricCard key={metric.label} metric={metric} />
         ))}
       </section>
+
+      <ContentReadinessCard readiness={contentReadiness} />
 
       <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
         <p className="text-sm font-medium text-amber-900">Primary action</p>

@@ -1,7 +1,10 @@
 import Link from "next/link";
 
+import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { PageHeader } from "@/components/page-header";
 import { SourceStateBanner } from "@/components/source-state-banner";
+import { questions as fallbackQuestions } from "@/lib/mock-data";
+import { buildContentReadiness } from "@/lib/content-readiness";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
@@ -38,6 +41,7 @@ export default async function TopicsPage() {
   }
 
   const blockSummaries = buildBlockSummaries(topics);
+  const contentReadiness = buildContentReadiness(topics, fallbackQuestions);
 
   return (
     <div className="space-y-8">
@@ -48,6 +52,8 @@ export default async function TopicsPage() {
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
+
+      <ContentReadinessCard readiness={contentReadiness} />
 
       <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm">
         <p className="text-sm text-ink/70">{progressMessage}</p>

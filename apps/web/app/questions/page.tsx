@@ -1,6 +1,9 @@
 import { PageHeader } from "@/components/page-header";
+import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { QuestionAttemptForm } from "@/components/question-attempt-form";
 import { SourceStateBanner } from "@/components/source-state-banner";
+import { topics as fallbackTopics } from "@/lib/mock-data";
+import { buildContentReadiness } from "@/lib/content-readiness";
 import { loadQuestionsSource } from "@/lib/notion-questions";
 import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
 import {
@@ -95,6 +98,7 @@ export default async function QuestionsPage() {
   const stats = buildQuestionStats(questions);
   const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
   const painPoints = getPracticePainPoints(questions);
+  const contentReadiness = buildContentReadiness(fallbackTopics, questions);
 
   async function saveQuestionAttemptAction(formData: FormData) {
     "use server";
@@ -164,6 +168,8 @@ export default async function QuestionsPage() {
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
+
+      <ContentReadinessCard readiness={contentReadiness} />
 
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>

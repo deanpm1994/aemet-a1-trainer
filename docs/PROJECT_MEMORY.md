@@ -119,6 +119,11 @@ Phase 7 status:
 - Reminder preferences remain saved settings only
 - No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
 
+Study content readiness:
+- Dashboard, topics, and questions show whether loaded content is ready for private study tracking
+- Unverified starter topics/questions are explicitly not treated as official-ready
+- Verified official syllabus wording and verified past-question imports remain the main blocker before calling the app official-content ready
+
 Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
