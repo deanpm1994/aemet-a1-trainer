@@ -105,7 +105,7 @@ Phase 5 status:
 - Phase 5.3 Supabase-backed calendar study-session persistence implemented and merged
 - Phase 5.4 Supabase-backed focus-session timer and review outcome persistence implemented
 - Phase 5.5 Supabase-backed topic progress overlay persistence implemented
-- Question attempt/progress persistence remains open and is tracked in GitHub issues
+- Phase 5.6 Supabase-backed question progress overlay persistence implemented
 
 Supabase notes:
 - Project URL configured in local env
@@ -113,7 +113,7 @@ Supabase notes:
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
-- Remote migrations verified applied: `20260623`, `20260630`, `20260701`
+- Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`
 
 Verified working recently:
 - Sign-up and sign-in flow worked after env fix
@@ -123,9 +123,10 @@ Verified working recently:
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
 - Focus route now loads the next persisted actionable session for signed-in users and saves timer/review transitions through `study_sessions`
 - Topic list and detail routes overlay signed-in user progress from `topic_progress` without mutating source-owned official metadata
+- Question route overlays signed-in user practice progress from `question_progress` without mutating source-owned statements, options, answer keys, or verification metadata
 
 Next persistence slices:
-- Persist question attempts and question progress after topic progress is stable
+- Consider detailed question attempt history after the progress overlay is stable
 - GitHub issues track focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:

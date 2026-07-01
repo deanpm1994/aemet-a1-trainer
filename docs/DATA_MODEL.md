@@ -51,6 +51,13 @@ Fields:
 - next_review_at
 - mistake_type
 
+Persistence notes:
+- Source question content is loaded from Notion or local fallback data.
+- User-owned practice progress is stored separately in Supabase table `question_progress`.
+- `question_progress` overlays `attempts_count`, `last_attempt_at`, `next_review_at`, and `mistake_types` by `user_id` and `question_id`.
+- Statements, options, answer keys, explanations, answer source status, source URLs, retrieval dates, and verification status remain source-owned.
+- Anonymous question progress remains source-only/local fallback state.
+
 ## Entity: BibliographyItem
 
 Fields:

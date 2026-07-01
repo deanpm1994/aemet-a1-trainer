@@ -1,6 +1,12 @@
 import { PageHeader } from "@/components/page-header";
+import { QuestionProgressForm } from "@/components/question-progress-form";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { loadQuestionsSource } from "@/lib/notion-questions";
+import { applyQuestionProgress } from "@/lib/question-progress-persistence";
+import {
+  getQuestionProgress,
+  saveQuestionProgress,
+} from "@/lib/question-progress-repository";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -8,9 +14,70 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
+import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
+import type { MistakeType } from "@/lib/types";
+
+type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
+
+const allowedMistakeTypes: MistakeType[] = [
+  "concept",
+  "formula",
+  "units",
+  "reading",
+  "legal_wording",
+  "time_management",
+  "none",
+];
+
+function parseAttemptsCount(value: FormDataEntryValue | null): number {
+  const parsed = Number(value);
+
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : 0;
+}
+
+function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
+  const parsed = values
+    .map((value) => String(value))
+    .filter((value): value is MistakeType =>
+      allowedMistakeTypes.includes(value as MistakeType),
+    );
+
+  if (parsed.length === 0 || parsed.includes("none")) {
+    return ["none"];
+  }
+
+  return parsed;
+}
 
 export default async function QuestionsPage() {
-  const { questions, sourceState, message } = await loadQuestionsSource();
+  const { questions: sourceQuestions, sourceState, message } = await loadQuestionsSource();
+  let questions = sourceQuestions;
+  let canPersist = false;
+  let progressMessage = "Sign in to persist question progress.";
+
+  try {
+    getSupabaseBrowserConfig();
+
+    const userId = await getAuthenticatedUserId();
+
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      const progress = await getQuestionProgress(
+        client as QuestionProgressRepositoryClient,
+        userId,
+      );
+      questions = applyQuestionProgress(sourceQuestions, progress);
+      canPersist = true;
+      progressMessage = "Question progress loaded from Supabase.";
+    }
+  } catch (error) {
+    progressMessage =
+      error instanceof SupabaseConfigError
+        ? "Supabase question progress unavailable until required env vars are configured."
+        : "Unable to load saved question progress right now. Showing source question state.";
+  }
+
   const filters = getDefaultQuestionFilters();
   const visibleQuestions = questions.filter((question) =>
     matchesQuestionFilters(question, filters),
@@ -18,6 +85,53 @@ export default async function QuestionsPage() {
   const stats = buildQuestionStats(questions);
   const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
   const painPoints = getPracticePainPoints(questions);
+
+  async function saveQuestionProgressAction(formData: FormData) {
+    "use server";
+
+    const userId = await getAuthenticatedUserId();
+
+    if (!userId) {
+      return {
+        ok: false,
+        message: "Sign in required before question progress can sync to Supabase.",
+      };
+    }
+
+    const questionId = String(formData.get("questionId") ?? "");
+
+    if (!questionId) {
+      return {
+        ok: false,
+        message: "Missing question id. Refresh before retrying.",
+      };
+    }
+
+    try {
+      const client = await createSupabaseServerClient();
+      await saveQuestionProgress(
+        client as QuestionProgressRepositoryClient,
+        userId,
+        questionId,
+        {
+          attemptsCount: parseAttemptsCount(formData.get("attemptsCount")),
+          lastAttemptAt: String(formData.get("lastAttemptAt") ?? ""),
+          nextReviewAt: String(formData.get("nextReviewAt") ?? ""),
+          mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
+        },
+      );
+
+      return {
+        ok: true,
+        message: "Question progress saved.",
+      };
+    } catch {
+      return {
+        ok: false,
+        message: "Could not save question progress. Form values remain in place.",
+      };
+    }
+  }
 
   return (
     <div className="space-y-8">
@@ -28,6 +142,10 @@ export default async function QuestionsPage() {
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
+
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+        <p className="text-sm text-slate-600">{progressMessage}</p>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -128,6 +246,11 @@ export default async function QuestionsPage() {
                   <dd>{question.mistakeTypes.join(", ")}</dd>
                 </div>
               </dl>
+              <QuestionProgressForm
+                question={question}
+                canPersist={canPersist}
+                onSave={saveQuestionProgressAction}
+              />
             </article>
           ))}
         </div>
