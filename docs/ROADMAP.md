@@ -53,6 +53,7 @@
 - Phase 5.5: persist topic progress overlays
 - Phase 5.6: persist question progress overlays
 - Phase 5.7: persist detailed question attempt history
+- Phase 5.8: update topic/question progress from completed focus sessions
 - Add Supabase schema
 - Add auth
 - Add row-level security

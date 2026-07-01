@@ -1,18 +1,31 @@
 import { FocusSessionPanel } from "@/components/focus-session-panel";
 import { PageHeader } from "@/components/page-header";
-import { studySessions } from "@/lib/mock-data";
+import {
+  questions as sourceQuestions,
+  studySessions,
+  topics as sourceTopics,
+} from "@/lib/mock-data";
+import { buildFocusProgressUpdates } from "@/lib/focus-progress";
 import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import {
   ensureStudySessions,
   saveStudySessionPlan,
 } from "@/lib/study-sessions-repository";
+import { getNextFocusSession } from "@/lib/focus-planner";
 import {
-  getNextFocusSession,
-} from "@/lib/focus-planner";
+  getQuestionProgress,
+  saveQuestionProgress,
+} from "@/lib/question-progress-repository";
+import {
+  getTopicProgress,
+  saveTopicProgress,
+} from "@/lib/topic-progress-repository";
 import type { StudySession } from "@/lib/types";
 
 type StudySessionsRepositoryClient = Parameters<typeof ensureStudySessions>[0];
+type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
+type TopicProgressRepositoryClient = Parameters<typeof getTopicProgress>[0];
 
 export default async function FocusPage() {
   let canPersist = false;
@@ -63,9 +76,44 @@ export default async function FocusPage() {
         session,
       );
 
+      if (session.completed && session.status === "completed") {
+        const [topicProgress, questionProgress] = await Promise.all([
+          getTopicProgress(client as TopicProgressRepositoryClient, userId),
+          getQuestionProgress(client as QuestionProgressRepositoryClient, userId),
+        ]);
+        const { topicUpdates, questionUpdates } = buildFocusProgressUpdates(session, {
+          topics: sourceTopics,
+          questions: sourceQuestions,
+          topicProgress,
+          questionProgress,
+        });
+
+        await Promise.all([
+          ...topicUpdates.map((update) =>
+            saveTopicProgress(
+              client as TopicProgressRepositoryClient,
+              userId,
+              update.topicId,
+              update,
+            ),
+          ),
+          ...questionUpdates.map((update) =>
+            saveQuestionProgress(
+              client as QuestionProgressRepositoryClient,
+              userId,
+              update.questionId,
+              update,
+            ),
+          ),
+        ]);
+      }
+
       return {
         ok: true,
-        message: "Focus session saved.",
+        message:
+          session.completed && session.status === "completed"
+            ? "Focus session and progress saved."
+            : "Focus session saved.",
       };
     } catch {
       return {

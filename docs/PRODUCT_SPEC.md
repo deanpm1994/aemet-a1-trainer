@@ -88,6 +88,13 @@ A session has:
 - confidence score
 - next review date
 
+Current MVP direction:
+- Signed-in users persist timer and review outcomes through Supabase.
+- Completing a focus session updates related topic and question progress overlays
+  when the session contains known topic or question IDs.
+- Focus completion does not modify official/source-owned question or topic
+  metadata.
+
 ## Countdown
 
 Must support:

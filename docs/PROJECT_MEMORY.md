@@ -107,6 +107,7 @@ Phase 5 status:
 - Phase 5.5 Supabase-backed topic progress overlay persistence implemented
 - Phase 5.6 Supabase-backed question progress overlay persistence implemented
 - Phase 5.7 Supabase-backed question attempt history implemented and remote migration applied
+- Phase 5.8 completed focus sessions update topic/question progress overlays
 
 Phase 6 status:
 - Monitoring skeleton implemented as a read-only manual workflow dashboard
@@ -133,9 +134,10 @@ Verified working recently:
 - Monitoring route shows manual-only source checklist and review queue placeholders; it does not claim active monitoring
 - Dashboard now acts as a Today study cockpit, combining next session, weak topics, overdue questions, and monitoring readiness with signed-in persistence overlays
 - Question bank now records signed-in user attempts and derives aggregate review progress from attempt history
+- Focus completion now saves related topic/question progress overlays for signed-in users
 
 Next persistence slices:
-- Consider focus completion updates to topic and question progress after attempt history is stable
+- Consider PWA installability and reminder shell after persistence workflows are stable
 - GitHub issues track focus outcomes, progress persistence, live monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:

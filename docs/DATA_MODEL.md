@@ -123,6 +123,8 @@ Persistence notes:
 - Rows are owned by `user_id` and protected by row-level security.
 - `isPersisted` is an app-derived flag, not an authoritative database field.
 - Focus mode stores timer and review outcomes on the same `study_sessions` rows for signed-in users.
+- Completed focus sessions also update user-owned `topic_progress` and `question_progress` overlays when they reference known topic or question IDs.
+- Focus-derived question progress is aggregate practice state only; it does not create detailed `question_attempts` records because focus completion does not know the selected answer.
 - Anonymous calendar and focus flows remain local-only demos.
 
 ## Entity: MonitoringSource
