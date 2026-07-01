@@ -34,6 +34,7 @@
 - Add weekly planner
 - Add default schedule based on user work hours
 - Add session completion checklist
+- Add Today dashboard workflow from sessions, topics, questions, and monitoring readiness
 
 ## Phase 4 — Notion integration (complete)
 

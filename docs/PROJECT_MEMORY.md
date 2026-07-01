@@ -130,6 +130,7 @@ Verified working recently:
 - Topic list and detail routes overlay signed-in user progress from `topic_progress` without mutating source-owned official metadata
 - Question route overlays signed-in user practice progress from `question_progress` without mutating source-owned statements, options, answer keys, or verification metadata
 - Monitoring route shows manual-only source checklist and review queue placeholders; it does not claim active monitoring
+- Dashboard now acts as a Today study cockpit, combining next session, weak topics, overdue questions, and monitoring readiness with signed-in persistence overlays
 
 Next persistence slices:
 - Consider detailed question attempt history after the progress overlay is stable

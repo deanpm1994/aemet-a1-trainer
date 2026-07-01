@@ -31,6 +31,15 @@ Show:
 - Next review items
 - Monitoring status
 
+Current MVP direction:
+- The dashboard is the first daily-use screen.
+- It combines the next actionable focus session, weak topics, overdue questions,
+  and monitoring readiness.
+- Signed-in users see saved Supabase session and progress overlays where
+  implemented.
+- Anonymous users may use local fallback data, clearly separated from official
+  claims.
+
 ## Topic checklist
 
 Show:
