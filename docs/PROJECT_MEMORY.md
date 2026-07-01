@@ -120,7 +120,7 @@ Supabase notes:
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
-- Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`
+- Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`
 
 Verified working recently:
 - Sign-up and sign-in flow worked after env fix
@@ -138,6 +138,7 @@ Verified working recently:
 
 Next persistence slices:
 - Consider PWA installability and reminder shell after persistence workflows are stable
+- Next recommended MVP step: add PWA installability and a reminder settings shell without claiming browser notifications are active until implemented and verified
 - GitHub issues track focus outcomes, progress persistence, live monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:
