@@ -145,11 +145,14 @@ Verified working recently:
 - Dashboard now acts as a Today study cockpit, combining next session, weak topics, overdue questions, and monitoring readiness with signed-in persistence overlays
 - Question bank now records signed-in user attempts and derives aggregate review progress from attempt history
 - Focus completion now saves related topic/question progress overlays for signed-in users
+- Basic PWA manifest/installability metadata builds cleanly and exposes `/manifest.webmanifest`
+- Dashboard, topics, and questions show study-content readiness without treating unverified starter content as official
 
-Next persistence slices:
-- Consider PWA installability and reminder shell after persistence workflows are stable
-- Next recommended MVP step: add PWA installability and a reminder settings shell without claiming browser notifications are active until implemented and verified
-- GitHub issues track focus outcomes, progress persistence, live monitoring, PWA reminders, and docs refresh
+Next recommended MVP steps:
+- Deploy a private Vercel build with Supabase env vars so the candidate can use the app on mobile
+- Run a real 30-minute study-session smoke test: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
+- Start verified official-content import planning: BOE syllabus source URL, retrieval date, exact wording preservation, and verification status per topic
+- After private deployment works, add countdown/status widgets that explicitly show no verified official date until a source-backed date exists
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`
