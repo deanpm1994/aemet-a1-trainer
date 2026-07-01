@@ -3,10 +3,40 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { loadTopicsSource } from "@/lib/notion-topics";
+import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
+import { applyTopicProgress } from "@/lib/topic-progress-persistence";
+import { getTopicProgress } from "@/lib/topic-progress-repository";
 import { buildBlockSummaries } from "@/lib/topic-progress";
 
+type TopicProgressRepositoryClient = Parameters<typeof getTopicProgress>[0];
+
 export default async function TopicsPage() {
-  const { topics, sourceState, message } = await loadTopicsSource();
+  const { topics: sourceTopics, sourceState, message } = await loadTopicsSource();
+  let topics = sourceTopics;
+  let progressMessage = "Sign in to persist topic progress.";
+
+  try {
+    getSupabaseBrowserConfig();
+
+    const userId = await getAuthenticatedUserId();
+
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      const progress = await getTopicProgress(
+        client as TopicProgressRepositoryClient,
+        userId,
+      );
+      topics = applyTopicProgress(sourceTopics, progress);
+      progressMessage = "Topic progress loaded from Supabase.";
+    }
+  } catch (error) {
+    progressMessage =
+      error instanceof SupabaseConfigError
+        ? "Supabase topic progress unavailable until required env vars are configured."
+        : "Unable to load saved topic progress right now. Showing source topic state.";
+  }
+
   const blockSummaries = buildBlockSummaries(topics);
 
   return (
@@ -18,6 +48,10 @@ export default async function TopicsPage() {
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
+
+      <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm">
+        <p className="text-sm text-ink/70">{progressMessage}</p>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-3">
         {blockSummaries.map((summary) => (

@@ -104,7 +104,8 @@ Phase 5 status:
 - Phase 5.2 Supabase email/password auth implemented
 - Phase 5.3 Supabase-backed calendar study-session persistence implemented and merged
 - Phase 5.4 Supabase-backed focus-session timer and review outcome persistence implemented
-- Broader topic/question progress persistence remains open and is tracked in GitHub issues
+- Phase 5.5 Supabase-backed topic progress overlay persistence implemented
+- Question attempt/progress persistence remains open and is tracked in GitHub issues
 
 Supabase notes:
 - Project URL configured in local env
@@ -121,9 +122,10 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
 - Focus route now loads the next persisted actionable session for signed-in users and saves timer/review transitions through `study_sessions`
+- Topic list and detail routes overlay signed-in user progress from `topic_progress` without mutating source-owned official metadata
 
 Next persistence slices:
-- Persist topic/question progress after session flows are stable
+- Persist question attempts and question progress after topic progress is stable
 - GitHub issues track focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
 
 Ignored local artifacts:

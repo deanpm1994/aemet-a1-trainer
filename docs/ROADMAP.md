@@ -47,9 +47,12 @@
 
 - Phase 5.1: persist profile, study preferences, and reminder preferences
 - Phase 5.2: add email/password auth for settings persistence testing
+- Phase 5.3: persist calendar study sessions
+- Phase 5.4: persist focus-session timer and review outcomes
+- Phase 5.5: persist topic progress overlays
 - Add Supabase schema
 - Add auth
-- Store topics/questions/sessions
+- Store questions and attempt progress
 - Add row-level security
 - Add user settings
 

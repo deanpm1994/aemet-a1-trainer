@@ -21,6 +21,13 @@ Fields:
 - last_studied_at
 - next_review_at
 
+Persistence notes:
+- Source topic content is loaded from Notion or local fallback data.
+- User-owned topic study state is stored separately in Supabase table `topic_progress`.
+- `topic_progress` overlays `status`, `confidence`, `priority`, `next_review_at`, and `notes_status` by `user_id` and `topic_id`.
+- Official wording, source URL, retrieval date, and verification status remain source-owned and are not written by topic progress updates.
+- Anonymous topic progress remains source-only/local fallback state.
+
 ## Entity: Question
 
 Fields:

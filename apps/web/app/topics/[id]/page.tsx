@@ -2,7 +2,13 @@ import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
 import { SourceStateBanner } from "@/components/source-state-banner";
+import { TopicProgressForm } from "@/components/topic-progress-form";
 import { loadTopicsSource } from "@/lib/notion-topics";
+import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
+import { applyTopicProgress } from "@/lib/topic-progress-persistence";
+import { getTopicProgress, saveTopicProgress } from "@/lib/topic-progress-repository";
+import type { Topic, TopicPriority, TopicStatus } from "@/lib/types";
 
 type TopicDetailPageProps = {
   params: Promise<{
@@ -10,13 +16,119 @@ type TopicDetailPageProps = {
   }>;
 };
 
+type TopicProgressRepositoryClient = Parameters<typeof getTopicProgress>[0];
+
+function parseTopicStatus(value: FormDataEntryValue | null): TopicStatus {
+  switch (value) {
+    case "not_started":
+    case "in_progress":
+    case "first_pass":
+    case "reviewed":
+    case "exam_ready":
+      return value;
+    default:
+      return "not_started";
+  }
+}
+
+function parseTopicPriority(value: FormDataEntryValue | null): TopicPriority {
+  switch (value) {
+    case "high":
+    case "medium":
+    case "low":
+      return value;
+    default:
+      return "medium";
+  }
+}
+
+function parseConfidence(value: FormDataEntryValue | null): number {
+  const parsed = Number(value);
+
+  if (!Number.isInteger(parsed)) {
+    return 1;
+  }
+
+  return Math.min(5, Math.max(1, parsed));
+}
+
 export default async function TopicDetailPage({ params }: TopicDetailPageProps) {
   const { id } = await params;
-  const { topics, sourceState, message } = await loadTopicsSource();
+  const { topics: sourceTopics, sourceState, message } = await loadTopicsSource();
+  let topics = sourceTopics;
+  let canPersist = false;
+  let progressMessage = "Sign in to persist topic progress.";
+
+  try {
+    getSupabaseBrowserConfig();
+
+    const userId = await getAuthenticatedUserId();
+
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      const progress = await getTopicProgress(
+        client as TopicProgressRepositoryClient,
+        userId,
+      );
+      topics = applyTopicProgress(sourceTopics, progress);
+      canPersist = true;
+      progressMessage = "Topic progress loaded from Supabase.";
+    }
+  } catch (error) {
+    progressMessage =
+      error instanceof SupabaseConfigError
+        ? "Supabase topic progress unavailable until required env vars are configured."
+        : "Unable to load saved topic progress right now. Showing source topic state.";
+  }
+
   const topic = topics.find((entry) => entry.id === id);
 
   if (!topic) {
     notFound();
+  }
+
+  async function saveTopicProgressAction(formData: FormData) {
+    "use server";
+
+    const userId = await getAuthenticatedUserId();
+
+    if (!userId) {
+      return {
+        ok: false,
+        message: "Sign in required before topic progress can sync to Supabase.",
+      };
+    }
+
+    const update: Pick<
+      Topic,
+      "status" | "confidence" | "priority" | "nextReviewAt" | "notesStatus"
+    > = {
+      status: parseTopicStatus(formData.get("status")),
+      confidence: parseConfidence(formData.get("confidence")),
+      priority: parseTopicPriority(formData.get("priority")),
+      nextReviewAt: String(formData.get("nextReviewAt") ?? ""),
+      notesStatus: String(formData.get("notesStatus") ?? ""),
+    };
+
+    try {
+      const client = await createSupabaseServerClient();
+      await saveTopicProgress(
+        client as TopicProgressRepositoryClient,
+        userId,
+        id,
+        update,
+      );
+
+      return {
+        ok: true,
+        message: "Topic progress saved.",
+      };
+    } catch {
+      return {
+        ok: false,
+        message: "Could not save topic progress. Form values remain in place.",
+      };
+    }
   }
 
   return (
@@ -84,6 +196,12 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
               <dd>{topic.notesStatus ?? "No notes status defined yet."}</dd>
             </div>
           </dl>
+          <TopicProgressForm
+            topic={topic}
+            canPersist={canPersist}
+            statusMessage={progressMessage}
+            onSave={saveTopicProgressAction}
+          />
         </article>
       </section>
     </div>
