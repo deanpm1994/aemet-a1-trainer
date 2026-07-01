@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AEMET A1 Trainer app icon</title>
+  <desc id="desc">Project-owned icon with a study card, horizon line, and weather preparation mark.</desc>
+  <rect width="512" height="512" rx="96" fill="#f7f4ee"/>
+  <path d="M96 330c48-58 93-87 136-87 37 0 66 21 92 64 18-15 38-23 61-23 31 0 59 16 83 48v84H96v-86Z" fill="#1f5f70"/>
+  <path d="M111 168c0-31 25-56 56-56h178c31 0 56 25 56 56v182c0 31-25 56-56 56H167c-31 0-56-25-56-56V168Z" fill="#ffffff"/>
+  <path d="M151 181h210M151 237h210M151 293h132" stroke="#1f5f70" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="352" cy="156" r="45" fill="#e2a53a"/>
+  <path d="M331 360h82" stroke="#e2a53a" stroke-width="24" stroke-linecap="round"/>
+</svg>

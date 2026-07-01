@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">AEMET A1 Trainer Apple icon</title>
+  <desc id="desc">Project-owned compact study and weather preparation icon.</desc>
+  <rect width="180" height="180" rx="40" fill="#1f5f70"/>
+  <rect x="42" y="42" width="96" height="108" rx="18" fill="#ffffff"/>
+  <path d="M59 70h62M59 93h62M59 116h38" stroke="#1f5f70" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="130" cy="47" r="20" fill="#e2a53a"/>
+</svg>

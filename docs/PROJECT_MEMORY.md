@@ -114,6 +114,11 @@ Phase 6 status:
 - Monitoring source verification readiness queue implemented
 - No BOE/AEMET polling, scraping, snapshot comparison, event detection, or alerts are active
 
+Phase 7 status:
+- Basic PWA installability metadata and project-owned icon placeholders implemented
+- Reminder preferences remain saved settings only
+- No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
+
 Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`

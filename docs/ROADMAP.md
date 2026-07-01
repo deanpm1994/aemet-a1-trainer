@@ -69,8 +69,9 @@
 
 ## Phase 7 — PWA and reminders
 
-- Add PWA manifest
-- Add installable mobile view
+- Add PWA manifest (complete)
+- Add installable mobile view metadata (complete)
+- Add reminder settings shell (complete; delivery inactive)
 - Add notifications
 - Add countdown widgets
 - Add offline review mode

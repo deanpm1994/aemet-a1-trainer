@@ -120,7 +120,7 @@ export function SettingsForm({
         <div className="space-y-2">
           <h2 className="text-xl font-semibold tracking-tight text-ink">Reminder preferences</h2>
           <p className="text-sm leading-6 text-ink/70">
-            Preferences save now. Notification delivery is not active yet.
+            Preferences save for a future notification phase. Browser notifications are not active yet.
           </p>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
