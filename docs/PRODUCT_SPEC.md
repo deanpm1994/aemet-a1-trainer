@@ -67,6 +67,15 @@ Question types:
 - flashcard
 - legal_short_answer
 
+Current MVP direction:
+- Signed-in users can record individual practice attempts.
+- Each attempt stores the selected answer, user-marked correctness, mistake
+  types, confidence and notes.
+- Question progress counters and next review dates are derived from attempt
+  history.
+- Source question wording, answer keys, explanations and verification metadata
+  remain read-only.
+
 ## Focus mode
 
 A session has:

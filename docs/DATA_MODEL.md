@@ -55,8 +55,30 @@ Persistence notes:
 - Source question content is loaded from Notion or local fallback data.
 - User-owned practice progress is stored separately in Supabase table `question_progress`.
 - `question_progress` overlays `attempts_count`, `last_attempt_at`, `next_review_at`, and `mistake_types` by `user_id` and `question_id`.
+- Detailed signed-in attempt history is stored in Supabase table `question_attempts`.
+- A saved attempt records the selected answer, user-marked correctness, mistake types, confidence, notes, and attempt date.
+- `question_progress` is updated from the saved attempt history so dashboards can load aggregate review state without mutating source question content.
 - Statements, options, answer keys, explanations, answer source status, source URLs, retrieval dates, and verification status remain source-owned.
 - Anonymous question progress remains source-only/local fallback state.
+
+## Entity: QuestionAttempt
+
+Fields:
+- id
+- user_id
+- question_id
+- attempted_at
+- selected_answer
+- is_correct
+- mistake_types
+- confidence_after
+- notes
+- created_at
+
+Persistence notes:
+- Question attempts are user-owned and protected by row-level security.
+- Correctness is a user-entered practice result, not an official answer-key claim.
+- Attempt history does not alter official statements, options, answer keys, source URLs, retrieval dates, or verification status.
 
 ## Entity: BibliographyItem
 

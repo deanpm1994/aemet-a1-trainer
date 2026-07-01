@@ -1,7 +1,12 @@
 import { PageHeader } from "@/components/page-header";
-import { QuestionProgressForm } from "@/components/question-progress-form";
+import { QuestionAttemptForm } from "@/components/question-attempt-form";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { loadQuestionsSource } from "@/lib/notion-questions";
+import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
+import {
+  getQuestionAttempts,
+  saveQuestionAttempt,
+} from "@/lib/question-attempts-repository";
 import { applyQuestionProgress } from "@/lib/question-progress-persistence";
 import {
   getQuestionProgress,
@@ -19,6 +24,7 @@ import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supaba
 import type { MistakeType } from "@/lib/types";
 
 type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
+type QuestionAttemptRepositoryClient = Parameters<typeof getQuestionAttempts>[0];
 
 const allowedMistakeTypes: MistakeType[] = [
   "concept",
@@ -29,12 +35,6 @@ const allowedMistakeTypes: MistakeType[] = [
   "time_management",
   "none",
 ];
-
-function parseAttemptsCount(value: FormDataEntryValue | null): number {
-  const parsed = Number(value);
-
-  return Number.isInteger(parsed) && parsed >= 0 ? parsed : 0;
-}
 
 function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
   const parsed = values
@@ -48,6 +48,16 @@ function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
   }
 
   return parsed;
+}
+
+function parseConfidenceAfter(value: FormDataEntryValue | null): number {
+  const parsed = Number(value);
+
+  if (!Number.isInteger(parsed)) {
+    return 3;
+  }
+
+  return Math.min(5, Math.max(1, parsed));
 }
 
 export default async function QuestionsPage() {
@@ -86,7 +96,7 @@ export default async function QuestionsPage() {
   const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
   const painPoints = getPracticePainPoints(questions);
 
-  async function saveQuestionProgressAction(formData: FormData) {
+  async function saveQuestionAttemptAction(formData: FormData) {
     "use server";
 
     const userId = await getAuthenticatedUserId();
@@ -94,7 +104,7 @@ export default async function QuestionsPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before question progress can sync to Supabase.",
+        message: "Sign in required before question attempts can sync to Supabase.",
       };
     }
 
@@ -109,26 +119,38 @@ export default async function QuestionsPage() {
 
     try {
       const client = await createSupabaseServerClient();
+      await saveQuestionAttempt(client as QuestionAttemptRepositoryClient, userId, {
+        questionId,
+        attemptedAt: String(formData.get("attemptedAt") ?? ""),
+        selectedAnswer: String(formData.get("selectedAnswer") ?? ""),
+        isCorrect: formData.get("isCorrect") === "true",
+        mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
+        confidenceAfter: parseConfidenceAfter(formData.get("confidenceAfter")),
+        notes: String(formData.get("notes") ?? ""),
+      });
+
+      const attempts = await getQuestionAttempts(
+        client as QuestionAttemptRepositoryClient,
+        userId,
+        questionId,
+      );
+      const progress = buildQuestionProgressFromAttempts(questionId, attempts);
+
       await saveQuestionProgress(
         client as QuestionProgressRepositoryClient,
         userId,
         questionId,
-        {
-          attemptsCount: parseAttemptsCount(formData.get("attemptsCount")),
-          lastAttemptAt: String(formData.get("lastAttemptAt") ?? ""),
-          nextReviewAt: String(formData.get("nextReviewAt") ?? ""),
-          mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
-        },
+        progress,
       );
 
       return {
         ok: true,
-        message: "Question progress saved.",
+        message: "Question attempt saved and review progress updated.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save question progress. Form values remain in place.",
+        message: "Could not save question attempt. Form values remain in place.",
       };
     }
   }
@@ -246,10 +268,10 @@ export default async function QuestionsPage() {
                   <dd>{question.mistakeTypes.join(", ")}</dd>
                 </div>
               </dl>
-              <QuestionProgressForm
+              <QuestionAttemptForm
                 question={question}
                 canPersist={canPersist}
-                onSave={saveQuestionProgressAction}
+                onSave={saveQuestionAttemptAction}
               />
             </article>
           ))}
