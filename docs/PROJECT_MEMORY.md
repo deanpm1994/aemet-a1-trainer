@@ -94,7 +94,7 @@ Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
 
 ## Current implementation handoff
 
-Date: 2026-06-30
+Date: 2026-07-01
 
 Branch:
 - `develop`
@@ -103,6 +103,7 @@ Phase 5 status:
 - Phase 5.1 Supabase-backed user settings persistence implemented
 - Phase 5.2 Supabase email/password auth implemented
 - Phase 5.3 Supabase-backed calendar study-session persistence implemented and merged
+- Phase 5.4 Supabase-backed focus-session timer and review outcome persistence implemented
 - Broader topic/question progress persistence remains open and is tracked in GitHub issues
 
 Supabase notes:
@@ -119,9 +120,9 @@ Verified working recently:
 - `npm --prefix apps/web test`
 - `npm --prefix apps/web run build`
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
+- Focus route now loads the next persisted actionable session for signed-in users and saves timer/review transitions through `study_sessions`
 
 Next persistence slices:
-- Persist focus-session review outcomes after calendar persistence
 - Persist topic/question progress after session flows are stable
 - GitHub issues track focus outcomes, progress persistence, monitoring, PWA reminders, and docs refresh
 

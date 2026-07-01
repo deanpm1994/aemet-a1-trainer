@@ -16,7 +16,11 @@ export async function createSupabaseServerClient() {
       },
       setAll(cookieValues) {
         cookieValues.forEach(({ name, value, options }) => {
-          cookieStore.set(name, value, options);
+          try {
+            cookieStore.set(name, value, options);
+          } catch {
+            // Server Components can read auth cookies but cannot write refreshed cookies.
+          }
         });
       },
     },

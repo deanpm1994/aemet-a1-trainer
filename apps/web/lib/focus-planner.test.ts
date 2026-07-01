@@ -4,8 +4,10 @@ import { routeCards, studySessions } from "./mock-data";
 import {
   buildPlannerWeek,
   buildPlannerWeekSummary,
+  abandonSession,
   completeSessionReview,
   extendSession,
+  getNextFocusSession,
   getTodayMissionSession,
   moveSessionToReview,
   pauseSessionTimer,
@@ -59,6 +61,49 @@ describe("planner helpers", () => {
     expect(getTodayMissionSession(studySessions)?.id).toBe("session-2026-06-23-questions");
   });
 
+  it("returns the next actionable focus session by planned date and start time", () => {
+    expect(
+      getNextFocusSession([
+        {
+          ...studySessions[0],
+          id: "completed-session",
+          status: "completed",
+          plannedDate: "2026-06-23",
+          plannedStartTime: "07:30",
+        },
+        {
+          ...studySessions[1],
+          id: "later-ready-session",
+          status: "ready_for_review",
+          plannedDate: "2026-06-24",
+          plannedStartTime: "09:10",
+        },
+        {
+          ...studySessions[2],
+          id: "earlier-scheduled-session",
+          status: "scheduled",
+          plannedDate: "2026-06-24",
+          plannedStartTime: "07:30",
+        },
+      ])?.id,
+    ).toBe("earlier-scheduled-session");
+  });
+
+  it("returns undefined when no sessions can be opened in focus mode", () => {
+    expect(
+      getNextFocusSession([
+        {
+          ...studySessions[0],
+          status: "completed",
+        },
+        {
+          ...studySessions[1],
+          status: "abandoned",
+        },
+      ]),
+    ).toBeUndefined();
+  });
+
   it("moves a running session into review instead of completing it", () => {
     const updated = moveSessionToReview({
       ...studySessions[2],
@@ -85,6 +130,15 @@ describe("planner helpers", () => {
 
     expect(updated.status).toBe("completed");
     expect(updated.completed).toBe(true);
+    expect(updated.reviewState).toBe("done");
+  });
+
+  it("marks a reviewed session abandoned without counting it complete", () => {
+    const updated = abandonSession(studySessions[1]);
+
+    expect(updated.status).toBe("abandoned");
+    expect(updated.timerStatus).toBe("finished");
+    expect(updated.completed).toBe(false);
     expect(updated.reviewState).toBe("done");
   });
 

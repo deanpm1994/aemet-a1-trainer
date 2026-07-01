@@ -86,7 +86,8 @@ Persistence notes:
 - `id` is a stable text domain identifier and is unique together with `user_id`.
 - Rows are owned by `user_id` and protected by row-level security.
 - `isPersisted` is an app-derived flag, not an authoritative database field.
-- Focus review outcomes are not persisted yet; they are tracked as a separate follow-up.
+- Focus mode stores timer and review outcomes on the same `study_sessions` rows for signed-in users.
+- Anonymous calendar and focus flows remain local-only demos.
 
 ## Entity: MonitoringSource
 

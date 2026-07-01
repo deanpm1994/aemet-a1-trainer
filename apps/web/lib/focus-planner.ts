@@ -15,6 +15,12 @@ function sortSessionsByStart(a: StudySession, b: StudySession) {
   return a.plannedStartTime.localeCompare(b.plannedStartTime);
 }
 
+function sortSessionsByDateAndStart(a: StudySession, b: StudySession) {
+  const dateCompare = a.plannedDate.localeCompare(b.plannedDate);
+
+  return dateCompare !== 0 ? dateCompare : sortSessionsByStart(a, b);
+}
+
 export function buildPlannerWeek(sessions: StudySession[]): PlannerDay[] {
   const grouped = new Map<string, StudySession[]>();
 
@@ -77,6 +83,19 @@ export function getTodayMissionSession(
     })[0];
 }
 
+export function getNextFocusSession(
+  sessions: StudySession[],
+): StudySession | undefined {
+  return [...sessions]
+    .filter((session) =>
+      session.status === "scheduled" ||
+      session.status === "in_progress" ||
+      session.status === "ready_for_review" ||
+      session.status === "extended",
+    )
+    .sort(sortSessionsByDateAndStart)[0];
+}
+
 export function moveSessionToReview(session: StudySession): StudySession {
   return {
     ...session,
@@ -97,6 +116,16 @@ export function completeSessionReview(
     status: "completed",
     timerStatus: "finished",
     completed: true,
+    reviewState: "done",
+  };
+}
+
+export function abandonSession(session: StudySession): StudySession {
+  return {
+    ...session,
+    status: "abandoned",
+    timerStatus: "finished",
+    completed: false,
     reviewState: "done",
   };
 }
