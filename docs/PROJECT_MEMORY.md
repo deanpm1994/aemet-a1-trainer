@@ -106,7 +106,7 @@ Phase 5 status:
 - Phase 5.4 Supabase-backed focus-session timer and review outcome persistence implemented
 - Phase 5.5 Supabase-backed topic progress overlay persistence implemented
 - Phase 5.6 Supabase-backed question progress overlay persistence implemented
-- Phase 5.7 Supabase-backed question attempt history implemented locally
+- Phase 5.7 Supabase-backed question attempt history implemented and remote migration applied
 
 Phase 6 status:
 - Monitoring skeleton implemented as a read-only manual workflow dashboard
@@ -135,7 +135,6 @@ Verified working recently:
 - Question bank now records signed-in user attempts and derives aggregate review progress from attempt history
 
 Next persistence slices:
-- Apply the `20260703` question attempts migration remotely before relying on signed-in attempt saves outside the local schema
 - Consider focus completion updates to topic and question progress after attempt history is stable
 - GitHub issues track focus outcomes, progress persistence, live monitoring, PWA reminders, and docs refresh
 
