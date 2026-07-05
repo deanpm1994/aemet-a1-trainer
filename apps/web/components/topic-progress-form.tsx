@@ -17,17 +17,17 @@ type TopicProgressFormProps = {
 };
 
 const topicStatuses: Array<{ value: TopicStatus; label: string }> = [
-  { value: "not_started", label: "Not started" },
-  { value: "in_progress", label: "In progress" },
-  { value: "first_pass", label: "First pass" },
-  { value: "reviewed", label: "Reviewed" },
-  { value: "exam_ready", label: "Exam ready" },
+  { value: "not_started", label: "No iniciado" },
+  { value: "in_progress", label: "En progreso" },
+  { value: "first_pass", label: "Primera vuelta" },
+  { value: "reviewed", label: "Revisado" },
+  { value: "exam_ready", label: "Listo para examen" },
 ];
 
 const priorities: Array<{ value: TopicPriority; label: string }> = [
-  { value: "high", label: "High" },
-  { value: "medium", label: "Medium" },
-  { value: "low", label: "Low" },
+  { value: "high", label: "Alta" },
+  { value: "medium", label: "Media" },
+  { value: "low", label: "Baja" },
 ];
 
 export function TopicProgressForm({
@@ -41,7 +41,7 @@ export function TopicProgressForm({
 
   function submitProgress(formData: FormData) {
     if (!canPersist) {
-      setMessage("Sign in to persist topic progress changes.");
+      setMessage("Inicia sesión para guardar cambios de progreso del tema.");
       return;
     }
 
@@ -54,7 +54,7 @@ export function TopicProgressForm({
   return (
     <form action={submitProgress} className="mt-4 grid gap-4 text-sm text-ink/80">
       <label className="grid gap-1">
-        <span className="text-ink/50">Status</span>
+        <span className="text-ink/50">Estado</span>
         <select
           className="rounded-xl border border-ink/10 bg-white px-3 py-2"
           defaultValue={topic.status}
@@ -69,7 +69,7 @@ export function TopicProgressForm({
       </label>
 
       <label className="grid gap-1">
-        <span className="text-ink/50">Confidence</span>
+        <span className="text-ink/50">Confianza</span>
         <input
           className="rounded-xl border border-ink/10 bg-white px-3 py-2"
           defaultValue={topic.confidence}
@@ -81,7 +81,7 @@ export function TopicProgressForm({
       </label>
 
       <label className="grid gap-1">
-        <span className="text-ink/50">Priority</span>
+        <span className="text-ink/50">Prioridad</span>
         <select
           className="rounded-xl border border-ink/10 bg-white px-3 py-2"
           defaultValue={topic.priority}
@@ -96,7 +96,7 @@ export function TopicProgressForm({
       </label>
 
       <label className="grid gap-1">
-        <span className="text-ink/50">Next review</span>
+        <span className="text-ink/50">Próxima revisión</span>
         <input
           className="rounded-xl border border-ink/10 bg-white px-3 py-2"
           defaultValue={topic.nextReviewAt}
@@ -106,7 +106,7 @@ export function TopicProgressForm({
       </label>
 
       <label className="grid gap-1">
-        <span className="text-ink/50">Notes status</span>
+        <span className="text-ink/50">Estado de notas</span>
         <input
           className="rounded-xl border border-ink/10 bg-white px-3 py-2"
           defaultValue={topic.notesStatus ?? ""}
@@ -122,7 +122,7 @@ export function TopicProgressForm({
         disabled={isPending || !canPersist}
         type="submit"
       >
-        Save study state
+        Guardar estado de estudio
       </button>
     </form>
   );

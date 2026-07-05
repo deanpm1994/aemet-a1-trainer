@@ -8,18 +8,18 @@ export default async function ResourcesPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Resources"
-        title="Study resources"
-        description="This Phase 4 resources page syncs bibliography data from Notion and keeps access limitations explicit. Repeated official source links are expected when multiple books come from the same recommended bibliography list."
+        eyebrow="Recursos"
+        title="Recursos de estudio"
+        description="Esta página sincroniza bibliografía desde Notion y mantiene explícitas las limitaciones de acceso. Puede haber enlaces oficiales repetidos cuando varios libros comparten una misma referencia bibliográfica."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
 
       <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
         <p className="text-sm text-slate-700">
-          A listed resource is not the same as owned or directly accessible content.
-          Repeated source links are expected when multiple books share the same official
-          bibliography reference.
+          Un recurso listado no equivale a contenido poseído ni accesible directamente.
+          Los enlaces repetidos son esperables cuando varios libros comparten la misma
+          referencia bibliográfica oficial.
         </p>
       </section>
 
@@ -39,25 +39,25 @@ export default async function ResourcesPage() {
                 </h2>
                 <p className="text-sm text-slate-700">{item.authors}</p>
                 <p className="text-sm text-slate-600">
-                  {item.year ?? "Year not recorded"} · {item.category}
+                  {item.year ?? "Año no registrado"} · {item.category}
                 </p>
                 <p className="text-sm leading-6 text-slate-700">{item.notes}</p>
               </div>
               <dl className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2 lg:min-w-[22rem]">
                 <div>
-                  <dt className="text-slate-500">Priority</dt>
+                  <dt className="text-slate-500">Prioridad</dt>
                   <dd>{item.priority}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-500">Source type</dt>
+                  <dt className="text-slate-500">Tipo de fuente</dt>
                   <dd>{item.sourceType}</dd>
                 </div>
                 <div className="sm:col-span-2">
-                  <dt className="text-slate-500">Verification</dt>
+                  <dt className="text-slate-500">Verificación</dt>
                   <dd>{item.verificationStatus}</dd>
                 </div>
                 <div className="sm:col-span-2">
-                  <dt className="text-slate-500">Source link</dt>
+                  <dt className="text-slate-500">Enlace de fuente</dt>
                   <dd>
                     <a
                       className="text-accent underline underline-offset-2"
@@ -65,7 +65,7 @@ export default async function ResourcesPage() {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      Open source reference
+                      Abrir referencia de fuente
                     </a>
                   </dd>
                 </div>

@@ -16,40 +16,40 @@ export default function MonitoringPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Monitoring"
-        title="Official-source monitoring skeleton"
-        description="BOE/AEMET source tracking is structured here, but polling, scraping, alerts, and official change detection are not active yet."
+        eyebrow="Monitorización"
+        title="Esqueleto de monitorización de fuentes oficiales"
+        description="El seguimiento de fuentes BOE/AEMET está estructurado aquí, pero polling, scraping, alertas y detección oficial de cambios aún no están activos."
       />
 
       <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.15em] text-amber-800">
-          Manual-only status
+          Estado manual
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-amber-950">
-          Monitoring is not active
+          La monitorización no está activa
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-amber-900">
-          This page defines the workflow for official-source monitoring, but no automated
-          checks are running. Source URLs must be verified before the app can poll,
-          compare snapshots, detect changes, or send alerts.
+          Esta página define el flujo de monitorización de fuentes oficiales, pero no hay
+          comprobaciones automáticas en ejecución. Las URL deben verificarse antes de hacer
+          polling, comparar snapshots, detectar cambios o enviar alertas.
         </p>
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Sources configured</p>
+          <p className="text-sm text-slate-500">Fuentes configuradas</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {summary.configuredSources}/{summary.totalSources}
           </p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Active checks</p>
+          <p className="text-sm text-slate-500">Comprobaciones activas</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {summary.activeSources}
           </p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Pending review events</p>
+          <p className="text-sm text-slate-500">Eventos pendientes de revisión</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {summary.pendingReviewEvents}
           </p>
@@ -58,9 +58,9 @@ export default function MonitoringPage() {
 
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-semibold text-slate-900">Source checklist</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Checklist de fuentes</h2>
           <p className="mt-2 text-sm text-slate-600">
-            These entries are placeholders until official URLs are verified and stored.
+            Estas entradas son marcadores hasta verificar y guardar las URL oficiales.
           </p>
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
@@ -84,15 +84,15 @@ export default function MonitoringPage() {
               </div>
               <dl className="mt-4 space-y-3 text-sm text-slate-600">
                 <div>
-                  <dt className="font-medium text-slate-900">Configured</dt>
-                  <dd>{isMonitoringSourceConfigured(source) ? "yes" : "no"}</dd>
+                  <dt className="font-medium text-slate-900">Configurada</dt>
+                  <dd>{isMonitoringSourceConfigured(source) ? "sí" : "no"}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Active</dt>
-                  <dd>{isMonitoringSourceActive(source) ? "yes" : "no"}</dd>
+                  <dt className="font-medium text-slate-900">Activa</dt>
+                  <dd>{isMonitoringSourceActive(source) ? "sí" : "no"}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Verification</dt>
+                  <dt className="font-medium text-slate-900">Verificación</dt>
                   <dd>{source.verificationStatus}</dd>
                 </div>
                 <div>
@@ -100,7 +100,7 @@ export default function MonitoringPage() {
                   <dd>{source.url}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Keywords</dt>
+                  <dt className="font-medium text-slate-900">Palabras clave</dt>
                   <dd>{source.keywords.join(", ")}</dd>
                 </div>
               </dl>
@@ -112,11 +112,11 @@ export default function MonitoringPage() {
       <section className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold text-slate-900">
-            Source verification queue
+            Cola de verificación de fuentes
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            A source must have a verified official URL, reviewer metadata, and expected
-            official signals before it can be considered ready for automation.
+            Una fuente debe tener URL oficial verificada, metadatos de revisión y señales
+            oficiales esperadas antes de considerarse lista para automatización.
           </p>
         </div>
         <div className="space-y-3">
@@ -131,11 +131,11 @@ export default function MonitoringPage() {
                     {item.sourceName}
                   </h3>
                   <p className="mt-1 text-sm text-slate-600">
-                    Ready for automation: {item.readyForAutomation ? "yes" : "no"}
+                    Lista para automatización: {item.readyForAutomation ? "sí" : "no"}
                   </p>
                 </div>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700">
-                  {item.blockers.length} blocker{item.blockers.length === 1 ? "" : "s"}
+                  {item.blockers.length} bloqueos
                 </span>
               </div>
               {item.blockers.length > 0 ? (
@@ -157,9 +157,9 @@ export default function MonitoringPage() {
 
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-semibold text-slate-900">Review queue</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Cola de revisión</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Events here are workflow placeholders, not detected official changes.
+            Los eventos aquí son marcadores de flujo, no cambios oficiales detectados.
           </p>
         </div>
         {pendingEvents.map((event) => (
@@ -180,16 +180,16 @@ export default function MonitoringPage() {
                 </p>
               </div>
               <span className="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-800">
-                requires review
+                requiere revisión
               </span>
             </div>
             <dl className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-3">
               <div>
-                <dt className="font-medium text-slate-900">Detected at</dt>
+                <dt className="font-medium text-slate-900">Detectado en</dt>
                 <dd>{event.detectedAt}</dd>
               </div>
               <div>
-                <dt className="font-medium text-slate-900">Verification</dt>
+                <dt className="font-medium text-slate-900">Verificación</dt>
                 <dd>{event.verificationStatus}</dd>
               </div>
               <div>

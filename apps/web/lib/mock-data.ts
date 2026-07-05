@@ -385,24 +385,24 @@ export const studySessions: StudySession[] = [
 export function buildDashboardMetrics(): DashboardMetric[] {
   return [
     {
-      label: "Weekly study target",
+      label: "Objetivo semanal de estudio",
       value: "8.5 h",
-      detail: "Mock target based on three morning blocks across five weekdays.",
+      detail: "Objetivo demo basado en tres bloques de mañana durante cinco días.",
     },
     {
-      label: "Topics touched",
+      label: "Temas tocados",
       value: `${countTouchedTopics(topics)} / ${topics.length}`,
-      detail: "Mock progress only. Exact syllabus wording is TODO_VERIFY_OFFICIAL_SOURCE.",
+      detail: "Solo progreso demo. La redacción exacta del temario es TODO_VERIFY_OFFICIAL_SOURCE.",
     },
     {
-      label: "Exam-ready topics",
+      label: "Temas listos para examen",
       value: `${countExamReadyTopics(topics)}`,
-      detail: "Read-only Phase 1 data derived from the shared topic checklist.",
+      detail: "Datos de solo lectura derivados del checklist compartido de temas.",
     },
     {
-      label: "Monitoring",
-      value: "Manual only",
-      detail: "Automation is not implemented yet.",
+      label: "Monitorización",
+      value: "Solo manual",
+      detail: "La automatización aún no está implementada.",
     },
   ];
 }

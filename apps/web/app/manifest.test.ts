@@ -11,7 +11,7 @@ describe("web app manifest", () => {
     expect(result.start_url).toBe("/");
     expect(result.scope).toBe("/");
     expect(result.display).toBe("standalone");
-    expect(result.lang).toBe("en");
+    expect(result.lang).toBe("es");
     expect(result.categories).toContain("education");
   });
 

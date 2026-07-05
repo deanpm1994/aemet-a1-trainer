@@ -42,7 +42,7 @@ function buildPrimaryAction(
   if (nextSession) {
     return {
       href: "/focus",
-      label: "Open focus session",
+      label: "Abrir sesión de concentración",
       detail: `${nextSession.plannedStartTime} ${nextSession.name}`,
     };
   }
@@ -50,17 +50,15 @@ function buildPrimaryAction(
   if (overdueQuestions.length > 0) {
     return {
       href: "/questions",
-      label: "Review overdue questions",
-      detail: `${overdueQuestions.length} question${
-        overdueQuestions.length === 1 ? "" : "s"
-      } due`,
+      label: "Revisar preguntas vencidas",
+      detail: `${overdueQuestions.length} preguntas vencidas`,
     };
   }
 
   return {
     href: "/topics",
-    label: "Review weak topics",
-    detail: "No focus session queued",
+    label: "Revisar temas débiles",
+    detail: "No hay sesión de concentración en cola",
   };
 }
 

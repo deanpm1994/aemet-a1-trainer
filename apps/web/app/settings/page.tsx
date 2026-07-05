@@ -16,7 +16,7 @@ type SettingsRepositoryClient = Parameters<typeof getUserSettings>[0];
 export default async function SettingsPage() {
   let persistenceAvailable = true;
   let canSave = false;
-  let statusMessage = "Sign in required before saved settings can sync to Supabase.";
+  let statusMessage = "Inicia sesión para sincronizar ajustes guardados con Supabase.";
   let initialSettings = buildDefaultUserSettings();
 
   try {
@@ -28,14 +28,14 @@ export default async function SettingsPage() {
       const client = await createSupabaseServerClient();
       initialSettings = await getUserSettings(client as SettingsRepositoryClient, userId);
       canSave = true;
-      statusMessage = "Settings loaded from Supabase. Reminder delivery is still not active.";
+      statusMessage = "Ajustes cargados desde Supabase. El envío de recordatorios aún no está activo.";
     }
   } catch (error) {
     persistenceAvailable = false;
     statusMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase settings persistence unavailable until required env vars are configured."
-        : "Unable to load saved settings right now.";
+        ? "La persistencia de ajustes en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudieron cargar los ajustes guardados.";
   }
 
   async function saveAction(formData: FormData) {
@@ -46,7 +46,7 @@ export default async function SettingsPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before saved settings can sync to Supabase.",
+        message: "Inicia sesión para sincronizar ajustes guardados con Supabase.",
       };
     }
 
@@ -77,12 +77,12 @@ export default async function SettingsPage() {
 
       return {
         ok: true,
-        message: "Settings saved. Notification delivery still pending future phase.",
+        message: "Ajustes guardados. El envío de notificaciones queda pendiente para una fase futura.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save settings. Form values remain in place for retry.",
+        message: "No se pudieron guardar los ajustes. Los valores quedan en el formulario para reintentar.",
       };
     }
   }
@@ -90,9 +90,9 @@ export default async function SettingsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Settings"
-        title="Saved study preferences"
-        description="Profile, study defaults, and reminder preferences persist per user when a Supabase-authenticated session exists. Reminder delivery is not active yet."
+        eyebrow="Ajustes"
+        title="Preferencias de estudio guardadas"
+        description="Perfil, valores de estudio y preferencias de recordatorios se guardan por usuario con sesión de Supabase. El envío de recordatorios aún no está activo."
       />
       <SettingsForm
         initialSettings={initialSettings}

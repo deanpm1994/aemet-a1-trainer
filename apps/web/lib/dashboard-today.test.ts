@@ -48,7 +48,7 @@ describe("today dashboard", () => {
 
     expect(dashboard.primaryAction).toEqual({
       href: "/focus",
-      label: "Open focus session",
+      label: "Abrir sesión de concentración",
       detail: "09:10 Calculus question block",
     });
   });

@@ -38,10 +38,10 @@ export function SettingsForm({
       }}
     >
       <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold tracking-tight text-ink">Profile</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-ink">Perfil</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Display name</span>
+            <span>Nombre visible</span>
             <input
               name="displayName"
               defaultValue={initialSettings.profile.displayName}
@@ -49,7 +49,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Timezone</span>
+            <span>Zona horaria</span>
             <input
               name="timezone"
               defaultValue={initialSettings.profile.timezone}
@@ -60,10 +60,10 @@ export function SettingsForm({
       </section>
 
       <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold tracking-tight text-ink">Study preferences</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-ink">Preferencias de estudio</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Study start time</span>
+            <span>Hora de inicio de estudio</span>
             <input
               name="studyStartTime"
               defaultValue={initialSettings.studyPreferences.studyStartTime}
@@ -71,7 +71,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Deep work minutes</span>
+            <span>Minutos de trabajo profundo</span>
             <input
               name="deepWorkMinutes"
               type="number"
@@ -80,7 +80,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Practice minutes</span>
+            <span>Minutos de práctica</span>
             <input
               name="practiceMinutes"
               type="number"
@@ -89,7 +89,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Review minutes</span>
+            <span>Minutos de revisión</span>
             <input
               name="reviewMinutes"
               type="number"
@@ -98,7 +98,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Workday start time</span>
+            <span>Inicio de jornada laboral</span>
             <input
               name="workdayStartTime"
               defaultValue={initialSettings.studyPreferences.workdayStartTime}
@@ -106,7 +106,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Workday end time</span>
+            <span>Fin de jornada laboral</span>
             <input
               name="workdayEndTime"
               defaultValue={initialSettings.studyPreferences.workdayEndTime}
@@ -118,9 +118,9 @@ export function SettingsForm({
 
       <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold tracking-tight text-ink">Reminder preferences</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-ink">Preferencias de recordatorios</h2>
           <p className="text-sm leading-6 text-ink/70">
-            Preferences save for a future notification phase. Browser notifications are not active yet.
+            Las preferencias se guardan para una fase futura de notificaciones. Las notificaciones del navegador aún no están activas.
           </p>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -130,10 +130,10 @@ export function SettingsForm({
               type="checkbox"
               defaultChecked={initialSettings.reminderPreferences.remindersEnabled}
             />
-            <span>Enable saved reminder preferences</span>
+            <span>Activar preferencias de recordatorio guardadas</span>
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Reminder channel</span>
+            <span>Canal de recordatorio</span>
             <input
               name="reminderChannel"
               defaultValue={initialSettings.reminderPreferences.reminderChannel}
@@ -142,7 +142,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Morning reminder time</span>
+            <span>Hora del recordatorio de mañana</span>
             <input
               name="morningReminderTime"
               defaultValue={initialSettings.reminderPreferences.morningReminderTime ?? ""}
@@ -150,7 +150,7 @@ export function SettingsForm({
             />
           </label>
           <label className="space-y-2 text-sm text-ink/80">
-            <span>Evening reminder time</span>
+            <span>Hora del recordatorio de noche</span>
             <input
               name="eveningReminderTime"
               defaultValue={initialSettings.reminderPreferences.eveningReminderTime ?? ""}
@@ -167,7 +167,7 @@ export function SettingsForm({
           disabled={!persistenceAvailable || !canSave || isSaving}
           className="mt-4 rounded-full bg-ink px-5 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-ink/40"
         >
-          {isSaving ? "Saving..." : "Save settings"}
+          {isSaving ? "Guardando..." : "Guardar ajustes"}
         </button>
       </div>
     </form>

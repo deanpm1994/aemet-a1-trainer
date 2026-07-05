@@ -68,7 +68,7 @@ export function CalendarPlanner({
   function resetSessions() {
     if (!canPersist) {
       setSessions(resetSessionsToRecommendedWeek(recommendedSessions));
-      setMessage("Planner reset locally. Sign in to persist calendar changes.");
+      setMessage("Planificador reiniciado en local. Inicia sesión para guardar cambios.");
       return;
     }
 
@@ -86,19 +86,19 @@ export function CalendarPlanner({
     <div className="space-y-8">
       <section className="grid gap-4 md:grid-cols-3">
         <article className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-sm text-slate-500">Planned this week</p>
+          <p className="text-sm text-slate-500">Planificado esta semana</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {(summary.totalPlannedMinutes / 60).toFixed(1)} h
           </p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-sm text-slate-500">Completed sessions</p>
+          <p className="text-sm text-slate-500">Sesiones completadas</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {summary.completedSessions} / {summary.totalSessions}
           </p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-sm text-slate-500">Needs review</p>
+          <p className="text-sm text-slate-500">Necesita revisión</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {summary.readyForReviewSessions}
           </p>
@@ -106,11 +106,11 @@ export function CalendarPlanner({
       </section>
 
       <section className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-        <p className="text-sm font-medium text-amber-900">Today&apos;s mission</p>
+        <p className="text-sm font-medium text-amber-900">Misión de hoy</p>
         <p className="mt-1 text-base text-amber-950">
           {nextSession
             ? `${nextSession.plannedStartTime} ${nextSession.name}: ${nextSession.objective}`
-            : "No focus session queued for the current week."}
+            : "No hay sesión de concentración en cola para la semana actual."}
         </p>
         <p className="mt-2 text-sm text-amber-900">{message}</p>
         <button
@@ -119,7 +119,7 @@ export function CalendarPlanner({
           onClick={resetSessions}
           type="button"
         >
-          Reset to recommended week
+          Restablecer semana recomendada
         </button>
       </section>
 
@@ -134,7 +134,7 @@ export function CalendarPlanner({
                   className="grid gap-3 rounded-xl border border-slate-100 p-3 md:grid-cols-[1fr,140px,140px]"
                 >
                   <label className="space-y-1">
-                    <span className="text-sm text-slate-500">Objective</span>
+                    <span className="text-sm text-slate-500">Objetivo</span>
                     <input
                       className="w-full rounded-lg border border-slate-200 px-3 py-2"
                       value={session.objective}
@@ -149,7 +149,7 @@ export function CalendarPlanner({
                     />
                   </label>
                   <label className="space-y-1">
-                    <span className="text-sm text-slate-500">Start</span>
+                    <span className="text-sm text-slate-500">Inicio</span>
                     <input
                       className="w-full rounded-lg border border-slate-200 px-3 py-2"
                       onChange={(event) => {
@@ -168,7 +168,7 @@ export function CalendarPlanner({
                     />
                   </label>
                   <label className="space-y-1">
-                    <span className="text-sm text-slate-500">End</span>
+                    <span className="text-sm text-slate-500">Fin</span>
                     <input
                       className="w-full rounded-lg border border-slate-200 px-3 py-2"
                       onChange={(event) => {

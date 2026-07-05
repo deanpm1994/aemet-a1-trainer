@@ -68,10 +68,10 @@ export function FocusSessionPanel({
     return (
       <section className="rounded-2xl border border-slate-200 bg-white p-6">
         <h2 className="text-lg font-semibold text-slate-900">
-          No focus session selected
+          No hay sesión de concentración seleccionada
         </h2>
         <p className="mt-2 text-sm text-slate-600">
-          No scheduled, active, extended, or review-ready session is available.
+          No hay ninguna sesión programada, activa, extendida o lista para revisión.
         </p>
         <p className="mt-2 text-sm text-slate-500">{message}</p>
       </section>
@@ -79,10 +79,10 @@ export function FocusSessionPanel({
   }
 
   const checklist = [
-    `Notes created: ${session.notesCreated ? "yes" : "no"}`,
-    `Questions solved: ${session.questionsSolved}`,
-    `Flashcards created: ${session.flashcardsCreated}`,
-    `Mistakes logged: ${session.mistakesLogged}`,
+    `Notas creadas: ${session.notesCreated ? "sí" : "no"}`,
+    `Preguntas resueltas: ${session.questionsSolved}`,
+    `Flashcards creadas: ${session.flashcardsCreated}`,
+    `Errores registrados: ${session.mistakesLogged}`,
   ];
 
   return (
@@ -94,11 +94,11 @@ export function FocusSessionPanel({
         </h2>
         <p className="mt-2 text-slate-700">{session.objective}</p>
         <p className="mt-4 text-sm text-slate-500">
-          Planned block: {session.plannedStartTime}-{session.plannedEndTime} (
+          Bloque planificado: {session.plannedStartTime}-{session.plannedEndTime} (
           {session.plannedDurationMinutes} min)
         </p>
         <p className="mt-1 text-sm text-slate-500">
-          Timer status: {session.timerStatus}. Session status: {session.status}.
+          Estado del temporizador: {session.timerStatus}. Estado de sesión: {session.status}.
         </p>
         <p className="mt-2 text-sm text-slate-500">{message}</p>
 
@@ -109,12 +109,12 @@ export function FocusSessionPanel({
             onClick={() =>
               applySessionUpdate(
                 startSessionTimer,
-                "Timer started locally. Sign in to persist focus changes.",
+                "Temporizador iniciado en local. Inicia sesión para guardar cambios.",
               )
             }
             type="button"
           >
-            Start
+            Iniciar
           </button>
           <button
             className="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
@@ -122,12 +122,12 @@ export function FocusSessionPanel({
             onClick={() =>
               applySessionUpdate(
                 pauseSessionTimer,
-                "Timer paused locally. Sign in to persist focus changes.",
+                "Temporizador pausado en local. Inicia sesión para guardar cambios.",
               )
             }
             type="button"
           >
-            Pause
+            Pausar
           </button>
           <button
             className="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
@@ -135,12 +135,12 @@ export function FocusSessionPanel({
             onClick={() =>
               applySessionUpdate(
                 resetSessionTimer,
-                "Timer reset locally. Sign in to persist focus changes.",
+                "Temporizador reiniciado en local. Inicia sesión para guardar cambios.",
               )
             }
             type="button"
           >
-            Reset
+            Reiniciar
           </button>
           <button
             className="rounded-full border border-amber-300 px-4 py-2 text-sm text-amber-900 disabled:cursor-not-allowed disabled:opacity-60"
@@ -148,18 +148,18 @@ export function FocusSessionPanel({
             onClick={() =>
               applySessionUpdate(
                 moveSessionToReview,
-                "Session moved to local review. Sign in to persist focus changes.",
+                "Sesión movida a revisión local. Inicia sesión para guardar cambios.",
               )
             }
             type="button"
           >
-            Simulate timer end
+            Simular fin del temporizador
           </button>
         </div>
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6">
-        <h3 className="text-lg font-semibold text-slate-900">Session checklist</h3>
+        <h3 className="text-lg font-semibold text-slate-900">Checklist de sesión</h3>
         <ul className="mt-4 space-y-2 text-sm text-slate-700">
           {checklist.map((item) => (
             <li key={item}>{item}</li>
@@ -169,9 +169,9 @@ export function FocusSessionPanel({
 
       {session.reviewState === "waiting" ? (
         <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
-          <h3 className="text-lg font-semibold text-amber-950">Ready for review</h3>
+          <h3 className="text-lg font-semibold text-amber-950">Lista para revisión</h3>
           <p className="mt-2 text-sm text-amber-900">
-            Decide whether the session should be completed, extended, or abandoned.
+            Decide si la sesión debe completarse, extenderse o abandonarse.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <button
@@ -187,14 +187,14 @@ export function FocusSessionPanel({
                       mistakesLogged: currentSession.mistakesLogged,
                       confidenceAfter: 4,
                       nextReviewAt: getDefaultNextReviewDate(),
-                      notes: "Completed after the timer-end review step.",
+                      notes: "Completada después del paso de revisión al terminar el temporizador.",
                     }),
-                  "Session completed locally. Sign in to persist focus changes.",
+                  "Sesión completada en local. Inicia sesión para guardar cambios.",
                 )
               }
               type="button"
             >
-              Complete
+              Completar
             </button>
             <button
               className="rounded-full border border-amber-300 px-4 py-2 text-sm text-amber-900 disabled:cursor-not-allowed disabled:opacity-60"
@@ -202,12 +202,12 @@ export function FocusSessionPanel({
               onClick={() =>
                 applySessionUpdate(
                   (currentSession) => extendSession(currentSession, 15),
-                  "Session extended locally. Sign in to persist focus changes.",
+                  "Sesión extendida en local. Inicia sesión para guardar cambios.",
                 )
               }
               type="button"
             >
-              Extend 15 min
+              Extender 15 min
             </button>
             <button
               className="rounded-full border border-red-300 px-4 py-2 text-sm text-red-800 disabled:cursor-not-allowed disabled:opacity-60"
@@ -215,12 +215,12 @@ export function FocusSessionPanel({
               onClick={() =>
                 applySessionUpdate(
                   abandonSession,
-                  "Session abandoned locally. Sign in to persist focus changes.",
+                  "Sesión abandonada en local. Inicia sesión para guardar cambios.",
                 )
               }
               type="button"
             >
-              Abandon
+              Abandonar
             </button>
           </div>
         </section>

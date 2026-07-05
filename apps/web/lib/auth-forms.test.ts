@@ -18,13 +18,13 @@ describe("parseEmailPasswordForm", () => {
     const formData = new FormData();
     formData.set("password", "secret-pass");
 
-    expect(() => parseEmailPasswordForm(formData)).toThrow("Email is required.");
+    expect(() => parseEmailPasswordForm(formData)).toThrow("El email es obligatorio.");
   });
 
   it("throws when password is missing", () => {
     const formData = new FormData();
     formData.set("email", "user@example.com");
 
-    expect(() => parseEmailPasswordForm(formData)).toThrow("Password is required.");
+    expect(() => parseEmailPasswordForm(formData)).toThrow("La contraseña es obligatoria.");
   });
 });

@@ -4,10 +4,10 @@ import { signInWithEmailPassword } from "@/lib/auth-actions";
 export default function SignInPage() {
   return (
     <AuthForm
-      title="Sign in"
-      description="Sign in with your Supabase email and password to save settings in the app."
-      submitLabel="Sign in"
-      helperText="Enter your existing account credentials."
+      title="Iniciar sesión"
+      description="Inicia sesión con email y contraseña de Supabase para guardar ajustes en la app."
+      submitLabel="Iniciar sesión"
+      helperText="Introduce tus credenciales existentes."
       action={signInWithEmailPassword}
     />
   );

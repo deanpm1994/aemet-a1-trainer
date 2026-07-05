@@ -7,13 +7,13 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "AEMET A1 Trainer",
     short_name: "AEMET A1",
     description:
-      "Study planner, topic checklist, question practice, and focus support for AEMET A1 preparation.",
+      "Planificador, temario, práctica de preguntas y apoyo de concentración para preparar AEMET A1.",
     start_url: "/",
     scope: "/",
     display: "standalone",
     background_color: "#f7f4ee",
     theme_color: themeColor,
-    lang: "en",
+    lang: "es",
     categories: ["education", "productivity"],
     icons: [
       {

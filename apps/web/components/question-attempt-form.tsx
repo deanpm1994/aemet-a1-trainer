@@ -16,13 +16,13 @@ type QuestionAttemptFormProps = {
 };
 
 const mistakeTypes: Array<{ value: MistakeType; label: string }> = [
-  { value: "none", label: "None" },
-  { value: "concept", label: "Concept" },
-  { value: "formula", label: "Formula" },
-  { value: "units", label: "Units" },
-  { value: "reading", label: "Reading" },
-  { value: "legal_wording", label: "Legal wording" },
-  { value: "time_management", label: "Time management" },
+  { value: "none", label: "Ninguno" },
+  { value: "concept", label: "Concepto" },
+  { value: "formula", label: "Fórmula" },
+  { value: "units", label: "Unidades" },
+  { value: "reading", label: "Lectura" },
+  { value: "legal_wording", label: "Redacción legal" },
+  { value: "time_management", label: "Gestión del tiempo" },
 ];
 
 export function QuestionAttemptForm({
@@ -32,15 +32,15 @@ export function QuestionAttemptForm({
 }: QuestionAttemptFormProps) {
   const [message, setMessage] = useState(
     canPersist
-      ? "Record a practice attempt to update review progress."
-      : "Sign in to persist question attempts.",
+      ? "Registra un intento de práctica para actualizar la revisión."
+      : "Inicia sesión para guardar intentos de preguntas.",
   );
   const [isPending, startTransition] = useTransition();
   const today = new Date().toISOString().slice(0, 10);
 
   function submitAttempt(formData: FormData) {
     if (!canPersist) {
-      setMessage("Sign in to persist question attempts.");
+      setMessage("Inicia sesión para guardar intentos de preguntas.");
       return;
     }
 
@@ -59,7 +59,7 @@ export function QuestionAttemptForm({
 
       <div className="grid gap-3 md:grid-cols-[2fr_1fr_1fr]">
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Selected answer</span>
+          <span className="font-medium text-slate-700">Respuesta seleccionada</span>
           {question.options.length > 0 ? (
             <select
               className="rounded-xl border border-slate-200 bg-white px-3 py-2"
@@ -75,14 +75,14 @@ export function QuestionAttemptForm({
             <input
               className="rounded-xl border border-slate-200 bg-white px-3 py-2"
               name="selectedAnswer"
-              placeholder="Short answer summary"
+              placeholder="Resumen de respuesta corta"
               type="text"
             />
           )}
         </label>
 
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Attempt date</span>
+          <span className="font-medium text-slate-700">Fecha del intento</span>
           <input
             className="rounded-xl border border-slate-200 bg-white px-3 py-2"
             defaultValue={today}
@@ -92,7 +92,7 @@ export function QuestionAttemptForm({
         </label>
 
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Confidence</span>
+          <span className="font-medium text-slate-700">Confianza</span>
           <input
             className="rounded-xl border border-slate-200 bg-white px-3 py-2"
             defaultValue={3}
@@ -106,11 +106,11 @@ export function QuestionAttemptForm({
 
       <label className="flex items-center gap-2 text-slate-700">
         <input name="isCorrect" type="checkbox" value="true" />
-        <span>Mark this attempt as correct</span>
+        <span>Marcar este intento como correcto</span>
       </label>
 
       <fieldset className="grid gap-2">
-        <legend className="font-medium text-slate-700">Mistake types</legend>
+        <legend className="font-medium text-slate-700">Tipos de error</legend>
         <div className="flex flex-wrap gap-2">
           {mistakeTypes.map((mistakeType) => (
             <label
@@ -130,11 +130,11 @@ export function QuestionAttemptForm({
       </fieldset>
 
       <label className="grid gap-1">
-        <span className="font-medium text-slate-700">Attempt notes</span>
+        <span className="font-medium text-slate-700">Notas del intento</span>
         <textarea
           className="min-h-20 rounded-xl border border-slate-200 bg-white px-3 py-2"
           name="notes"
-          placeholder="What caused the mistake or what should be reviewed next?"
+          placeholder="¿Qué causó el error o qué debe revisarse después?"
         />
       </label>
 
@@ -145,7 +145,7 @@ export function QuestionAttemptForm({
         disabled={isPending || !canPersist}
         type="submit"
       >
-        Record attempt
+        Registrar intento
       </button>
     </form>
   );

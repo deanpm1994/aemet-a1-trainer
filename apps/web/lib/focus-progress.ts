@@ -56,7 +56,7 @@ function buildTopicUpdates(
         priority: existingProgress?.priority ?? sourceTopic?.priority ?? "medium",
         nextReviewAt: session.nextReviewAt,
         notesStatus: session.notesCreated
-          ? "Session notes created"
+          ? "Notas de sesión creadas"
           : existingProgress?.notesStatus ?? sourceTopic?.notesStatus ?? "",
       },
     ];
