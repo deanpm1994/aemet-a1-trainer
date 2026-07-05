@@ -12,6 +12,7 @@ import {
   topics as fallbackTopics,
 } from "@/lib/mock-data";
 import { buildContentReadiness } from "@/lib/content-readiness";
+import { buildCountdownStatus } from "@/lib/countdown";
 import { buildTodayDashboard } from "@/lib/dashboard-today";
 import { loadQuestionsSource } from "@/lib/notion-questions";
 import { loadTopicsSource } from "@/lib/notion-topics";
@@ -77,6 +78,10 @@ export default async function DashboardPage() {
     today: new Date().toISOString().slice(0, 10),
   });
   const contentReadiness = buildContentReadiness(topics, questions);
+  const countdownStatus = buildCountdownStatus({
+    officialDate: null,
+    today: new Date().toISOString().slice(0, 10),
+  });
 
   return (
     <div className="space-y-8">
@@ -93,6 +98,17 @@ export default async function DashboardPage() {
       </section>
 
       <ContentReadinessCard readiness={contentReadiness} />
+
+      <section className="rounded-3xl border border-sky-200 bg-sky-50 p-6">
+        <p className="text-sm font-medium text-sky-900">{countdownStatus.label}</p>
+        <div className="mt-3 grid gap-2">
+          <p className="text-3xl font-semibold tracking-tight text-sky-950">
+            {countdownStatus.value}
+          </p>
+          <p className="text-sm leading-6 text-sky-900">{countdownStatus.detail}</p>
+          <p className="text-xs text-sky-800">{countdownStatus.sourceNote}</p>
+        </div>
+      </section>
 
       <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
         <p className="text-sm font-medium text-amber-900">Acción principal</p>

@@ -124,6 +124,7 @@ Phase 6 status:
 Phase 7 status:
 - Basic PWA installability metadata and project-owned icon placeholders implemented
 - Reminder preferences remain saved settings only
+- Countdown/status widget shell implemented; it explicitly shows no verified official date until source-backed date records exist
 - No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
 
 i18n status:
@@ -139,6 +140,7 @@ Study content readiness:
 - Dashboard, topics, and questions show whether loaded content is ready for private study tracking
 - Unverified starter topics/questions are explicitly not treated as official-ready
 - Verified official syllabus wording and verified past-question imports remain the main blocker before calling the app official-content ready
+- Source-backed official date records remain required before showing a real countdown to any convocatoria, deadline, or exam phase
 
 Supabase notes:
 - Project URL configured in local env
@@ -168,7 +170,6 @@ Verified working recently:
 Next recommended MVP steps:
 - Run a real 30-minute production study-session smoke test on the candidate's phone: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
 - Start verified official-content import planning: BOE syllabus source URL, retrieval date, exact wording preservation, and verification status per topic
-- Add countdown/status widgets that explicitly show no verified official date until a source-backed date exists
 - Add a settings language selector if the candidate wants to switch between Spanish and English
 
 Ignored local artifacts:
