@@ -94,10 +94,17 @@ Use `TODO_VERIFY_OFFICIAL_SOURCE` for uncertain data.
 
 ## Current implementation handoff
 
-Date: 2026-07-01
+Date: 2026-07-05
 
 Branch:
 - `develop`
+
+Private deployment:
+- Vercel project created and linked from `apps/web`: `deanpm1994s-projects/web`
+- Production URL: `https://web-konn52wdr-deanpm1994s-projects.vercel.app`
+- Required production env vars copied from local `.env.local` into Vercel production: Notion token/data source IDs and Supabase URL/publishable/secret keys
+- Vercel SSO deployment protection disabled so the URL is directly reachable; app-level Supabase auth remains available for persisted user data
+- Live route smoke checks returned HTTP 200 for `/`, `/dashboard`, `/calendar`, `/focus`, `/manifest.webmanifest`, `/auth/sign-up`, `/auth/sign-in`, `/topics`, `/questions`, and `/settings`
 
 Phase 5 status:
 - Phase 5.1 Supabase-backed user settings persistence implemented
@@ -133,10 +140,11 @@ Supabase notes:
 - Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`
 
 Verified working recently:
-- Sign-up and sign-in flow worked after env fix
-- `npm --prefix apps/web run lint`
 - `npm --prefix apps/web test`
+- `npm --prefix apps/web run lint`
 - `npm --prefix apps/web run build`
+- Vercel production deployment completed with ready state `READY`
+- Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
 - Focus route now loads the next persisted actionable session for signed-in users and saves timer/review transitions through `study_sessions`
 - Topic list and detail routes overlay signed-in user progress from `topic_progress` without mutating source-owned official metadata
@@ -149,10 +157,9 @@ Verified working recently:
 - Dashboard, topics, and questions show study-content readiness without treating unverified starter content as official
 
 Next recommended MVP steps:
-- Deploy a private Vercel build with Supabase env vars so the candidate can use the app on mobile
-- Run a real 30-minute study-session smoke test: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
+- Run a real 30-minute production study-session smoke test on the candidate's phone: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
 - Start verified official-content import planning: BOE syllabus source URL, retrieval date, exact wording preservation, and verification status per topic
-- After private deployment works, add countdown/status widgets that explicitly show no verified official date until a source-backed date exists
+- Add countdown/status widgets that explicitly show no verified official date until a source-backed date exists
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`

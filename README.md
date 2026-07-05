@@ -27,12 +27,27 @@ Grupo A1 – Cuerpo Superior de Meteorólogos del Estado, AEMET.
 
 ## Current status
 
-Phase 1 complete: read-only study checklist MVP.
-Phase 2 complete: question bank MVP.
-Phase 3 complete: focus and calendar MVP.
-Phase 4 complete: Notion sync for topics, questions, and resources.
-Phase 5.1 in progress: Supabase-backed user settings persistence for profile, study preferences, and reminder preferences.
-Phase 5.2 in progress: Supabase email/password auth for sign-up, sign-in, and sign-out.
+Private production deployment:
+
+- Vercel project: `deanpm1994s-projects/web`
+- Production URL: `https://web-konn52wdr-deanpm1994s-projects.vercel.app`
+- Deployment protection: Vercel SSO disabled; app-level Supabase auth remains available.
+
+Implemented:
+
+- Phase 1: read-only study checklist MVP.
+- Phase 2: question bank MVP.
+- Phase 3: focus and calendar MVP.
+- Phase 4: Notion sync for topics, questions, and resources.
+- Phase 5: Supabase-backed auth, settings, study sessions, focus outcomes, topic progress, question progress, and question attempt history.
+- Phase 6: manual-only monitoring workflow skeleton.
+- Phase 7: basic PWA installability metadata.
+
+Not yet fully operating:
+
+- Official BOE/AEMET syllabus and past-question content still needs verified import.
+- Monitoring is not automated; there is no polling, snapshot comparison, event detection, or alert delivery.
+- Reminder settings are saved preferences only; browser notifications, push subscriptions, service worker, offline cache, and scheduled delivery are not active.
 
 ## Notion sync
 
