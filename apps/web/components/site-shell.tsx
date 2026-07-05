@@ -2,13 +2,15 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { AuthStatus } from "@/components/auth-status";
-import { routeCards } from "@/lib/mock-data";
+import { DEFAULT_LOCALE, routeCards, t } from "@/lib/i18n";
 
 type SiteShellProps = {
   children: ReactNode;
 };
 
 export function SiteShell({ children }: SiteShellProps) {
+  const routes = routeCards(DEFAULT_LOCALE);
+
   return (
     <div className="min-h-screen">
       <header className="border-b border-ink/10 bg-white/70 backdrop-blur">
@@ -19,19 +21,18 @@ export function SiteShell({ children }: SiteShellProps) {
                 AEMET A1 Trainer
               </Link>
               <p className="mt-1 max-w-3xl text-sm text-ink/70">
-                PWA-first study system scaffold for the AEMET Grupo A1 opposition.
-                Official data is not loaded yet.
+                {t(DEFAULT_LOCALE, "app.shell.tagline")}
               </p>
             </div>
             <div className="flex flex-col items-start gap-3 md:items-end">
               <div className="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-xs font-medium text-warning">
-                Foundation phase
+                {t(DEFAULT_LOCALE, "app.shell.phase")}
               </div>
               <AuthStatus />
             </div>
           </div>
           <nav className="flex flex-wrap gap-2">
-            {routeCards.map((route) => (
+            {routes.map((route) => (
               <Link
                 key={route.href}
                 href={route.href}

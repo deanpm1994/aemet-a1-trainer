@@ -1,9 +1,11 @@
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { routeCards } from "@/lib/mock-data";
+import { DEFAULT_LOCALE, routeCards } from "@/lib/i18n";
 
 export default function HomePage() {
+  const routes = routeCards(DEFAULT_LOCALE);
+
   return (
     <div className="space-y-10">
       <section className="grid gap-8 rounded-[2rem] bg-[linear-gradient(135deg,#fbfcf8_0%,#e5efe1_55%,#d6e0d0_100%)] p-8 shadow-sm ring-1 ring-ink/10 lg:grid-cols-[1.3fr_0.7fr]">
@@ -39,7 +41,7 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {routeCards.map((route) => (
+        {routes.map((route) => (
           <Link
             key={route.href}
             href={route.href}

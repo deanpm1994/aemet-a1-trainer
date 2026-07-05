@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE, t, type TranslationKey } from "@/lib/i18n";
 import type { TopicSourceState } from "@/lib/notion-topics";
 
 type SourceStateBannerProps = {
@@ -11,13 +12,20 @@ const bannerClasses: Record<TopicSourceState, string> = {
   fallback_error: "border-red-200 bg-red-50 text-red-900",
 };
 
+const sourceStateKeys: Record<TopicSourceState, TranslationKey> = {
+  live: "sourceState.live",
+  fallback_config: "sourceState.fallbackConfig",
+  fallback_error: "sourceState.fallbackError",
+};
+
 export function SourceStateBanner({
   sourceState,
   message,
 }: SourceStateBannerProps) {
   return (
     <section className={`rounded-2xl border p-4 text-sm ${bannerClasses[sourceState]}`}>
-      <p>{message}</p>
+      <p>{t(DEFAULT_LOCALE, sourceStateKeys[sourceState])}</p>
+      <p className="mt-1 opacity-75">{message}</p>
     </section>
   );
 }

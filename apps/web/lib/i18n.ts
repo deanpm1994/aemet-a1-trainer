@@ -32,12 +32,17 @@ export type TranslationKey =
   | "app.shell.phase"
   | "app.shell.tagline"
   | "contentReadiness.empty.empty"
+  | "contentReadiness.empty.detail"
   | "contentReadiness.empty.loaded"
   | "contentReadiness.empty.pending"
   | "contentReadiness.empty.privateReady"
   | "contentReadiness.empty.title"
+  | "contentReadiness.label"
+  | "contentReadiness.officialReady.detail"
   | "contentReadiness.officialReady.title"
+  | "contentReadiness.pending.detail"
   | "contentReadiness.pending.title"
+  | "contentReadiness.privateReady.detail"
   | "contentReadiness.privateReady.title"
   | "contentReadiness.stat.officialReady"
   | "contentReadiness.stat.pending"
@@ -105,12 +110,21 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.shell.tagline":
       "Sistema PWA de estudio para la oposición AEMET Grupo A1. Los datos oficiales aún no están cargados.",
     "contentReadiness.empty.empty": "Vacío",
+    "contentReadiness.empty.detail":
+      "Añade temas oficiales verificados o elementos iniciales de práctica antes de usar el flujo de estudio.",
     "contentReadiness.empty.loaded": "Cargados",
     "contentReadiness.empty.pending": "Pendientes",
     "contentReadiness.empty.privateReady": "Preparado",
     "contentReadiness.empty.title": "Sin contenido cargado",
+    "contentReadiness.label": "Preparación del contenido de estudio",
+    "contentReadiness.officialReady.detail":
+      "Todos los temas y preguntas cargados están verificados con metadatos de fuente. Continúa con el seguimiento normal de estudio.",
     "contentReadiness.officialReady.title": "Contenido oficial verificado",
+    "contentReadiness.pending.detail":
+      "Usa la app para planificar, concentrarte y registrar progreso. La redacción oficial del temario y las fuentes de preguntas anteriores aún necesitan verificación antes de tratarse como oficiales.",
     "contentReadiness.pending.title": "Verificación oficial pendiente",
+    "contentReadiness.privateReady.detail":
+      "Usa la app para planificar, concentrarte y registrar progreso. La verificación oficial sigue pendiente.",
     "contentReadiness.privateReady.title": "Preparado para estudio privado",
     "contentReadiness.stat.officialReady": "Listos como oficiales",
     "contentReadiness.stat.pending": "Pendientes de revisión oficial",
@@ -167,12 +181,21 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.shell.tagline":
       "PWA-first study system scaffold for the AEMET Grupo A1 opposition. Official data is not loaded yet.",
     "contentReadiness.empty.empty": "Empty",
+    "contentReadiness.empty.detail":
+      "Add verified official syllabus topics or starter practice items before using the study flow.",
     "contentReadiness.empty.loaded": "Loaded",
     "contentReadiness.empty.pending": "Pending",
     "contentReadiness.empty.privateReady": "Ready",
     "contentReadiness.empty.title": "No content loaded",
+    "contentReadiness.label": "Study content readiness",
+    "contentReadiness.officialReady.detail":
+      "All loaded topics and questions are verified with source metadata. Continue normal study tracking.",
     "contentReadiness.officialReady.title": "Verified official content",
+    "contentReadiness.pending.detail":
+      "Use the app for planning, focus sessions, and progress tracking. Official syllabus wording and past-question sources still need verification before being treated as official.",
     "contentReadiness.pending.title": "Official verification pending",
+    "contentReadiness.privateReady.detail":
+      "Use the app for planning, focus sessions, and progress tracking. Official verification remains pending.",
     "contentReadiness.privateReady.title": "Ready for private study",
     "contentReadiness.stat.officialReady": "Official-ready",
     "contentReadiness.stat.pending": "Pending official review",
