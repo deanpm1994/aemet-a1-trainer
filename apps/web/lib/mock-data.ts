@@ -4,56 +4,12 @@ import type {
   MonitoringEvent,
   MonitoringSource,
   Question,
-  RouteCard,
   StudyMission,
   StudySession,
   Topic,
 } from "./types";
 
 import { countExamReadyTopics, countTouchedTopics } from "./topic-progress";
-
-export const routeCards: RouteCard[] = [
-  {
-    href: "/dashboard",
-    title: "Dashboard",
-    description: "Morning mission, weekly hours, progress, and monitoring status.",
-  },
-  {
-    href: "/topics",
-    title: "Topics",
-    description: "Live-capable Notion-backed topic checklist with explicit local fallback.",
-  },
-  {
-    href: "/questions",
-    title: "Questions",
-    description: "Live-capable question bank with explicit local fallback and review metadata.",
-  },
-  {
-    href: "/resources",
-    title: "Resources",
-    description: "Study resources from bibliography data with explicit access and verification context.",
-  },
-  {
-    href: "/calendar",
-    title: "Calendar",
-    description: "Editable current-week planner built around the morning study schedule.",
-  },
-  {
-    href: "/focus",
-    title: "Focus",
-    description: "Timer-driven focus session with review decisions and output tracking.",
-  },
-  {
-    href: "/monitoring",
-    title: "Monitoring",
-    description: "Manual BOE/AEMET monitoring status until automation exists.",
-  },
-  {
-    href: "/settings",
-    title: "Settings",
-    description: "Future profile, integrations, verification, and reminders setup.",
-  },
-];
 
 export const studyMission: StudyMission = {
   mainTopic: "07:30-09:00 deep technical topic",

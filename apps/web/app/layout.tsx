@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 import { SiteShell } from "@/components/site-shell";
+import { DEFAULT_LOCALE, t } from "@/lib/i18n";
 
 import "./globals.css";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | AEMET A1 Trainer",
   },
   description:
-    "Study planner, topic checklist, question practice, and focus support for AEMET A1 preparation.",
+    t(DEFAULT_LOCALE, "app.description"),
   manifest: "/manifest.webmanifest",
   applicationName: "AEMET A1 Trainer",
   appleWebApp: {
@@ -35,7 +36,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang={DEFAULT_LOCALE}>
       <body>
         <SiteShell>{children}</SiteShell>
       </body>

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { bibliography, questions, routeCards } from "./mock-data";
+import { routeCards } from "./i18n";
+import { bibliography, questions } from "./mock-data";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -31,7 +32,7 @@ describe("question fixtures", () => {
   });
 
   it("updates the questions route card to describe a real question bank", () => {
-    expect(routeCards.find((card) => card.href === "/questions")?.description).toContain(
+    expect(routeCards("en").find((card) => card.href === "/questions")?.description).toContain(
       "Live-capable question bank",
     );
   });
@@ -51,7 +52,7 @@ describe("resources fixtures", () => {
   });
 
   it("adds a resources route card", () => {
-    expect(routeCards.find((card) => card.href === "/resources")?.description).toContain(
+    expect(routeCards("en").find((card) => card.href === "/resources")?.description).toContain(
       "Study resources",
     );
   });

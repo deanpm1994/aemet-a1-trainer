@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 
 import { questions as fallbackQuestions } from "./mock-data";
-import { routeCards } from "./mock-data";
+import { routeCards } from "./i18n";
 import type { Question } from "./types";
 import { loadQuestionsSource, mapNotionQuestionPage } from "./notion-questions";
 
@@ -198,7 +198,7 @@ describe("loadQuestionsSource", () => {
 
 describe("questions route copy", () => {
   it("keeps the questions route card focused on the live-capable question bank", () => {
-    expect(routeCards.find((card) => card.href === "/questions")?.description).toContain(
+    expect(routeCards("en").find((card) => card.href === "/questions")?.description).toContain(
       "Live-capable",
     );
   });

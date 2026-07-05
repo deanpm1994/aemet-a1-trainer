@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 
 import { bibliography as fallbackBibliography } from "./mock-data";
-import { routeCards } from "./mock-data";
+import { routeCards } from "./i18n";
 import type { BibliographyItem } from "./types";
 import {
   loadBibliographySource,
@@ -147,6 +147,6 @@ describe("loadBibliographySource", () => {
 
 describe("resources route card", () => {
   it("adds a Resources route card that points to /resources", () => {
-    expect(routeCards.find((card) => card.href === "/resources")?.title).toBe("Resources");
+    expect(routeCards("en").find((card) => card.href === "/resources")?.title).toBe("Resources");
   });
 });

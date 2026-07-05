@@ -2,7 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 
-import { routeCards, topics as fallbackTopics } from "./mock-data";
+import { routeCards } from "./i18n";
+import { topics as fallbackTopics } from "./mock-data";
 import { NotionConfigError } from "./notion-client";
 import type { Topic } from "./types";
 import { loadTopicsSource, mapNotionTopicPage } from "./notion-topics";
@@ -220,7 +221,7 @@ describe("loadTopicsSource", () => {
 
 describe("topics route copy", () => {
   it("keeps the topics route card focused on live-capable topic sync", () => {
-    expect(routeCards.find((card) => card.href === "/topics")?.description).toContain(
+    expect(routeCards("en").find((card) => card.href === "/topics")?.description).toContain(
       "Live-capable Notion-backed topic checklist",
     );
   });

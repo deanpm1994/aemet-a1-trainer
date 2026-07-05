@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { routeCards, studySessions } from "./mock-data";
+import { routeCards } from "./i18n";
+import { studySessions } from "./mock-data";
 import {
   buildPlannerWeek,
   buildPlannerWeekSummary,
@@ -30,10 +31,12 @@ describe("study session fixtures", () => {
   });
 
   it("updates the calendar and focus route copy to describe real tools", () => {
-    expect(routeCards.find((card) => card.href === "/calendar")?.description).toContain(
+    const routes = routeCards("en");
+
+    expect(routes.find((card) => card.href === "/calendar")?.description).toContain(
       "Editable current-week planner",
     );
-    expect(routeCards.find((card) => card.href === "/focus")?.description).toContain(
+    expect(routes.find((card) => card.href === "/focus")?.description).toContain(
       "Timer-driven focus session",
     );
   });
