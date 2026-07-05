@@ -17,7 +17,7 @@ describe("buildSignUpResult", () => {
     ).toEqual({
       ok: true,
       message:
-        "Account created. If email confirmation is enabled in Supabase, confirm the email before signing in.",
+        "Cuenta creada. Si la confirmación por email está activa en Supabase, confirma el email antes de iniciar sesión.",
       redirectTo: null,
     });
   });
@@ -51,7 +51,7 @@ describe("buildSignInResult", () => {
       }),
     ).toEqual({
       ok: true,
-      message: "Signed in.",
+      message: "Sesión iniciada.",
       redirectTo: "/settings",
     });
   });

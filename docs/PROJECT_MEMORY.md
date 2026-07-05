@@ -130,8 +130,10 @@ i18n status:
 - Spanish-first UI foundation implemented with internal `es`/`en` dictionaries
 - The root app language defaults to Spanish (`es`)
 - Shared shell, navigation, homepage, source-state, and content-readiness UI copy use the i18n helper
+- Spanish UI pass 2 translated remaining primary route, form, auth, planner, focus, question, topic, resource, monitoring, settings, manifest, and user-facing status copy
 - English fallback strings exist in code, but no user-facing language selector or persisted language preference is implemented yet
 - Product UI strings may be translated; source-owned topic/question fields and future BOE/AEMET official wording must not be machine-translated or rewritten by the i18n layer
+- Unverified starter study fixture content in `mock-data.ts` may still contain English study statements, names, objectives, bibliography titles, and source notes; treat that as content cleanup/import work, not UI chrome
 
 Study content readiness:
 - Dashboard, topics, and questions show whether loaded content is ready for private study tracking

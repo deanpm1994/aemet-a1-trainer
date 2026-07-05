@@ -15,7 +15,7 @@ function readRequiredString(value: FormDataEntryValue | null, message: string) {
 
 export function parseEmailPasswordForm(formData: FormData): EmailPasswordInput {
   return {
-    email: readRequiredString(formData.get("email"), "Email is required."),
-    password: readRequiredString(formData.get("password"), "Password is required."),
+    email: readRequiredString(formData.get("email"), "El email es obligatorio."),
+    password: readRequiredString(formData.get("password"), "La contraseña es obligatoria."),
   };
 }

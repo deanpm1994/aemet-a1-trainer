@@ -67,7 +67,7 @@ export default async function QuestionsPage() {
   const { questions: sourceQuestions, sourceState, message } = await loadQuestionsSource();
   let questions = sourceQuestions;
   let canPersist = false;
-  let progressMessage = "Sign in to persist question progress.";
+  let progressMessage = "Inicia sesión para guardar progreso de preguntas.";
 
   try {
     getSupabaseBrowserConfig();
@@ -82,13 +82,13 @@ export default async function QuestionsPage() {
       );
       questions = applyQuestionProgress(sourceQuestions, progress);
       canPersist = true;
-      progressMessage = "Question progress loaded from Supabase.";
+      progressMessage = "Progreso de preguntas cargado desde Supabase.";
     }
   } catch (error) {
     progressMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase question progress unavailable until required env vars are configured."
-        : "Unable to load saved question progress right now. Showing source question state.";
+        ? "El progreso de preguntas en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudo cargar el progreso guardado de preguntas. Mostrando estado fuente.";
   }
 
   const filters = getDefaultQuestionFilters();
@@ -108,7 +108,7 @@ export default async function QuestionsPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before question attempts can sync to Supabase.",
+        message: "Inicia sesión para sincronizar intentos de preguntas con Supabase.",
       };
     }
 
@@ -117,7 +117,7 @@ export default async function QuestionsPage() {
     if (!questionId) {
       return {
         ok: false,
-        message: "Missing question id. Refresh before retrying.",
+        message: "Falta el id de la pregunta. Recarga antes de reintentar.",
       };
     }
 
@@ -149,12 +149,12 @@ export default async function QuestionsPage() {
 
       return {
         ok: true,
-        message: "Question attempt saved and review progress updated.",
+        message: "Intento de pregunta guardado y progreso de revisión actualizado.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save question attempt. Form values remain in place.",
+        message: "No se pudo guardar el intento. Los valores quedan en el formulario.",
       };
     }
   }
@@ -162,9 +162,9 @@ export default async function QuestionsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Questions"
-        title="Question bank MVP"
-        description="Phase 4 question sync prefers one dedicated Notion workspace and falls back to local question data when live sync is unavailable. Official wording and answer-source claims remain explicit through the stored verification metadata."
+        eyebrow="Preguntas"
+        title="Banco de preguntas MVP"
+        description="La sincronización de preguntas prefiere un workspace dedicado de Notion y usa datos locales si no hay sincronización. La redacción oficial y las fuentes de respuesta se mantienen explícitas mediante metadatos."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
@@ -177,23 +177,23 @@ export default async function QuestionsPage() {
 
       <section className="grid gap-4 md:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Total questions</p>
+          <p className="text-sm text-slate-500">Preguntas totales</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">{stats.total}</p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Visible with current filters</p>
+          <p className="text-sm text-slate-500">Visibles con filtros actuales</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">
             {visibleQuestions.length}
           </p>
         </article>
         <article className="rounded-2xl border border-amber-200 bg-amber-50 p-4 shadow-sm">
-          <p className="text-sm text-amber-700">Overdue review</p>
+          <p className="text-sm text-amber-700">Revisión vencida</p>
           <p className="mt-2 text-2xl font-semibold text-amber-900">
             {overdueQuestions.length}
           </p>
         </article>
         <article className="rounded-2xl border border-rose-200 bg-rose-50 p-4 shadow-sm">
-          <p className="text-sm text-rose-700">Practice pain points</p>
+          <p className="text-sm text-rose-700">Puntos débiles de práctica</p>
           <p className="mt-2 text-2xl font-semibold text-rose-900">
             {painPoints.length}
           </p>
@@ -201,26 +201,26 @@ export default async function QuestionsPage() {
       </section>
 
       <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Filter baseline</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Base de filtros</h2>
         <p className="mt-2 text-sm text-slate-600">
-          Phase 4 ships read-only default filters only. Interactive filter controls and
-          editing stay out of scope until later phases.
+          Esta fase incluye filtros predeterminados de solo lectura. Controles interactivos
+          y edición quedan fuera hasta fases posteriores.
         </p>
         <dl className="mt-4 grid gap-3 text-sm text-slate-700 md:grid-cols-4">
           <div>
-            <dt className="font-medium text-slate-900">Type</dt>
+            <dt className="font-medium text-slate-900">Tipo</dt>
             <dd>{filters.type}</dd>
           </div>
           <div>
-            <dt className="font-medium text-slate-900">Verification</dt>
+            <dt className="font-medium text-slate-900">Verificación</dt>
             <dd>{filters.verificationStatus}</dd>
           </div>
           <div>
-            <dt className="font-medium text-slate-900">Difficulty</dt>
+            <dt className="font-medium text-slate-900">Dificultad</dt>
             <dd>{filters.difficulty}</dd>
           </div>
           <div>
-            <dt className="font-medium text-slate-900">Mistake type</dt>
+            <dt className="font-medium text-slate-900">Tipo de error</dt>
             <dd>{filters.mistakeType}</dd>
           </div>
         </dl>
@@ -235,9 +235,9 @@ export default async function QuestionsPage() {
             >
               <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                 <span>{question.type}</span>
-                <span>Difficulty {question.difficulty}</span>
+                <span>Dificultad {question.difficulty}</span>
                 <span>{question.verificationStatus}</span>
-                <span>Attempts {question.attemptsCount}</span>
+                <span>Intentos {question.attemptsCount}</span>
               </div>
               <h2 className="mt-3 text-lg font-semibold text-slate-900">{question.name}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-700">{question.statement}</p>
@@ -251,26 +251,26 @@ export default async function QuestionsPage() {
                 </ul>
               ) : (
                 <p className="mt-4 text-sm text-slate-500">
-                  No options stored for this short-answer item.
+                  No hay opciones guardadas para esta pregunta de respuesta corta.
                 </p>
               )}
               <dl className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
                 <div>
-                  <dt className="font-medium text-slate-900">Answer source</dt>
+                  <dt className="font-medium text-slate-900">Fuente de respuesta</dt>
                   <dd>{question.answerSourceStatus}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Next review</dt>
+                  <dt className="font-medium text-slate-900">Próxima revisión</dt>
                   <dd>{question.nextReviewAt}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Source</dt>
+                  <dt className="font-medium text-slate-900">Fuente</dt>
                   <dd>
                     {question.sourceExam} {question.sourceYear}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-slate-900">Mistake types</dt>
+                  <dt className="font-medium text-slate-900">Tipos de error</dt>
                   <dd>{question.mistakeTypes.join(", ")}</dd>
                 </div>
               </dl>
@@ -285,7 +285,7 @@ export default async function QuestionsPage() {
 
         <aside className="space-y-4">
           <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Coverage by type</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Cobertura por tipo</h2>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
               {Object.entries(stats.byType).map(([type, count]) => (
                 <li key={type} className="flex items-center justify-between">
@@ -297,13 +297,13 @@ export default async function QuestionsPage() {
           </section>
 
           <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Weak areas</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Áreas débiles</h2>
             <ul className="mt-4 space-y-3 text-sm text-slate-600">
               {painPoints.map((item) => (
                 <li key={item.id}>
                   <p className="font-medium text-slate-900">{item.label}</p>
-                  <p>Attempts: {item.attemptsCount}</p>
-                  <p>Mistakes: {item.mistakeTypes.join(", ")}</p>
+                  <p>Intentos: {item.attemptsCount}</p>
+                  <p>Errores: {item.mistakeTypes.join(", ")}</p>
                 </li>
               ))}
             </ul>

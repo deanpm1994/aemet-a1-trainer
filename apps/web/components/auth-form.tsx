@@ -31,7 +31,7 @@ export function AuthForm({
       </div>
       <form className="mt-6 space-y-4" action={formAction}>
         <label className="space-y-2 text-sm text-ink/80">
-          <span>Email</span>
+          <span>Correo electrónico</span>
           <input
             name="email"
             type="email"
@@ -39,7 +39,7 @@ export function AuthForm({
           />
         </label>
         <label className="space-y-2 text-sm text-ink/80">
-          <span>Password</span>
+          <span>Contraseña</span>
           <input
             name="password"
             type="password"
@@ -52,7 +52,7 @@ export function AuthForm({
           disabled={isPending}
           className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-ink/40"
         >
-          {isPending ? "Submitting..." : submitLabel}
+          {isPending ? "Enviando..." : submitLabel}
         </button>
       </form>
     </section>

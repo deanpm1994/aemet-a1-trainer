@@ -373,7 +373,7 @@ export async function loadTopicsSource(
         topics: fallbackTopics,
         sourceState: "fallback_config",
         message:
-          "Live Notion sync is not configured. Showing local fallback topic data.",
+          "La sincronización de Notion no está configurada. Mostrando datos locales de temas.",
       };
     }
 
@@ -395,13 +395,13 @@ export async function loadTopicsSource(
     return {
       topics: mappedTopics,
       sourceState: "live",
-      message: "Live Notion topic sync is active.",
+      message: "Sincronización de temas con Notion activa.",
     };
   } catch {
     return {
       topics: fallbackTopics,
       sourceState: "fallback_error",
-      message: "Live Notion sync failed. Showing local fallback topic data.",
+      message: "Falló la sincronización con Notion. Mostrando datos locales de temas.",
     };
   }
 }

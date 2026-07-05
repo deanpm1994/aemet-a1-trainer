@@ -150,7 +150,7 @@ describe("loadQuestionsSource", () => {
     });
 
     expect(result.sourceState).toBe("live");
-    expect(result.message).toBe("Live Notion question sync is active.");
+    expect(result.message).toBe("Sincronización de preguntas con Notion activa.");
     expect(result.questions[0]?.id).toBe("Q-001");
   });
 

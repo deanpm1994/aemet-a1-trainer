@@ -15,7 +15,7 @@ type StudySessionsRepositoryClient = Parameters<typeof ensureStudySessions>[0];
 export default async function CalendarPage() {
   let canPersist = false;
   let initialSessions = studySessions;
-  let statusMessage = "Planner changes are local-only until you sign in.";
+  let statusMessage = "Los cambios del planificador son locales hasta iniciar sesión.";
 
   try {
     getSupabaseBrowserConfig();
@@ -30,13 +30,13 @@ export default async function CalendarPage() {
         studySessions,
       );
       canPersist = true;
-      statusMessage = "Calendar sessions loaded from Supabase.";
+      statusMessage = "Sesiones de calendario cargadas desde Supabase.";
     }
   } catch (error) {
     statusMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase session persistence unavailable until required env vars are configured."
-        : "Unable to load saved sessions right now. Showing the local planner.";
+        ? "La persistencia de sesiones en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudieron cargar las sesiones guardadas. Mostrando el planificador local.";
   }
 
   async function saveSessionAction(session: StudySession) {
@@ -47,7 +47,7 @@ export default async function CalendarPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before calendar changes can sync to Supabase.",
+        message: "Inicia sesión para sincronizar cambios del calendario con Supabase.",
       };
     }
 
@@ -61,12 +61,12 @@ export default async function CalendarPage() {
 
       return {
         ok: true,
-        message: "Calendar session saved.",
+        message: "Sesión de calendario guardada.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save this calendar change. Try again before leaving.",
+        message: "No se pudo guardar este cambio de calendario. Reintenta antes de salir.",
       };
     }
   }
@@ -79,7 +79,7 @@ export default async function CalendarPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before calendar changes can sync to Supabase.",
+        message: "Inicia sesión para sincronizar cambios del calendario con Supabase.",
       };
     }
 
@@ -93,13 +93,13 @@ export default async function CalendarPage() {
 
       return {
         ok: true,
-        message: "Calendar reset to the recommended week.",
+        message: "Calendario restablecido a la semana recomendada.",
         sessions,
       };
     } catch {
       return {
         ok: false,
-        message: "Could not reset saved sessions. Current planner remains in place.",
+        message: "No se pudieron restablecer las sesiones guardadas. El planificador actual queda igual.",
       };
     }
   }
@@ -107,9 +107,9 @@ export default async function CalendarPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Calendar"
-        title="Persisted current-week planner"
-        description="Signed-in users load and save calendar sessions through Supabase. Anonymous users can still adjust the local demo planner."
+        eyebrow="Calendario"
+        title="Planificador semanal persistente"
+        description="Las personas con sesión iniciada cargan y guardan sesiones mediante Supabase. Sin sesión, se puede ajustar el planificador local de demo."
       />
       <CalendarPlanner
         initialSessions={initialSessions}

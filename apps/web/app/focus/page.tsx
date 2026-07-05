@@ -30,7 +30,7 @@ type TopicProgressRepositoryClient = Parameters<typeof getTopicProgress>[0];
 export default async function FocusPage() {
   let canPersist = false;
   let sessions = studySessions;
-  let statusMessage = "Focus changes are local-only until you sign in.";
+  let statusMessage = "Los cambios de concentración son locales hasta iniciar sesión.";
 
   try {
     getSupabaseBrowserConfig();
@@ -45,13 +45,13 @@ export default async function FocusPage() {
         studySessions,
       );
       canPersist = true;
-      statusMessage = "Focus session loaded from Supabase.";
+      statusMessage = "Sesión de concentración cargada desde Supabase.";
     }
   } catch (error) {
     statusMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase focus persistence unavailable until required env vars are configured."
-        : "Unable to load saved focus sessions right now. Showing the local focus session.";
+        ? "La persistencia de concentración en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudieron cargar sesiones guardadas. Mostrando la sesión local.";
   }
 
   const initialSession = getNextFocusSession(sessions) ?? null;
@@ -64,7 +64,7 @@ export default async function FocusPage() {
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before focus changes can sync to Supabase.",
+        message: "Inicia sesión para sincronizar cambios de concentración con Supabase.",
       };
     }
 
@@ -112,13 +112,13 @@ export default async function FocusPage() {
         ok: true,
         message:
           session.completed && session.status === "completed"
-            ? "Focus session and progress saved."
-            : "Focus session saved.",
+            ? "Sesión de concentración y progreso guardados."
+            : "Sesión de concentración guardada.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save this focus change. Try again before leaving.",
+        message: "No se pudo guardar este cambio de concentración. Reintenta antes de salir.",
       };
     }
   }
@@ -126,9 +126,9 @@ export default async function FocusPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Focus"
-        title="Persisted focus session"
-        description="Signed-in users save timer and review outcomes through Supabase. Anonymous users can still try the local demo flow."
+        eyebrow="Concentración"
+        title="Sesión de concentración persistente"
+        description="Las personas con sesión iniciada guardan temporizador y revisión mediante Supabase. Sin sesión, se puede probar el flujo local de demo."
       />
       <FocusSessionPanel
         initialSession={initialSession}

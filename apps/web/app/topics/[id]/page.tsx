@@ -57,7 +57,7 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
   const { topics: sourceTopics, sourceState, message } = await loadTopicsSource();
   let topics = sourceTopics;
   let canPersist = false;
-  let progressMessage = "Sign in to persist topic progress.";
+  let progressMessage = "Inicia sesión para guardar progreso de temas.";
 
   try {
     getSupabaseBrowserConfig();
@@ -72,13 +72,13 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
       );
       topics = applyTopicProgress(sourceTopics, progress);
       canPersist = true;
-      progressMessage = "Topic progress loaded from Supabase.";
+      progressMessage = "Progreso de temas cargado desde Supabase.";
     }
   } catch (error) {
     progressMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase topic progress unavailable until required env vars are configured."
-        : "Unable to load saved topic progress right now. Showing source topic state.";
+        ? "El progreso de temas en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudo cargar el progreso guardado de temas. Mostrando estado fuente.";
   }
 
   const topic = topics.find((entry) => entry.id === id);
@@ -95,7 +95,7 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
     if (!userId) {
       return {
         ok: false,
-        message: "Sign in required before topic progress can sync to Supabase.",
+        message: "Inicia sesión para sincronizar progreso de temas con Supabase.",
       };
     }
 
@@ -121,12 +121,12 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
 
       return {
         ok: true,
-        message: "Topic progress saved.",
+        message: "Progreso del tema guardado.",
       };
     } catch {
       return {
         ok: false,
-        message: "Could not save topic progress. Form values remain in place.",
+        message: "No se pudo guardar el progreso del tema. Los valores quedan en el formulario.",
       };
     }
   }
@@ -136,64 +136,64 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
       <PageHeader
         eyebrow={topic.block}
         title={topic.normalizedTitle}
-        description="Phase 4 topic detail uses the same Notion-first loader as the checklist and keeps fallback behavior explicit when live sync is unavailable."
+        description="El detalle usa el mismo cargador Notion-first que el checklist y mantiene explícito el fallback cuando no hay sincronización."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
 
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <article className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold tracking-tight text-ink">Official metadata</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-ink">Metadatos oficiales</h2>
           <dl className="mt-4 grid gap-4 text-sm text-ink/80">
             <div>
-              <dt className="text-ink/50">Official number</dt>
+              <dt className="text-ink/50">Número oficial</dt>
               <dd>{topic.officialNumber}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Official title</dt>
+              <dt className="text-ink/50">Título oficial</dt>
               <dd>{topic.officialTitle}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Source URL</dt>
+              <dt className="text-ink/50">URL fuente</dt>
               <dd>{topic.sourceUrl}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Retrieved at</dt>
+              <dt className="text-ink/50">Recuperado el</dt>
               <dd>{topic.retrievedAt}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Verification</dt>
+              <dt className="text-ink/50">Verificación</dt>
               <dd>{topic.verificationStatus}</dd>
             </div>
           </dl>
         </article>
 
         <article className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold tracking-tight text-ink">Study state</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-ink">Estado de estudio</h2>
           <dl className="mt-4 grid gap-4 text-sm text-ink/80">
             <div>
-              <dt className="text-ink/50">Status</dt>
+              <dt className="text-ink/50">Estado</dt>
               <dd>{topic.status}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Confidence</dt>
+              <dt className="text-ink/50">Confianza</dt>
               <dd>{topic.confidence}/5</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Priority</dt>
+              <dt className="text-ink/50">Prioridad</dt>
               <dd>{topic.priority}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Next review</dt>
+              <dt className="text-ink/50">Próxima revisión</dt>
               <dd>{topic.nextReviewAt}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Study focus</dt>
-              <dd>{topic.studyFocus ?? "No study focus defined yet."}</dd>
+              <dt className="text-ink/50">Foco de estudio</dt>
+              <dd>{topic.studyFocus ?? "Sin foco de estudio definido aún."}</dd>
             </div>
             <div>
-              <dt className="text-ink/50">Notes status</dt>
-              <dd>{topic.notesStatus ?? "No notes status defined yet."}</dd>
+              <dt className="text-ink/50">Estado de notas</dt>
+              <dd>{topic.notesStatus ?? "Sin estado de notas definido aún."}</dd>
             </div>
           </dl>
           <TopicProgressForm

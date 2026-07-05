@@ -16,13 +16,13 @@ type QuestionProgressFormProps = {
 };
 
 const mistakeTypes: Array<{ value: MistakeType; label: string }> = [
-  { value: "none", label: "None" },
-  { value: "concept", label: "Concept" },
-  { value: "formula", label: "Formula" },
-  { value: "units", label: "Units" },
-  { value: "reading", label: "Reading" },
-  { value: "legal_wording", label: "Legal wording" },
-  { value: "time_management", label: "Time management" },
+  { value: "none", label: "Ninguno" },
+  { value: "concept", label: "Concepto" },
+  { value: "formula", label: "Fórmula" },
+  { value: "units", label: "Unidades" },
+  { value: "reading", label: "Lectura" },
+  { value: "legal_wording", label: "Redacción legal" },
+  { value: "time_management", label: "Gestión del tiempo" },
 ];
 
 export function QuestionProgressForm({
@@ -32,14 +32,14 @@ export function QuestionProgressForm({
 }: QuestionProgressFormProps) {
   const [message, setMessage] = useState(
     canPersist
-      ? "Save practice progress to Supabase."
-      : "Sign in to persist question progress.",
+      ? "Guarda el progreso de práctica en Supabase."
+      : "Inicia sesión para guardar progreso de preguntas.",
   );
   const [isPending, startTransition] = useTransition();
 
   function submitProgress(formData: FormData) {
     if (!canPersist) {
-      setMessage("Sign in to persist question progress.");
+      setMessage("Inicia sesión para guardar progreso de preguntas.");
       return;
     }
 
@@ -57,7 +57,7 @@ export function QuestionProgressForm({
       <input name="questionId" type="hidden" value={question.id} />
       <div className="grid gap-3 md:grid-cols-3">
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Attempts</span>
+          <span className="font-medium text-slate-700">Intentos</span>
           <input
             className="rounded-xl border border-slate-200 bg-white px-3 py-2"
             defaultValue={question.attemptsCount}
@@ -67,7 +67,7 @@ export function QuestionProgressForm({
           />
         </label>
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Last attempt</span>
+          <span className="font-medium text-slate-700">Último intento</span>
           <input
             className="rounded-xl border border-slate-200 bg-white px-3 py-2"
             defaultValue={question.lastAttemptAt}
@@ -76,7 +76,7 @@ export function QuestionProgressForm({
           />
         </label>
         <label className="grid gap-1">
-          <span className="font-medium text-slate-700">Next review</span>
+          <span className="font-medium text-slate-700">Próxima revisión</span>
           <input
             className="rounded-xl border border-slate-200 bg-white px-3 py-2"
             defaultValue={question.nextReviewAt}
@@ -87,7 +87,7 @@ export function QuestionProgressForm({
       </div>
 
       <fieldset className="grid gap-2">
-        <legend className="font-medium text-slate-700">Mistake types</legend>
+        <legend className="font-medium text-slate-700">Tipos de error</legend>
         <div className="flex flex-wrap gap-2">
           {mistakeTypes.map((mistakeType) => (
             <label
@@ -113,7 +113,7 @@ export function QuestionProgressForm({
         disabled={isPending || !canPersist}
         type="submit"
       >
-        Save practice progress
+        Guardar progreso de práctica
       </button>
     </form>
   );

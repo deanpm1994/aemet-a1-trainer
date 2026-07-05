@@ -106,7 +106,7 @@ describe("focus progress", () => {
           confidence: 4,
           priority: "high",
           nextReviewAt: "2026-07-08",
-          notesStatus: "Session notes created",
+          notesStatus: "Notas de sesión creadas",
         },
       ],
       questionUpdates: [
@@ -145,7 +145,7 @@ describe("focus progress", () => {
         confidence: 4,
         priority: "medium",
         nextReviewAt: "2026-07-08",
-        notesStatus: "Session notes created",
+        notesStatus: "Notas de sesión creadas",
       },
     ]);
   });

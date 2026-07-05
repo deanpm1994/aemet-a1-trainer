@@ -447,7 +447,7 @@ export async function loadQuestionsSource(
       return {
         questions: fallbackQuestions,
         sourceState: "fallback_config",
-        message: "Live Notion sync is not configured. Showing local fallback data.",
+        message: "La sincronización de Notion no está configurada. Mostrando datos locales.",
       };
     }
 
@@ -470,13 +470,13 @@ export async function loadQuestionsSource(
     return {
       questions: mappedQuestions,
       sourceState: "live",
-      message: "Live Notion question sync is active.",
+      message: "Sincronización de preguntas con Notion activa.",
     };
   } catch {
     return {
       questions: fallbackQuestions,
       sourceState: "fallback_error",
-      message: "Live Notion sync failed. Showing local fallback data.",
+      message: "Falló la sincronización con Notion. Mostrando datos locales.",
     };
   }
 }

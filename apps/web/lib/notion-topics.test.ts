@@ -131,7 +131,7 @@ describe("loadTopicsSource", () => {
     });
 
     expect(result.sourceState).toBe("live");
-    expect(result.message).toBe("Live Notion topic sync is active.");
+    expect(result.message).toBe("Sincronización de temas con Notion activa.");
     expect(result.topics[0]?.id).toBe("MAT-35");
   });
 
@@ -143,7 +143,7 @@ describe("loadTopicsSource", () => {
 
     expect(result.sourceState).toBe("fallback_config");
     expect(result.message).toBe(
-      "Live Notion sync is not configured. Showing local fallback topic data.",
+      "La sincronización de Notion no está configurada. Mostrando datos locales de temas.",
     );
     expect(result.topics).toEqual(fallbackTopics);
   });
@@ -164,7 +164,7 @@ describe("loadTopicsSource", () => {
 
     expect(result.sourceState).toBe("fallback_error");
     expect(result.message).toBe(
-      "Live Notion sync failed. Showing local fallback topic data.",
+      "Falló la sincronización con Notion. Mostrando datos locales de temas.",
     );
     expect(result.topics).toEqual(fallbackTopics);
   });

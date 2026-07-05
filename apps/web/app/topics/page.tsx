@@ -17,7 +17,7 @@ type TopicProgressRepositoryClient = Parameters<typeof getTopicProgress>[0];
 export default async function TopicsPage() {
   const { topics: sourceTopics, sourceState, message } = await loadTopicsSource();
   let topics = sourceTopics;
-  let progressMessage = "Sign in to persist topic progress.";
+  let progressMessage = "Inicia sesión para guardar progreso de temas.";
 
   try {
     getSupabaseBrowserConfig();
@@ -31,13 +31,13 @@ export default async function TopicsPage() {
         userId,
       );
       topics = applyTopicProgress(sourceTopics, progress);
-      progressMessage = "Topic progress loaded from Supabase.";
+      progressMessage = "Progreso de temas cargado desde Supabase.";
     }
   } catch (error) {
     progressMessage =
       error instanceof SupabaseConfigError
-        ? "Supabase topic progress unavailable until required env vars are configured."
-        : "Unable to load saved topic progress right now. Showing source topic state.";
+        ? "El progreso de temas en Supabase no está disponible hasta configurar las variables requeridas."
+        : "No se pudo cargar el progreso guardado de temas. Mostrando estado fuente.";
   }
 
   const blockSummaries = buildBlockSummaries(topics);
@@ -46,9 +46,9 @@ export default async function TopicsPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Topics"
-        title="Study checklist"
-        description="Phase 4 topic sync prefers one dedicated Notion workspace and falls back to local topic data when live sync is unavailable. Official BOE wording and numbering remain explicitly marked until verified."
+        eyebrow="Temario"
+        title="Checklist de estudio"
+        description="La sincronización de temas prefiere un workspace dedicado de Notion y usa datos locales si no hay sincronización. La redacción y numeración oficial BOE siguen marcadas hasta verificarse."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
@@ -67,8 +67,7 @@ export default async function TopicsPage() {
               {summary.touchedTopics}/{summary.totalTopics}
             </p>
             <p className="mt-3 text-sm leading-6 text-ink/70">
-              {summary.examReadyTopics} exam-ready topic{summary.examReadyTopics === 1 ? "" : "s"} in this
-              block.
+              {summary.examReadyTopics} temas listos para examen en este bloque.
             </p>
           </article>
         ))}
@@ -85,28 +84,28 @@ export default async function TopicsPage() {
               <div className="space-y-2">
                 <p className="text-xs font-medium uppercase tracking-[0.15em] text-accent">{topic.block}</p>
                 <h2 className="text-2xl font-semibold tracking-tight text-ink">{topic.normalizedTitle}</h2>
-                <p className="text-sm text-ink/70">Official number: {topic.officialNumber}</p>
+                <p className="text-sm text-ink/70">Número oficial: {topic.officialNumber}</p>
                 <p className="text-sm leading-6 text-ink/75">{topic.shortDescription}</p>
               </div>
               <dl className="grid gap-3 text-sm text-ink/80 sm:grid-cols-2 lg:min-w-[22rem]">
                 <div>
-                  <dt className="text-ink/50">Status</dt>
+                  <dt className="text-ink/50">Estado</dt>
                   <dd>{topic.status}</dd>
                 </div>
                 <div>
-                  <dt className="text-ink/50">Confidence</dt>
+                  <dt className="text-ink/50">Confianza</dt>
                   <dd>{topic.confidence}/5</dd>
                 </div>
                 <div>
-                  <dt className="text-ink/50">Priority</dt>
+                  <dt className="text-ink/50">Prioridad</dt>
                   <dd>{topic.priority}</dd>
                 </div>
                 <div>
-                  <dt className="text-ink/50">Next review</dt>
+                  <dt className="text-ink/50">Próxima revisión</dt>
                   <dd>{topic.nextReviewAt}</dd>
                 </div>
                 <div className="sm:col-span-2">
-                  <dt className="text-ink/50">Verification</dt>
+                  <dt className="text-ink/50">Verificación</dt>
                   <dd>{topic.verificationStatus}</dd>
                 </div>
               </dl>

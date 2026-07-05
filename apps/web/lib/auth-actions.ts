@@ -39,7 +39,7 @@ export function buildSignUpResult(response: AuthResponse): AuthActionResult {
   return {
     ok: true,
     message:
-      "Account created. If email confirmation is enabled in Supabase, confirm the email before signing in.",
+      "Cuenta creada. Si la confirmación por email está activa en Supabase, confirma el email antes de iniciar sesión.",
     redirectTo: null,
   };
 }
@@ -55,7 +55,7 @@ export function buildSignInResult(response: AuthResponse): AuthActionResult {
 
   return {
     ok: true,
-    message: "Signed in.",
+    message: "Sesión iniciada.",
     redirectTo: "/settings",
   };
 }
