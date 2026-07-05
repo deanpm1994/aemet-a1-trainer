@@ -73,5 +73,5 @@
 - Add installable mobile view metadata (complete)
 - Add reminder settings shell (complete; delivery inactive)
 - Add notifications
-- Add countdown widgets
+- Add countdown/status widget shell (complete; no source-backed official dates loaded)
 - Add offline review mode
