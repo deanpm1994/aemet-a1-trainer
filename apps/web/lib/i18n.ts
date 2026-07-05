@@ -7,7 +7,14 @@ export type TranslationKey =
   | "app.home.antiHallucination.item.monitoring"
   | "app.home.antiHallucination.item.officialDates"
   | "app.home.antiHallucination.title"
+  | "app.home.cta.dashboard"
+  | "app.home.cta.topics"
   | "app.home.description"
+  | "app.home.eyebrow"
+  | "app.home.focus.item.monitoring"
+  | "app.home.focus.item.schedule"
+  | "app.home.focus.item.unverified"
+  | "app.home.focus.title"
   | "app.home.next.item.calendar"
   | "app.home.next.item.questions"
   | "app.home.next.item.supabase"
@@ -75,8 +82,18 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.home.antiHallucination.item.officialDates":
       "Las fechas oficiales aparecerán solo cuando estén respaldadas por fuentes verificadas.",
     "app.home.antiHallucination.title": "Protocolo anti-alucinación",
+    "app.home.cta.dashboard": "Abrir panel",
+    "app.home.cta.topics": "Revisar temario",
     "app.home.description":
       "Esta primera versión se centra en la estructura: rutas, persistencia de estudio, señales de progreso y reglas estrictas antes de importar datos oficiales.",
+    "app.home.eyebrow": "Base",
+    "app.home.focus.item.monitoring":
+      "La monitorización es manual hasta que existan tareas oficiales automatizadas.",
+    "app.home.focus.item.schedule":
+      "Estructura de estudio de mañana adaptada al horario laboral 12:30-23:00.",
+    "app.home.focus.item.unverified":
+      "Los datos iniciales están marcados como no verificados o pendientes de revisión.",
+    "app.home.focus.title": "Enfoque actual",
     "app.home.next.item.calendar": "Convertir el calendario semanal en una lista diaria editable.",
     "app.home.next.item.questions": "Importar preguntas de exámenes anteriores con metadatos de fuente.",
     "app.home.next.item.supabase": "Usar Supabase para identidad, progreso y sesiones persistentes.",
@@ -146,8 +163,18 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.home.antiHallucination.item.officialDates":
       "Official dates appear only when backed by verified source records.",
     "app.home.antiHallucination.title": "Anti-hallucination protocol",
+    "app.home.cta.dashboard": "Open dashboard",
+    "app.home.cta.topics": "Review topic checklist",
     "app.home.description":
       "This first version focuses on structure: routes, study persistence, progress signals, and strict rules before any official data import.",
+    "app.home.eyebrow": "Foundation",
+    "app.home.focus.item.monitoring":
+      "Monitoring is manual until official-source jobs actually exist.",
+    "app.home.focus.item.schedule":
+      "Morning-first study structure around the 12:30-23:00 work schedule.",
+    "app.home.focus.item.unverified":
+      "Starter data is intentionally marked unverified or needs review.",
+    "app.home.focus.title": "Current focus",
     "app.home.next.item.calendar": "Turn the weekly calendar into an editable daily checklist.",
     "app.home.next.item.questions": "Import past-exam questions with source metadata.",
     "app.home.next.item.supabase": "Use Supabase for identity, progress, and persisted sessions.",

@@ -126,6 +126,13 @@ Phase 7 status:
 - Reminder preferences remain saved settings only
 - No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
 
+i18n status:
+- Spanish-first UI foundation implemented with internal `es`/`en` dictionaries
+- The root app language defaults to Spanish (`es`)
+- Shared shell, navigation, homepage, source-state, and content-readiness UI copy use the i18n helper
+- English fallback strings exist in code, but no user-facing language selector or persisted language preference is implemented yet
+- Product UI strings may be translated; source-owned topic/question fields and future BOE/AEMET official wording must not be machine-translated or rewritten by the i18n layer
+
 Study content readiness:
 - Dashboard, topics, and questions show whether loaded content is ready for private study tracking
 - Unverified starter topics/questions are explicitly not treated as official-ready
@@ -160,6 +167,7 @@ Next recommended MVP steps:
 - Run a real 30-minute production study-session smoke test on the candidate's phone: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
 - Start verified official-content import planning: BOE syllabus source URL, retrieval date, exact wording preservation, and verification status per topic
 - Add countdown/status widgets that explicitly show no verified official date until a source-backed date exists
+- Add a settings language selector if the candidate wants to switch between Spanish and English
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`
