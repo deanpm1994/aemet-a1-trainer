@@ -202,6 +202,17 @@ export function validateOfficialPastExamQuestionRecord(
     });
   }
 
+  if (
+    input.verificationStatus === "verified" &&
+    (input.answerSourceStatus === "unknown" || input.answerSourceStatus === "user")
+  ) {
+    issues.push({
+      field: "answerSourceStatus",
+      message:
+        "verified official question imports cannot use unknown or user answer sources",
+    });
+  }
+
   if (issues.length > 0) {
     return { ok: false, issues };
   }

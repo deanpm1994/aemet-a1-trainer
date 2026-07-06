@@ -108,4 +108,31 @@ describe("official content import", () => {
       ],
     });
   });
+
+  it("rejects unsupported official answer claims when the answer source is unknown", () => {
+    const result = validateOfficialPastExamQuestionRecord({
+      sourceExam: "AEMET A1",
+      sourceYear: 2024,
+      questionNumber: "13",
+      statement: "Seleccione la respuesta correcta.",
+      options: ["A", "B", "C", "D"],
+      correctAnswer: "A",
+      answerSourceStatus: "unknown",
+      sourceName: "Unofficial notes",
+      sourceUrl: "https://example.com/notes",
+      retrievedAt: "2026-07-06",
+      verificationStatus: "verified",
+    });
+
+    expect(result).toEqual({
+      ok: false,
+      issues: [
+        {
+          field: "answerSourceStatus",
+          message:
+            "verified official question imports cannot use unknown or user answer sources",
+        },
+      ],
+    });
+  });
 });
