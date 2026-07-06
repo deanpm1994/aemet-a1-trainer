@@ -140,6 +140,7 @@ Study content readiness:
 - Dashboard, topics, and questions show whether loaded content is ready for private study tracking
 - Unverified starter topics/questions are explicitly not treated as official-ready
 - Verified official syllabus wording and verified past-question imports remain the main blocker before calling the app official-content ready
+- Official content import foundation exists for syllabus-first ingestion and question-contract validation
 - Source-backed official date records remain required before showing a real countdown to any convocatoria, deadline, or exam phase
 
 Supabase notes:
@@ -169,7 +170,7 @@ Verified working recently:
 
 Next recommended MVP steps:
 - Run a real 30-minute production study-session smoke test on the candidate's phone: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
-- Start verified official-content import planning: BOE syllabus source URL, retrieval date, exact wording preservation, and verification status per topic
+- Create the first real official source manifest with BOE/AEMET URL, retrieval date, document description, verification decision, and import provenance before importing verified syllabus records
 - Add a settings language selector if the candidate wants to switch between Spanish and English
 
 Ignored local artifacts:
