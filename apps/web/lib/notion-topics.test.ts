@@ -121,6 +121,7 @@ describe("loadTopicsSource", () => {
         NOTION_TOPICS_DATA_SOURCE_ID: "12345678-1234-1234-1234-123456789abc",
       },
       fallbackTopics,
+      officialSubsetLoader: () => ({ ok: false, issues: [] }),
       createClient: () => ({
         dataSources: {
           query: vi.fn().mockResolvedValue({
@@ -139,6 +140,7 @@ describe("loadTopicsSource", () => {
     const result = await loadTopicsSource({
       env: {},
       fallbackTopics,
+      officialSubsetLoader: () => ({ ok: false, issues: [] }),
     });
 
     expect(result.sourceState).toBe("fallback_config");
@@ -148,6 +150,19 @@ describe("loadTopicsSource", () => {
     expect(result.topics).toEqual(fallbackTopics);
   });
 
+  it("prefers imported verified syllabus subset topics before fallback topics", async () => {
+    const result = await loadTopicsSource({
+      env: {},
+      fallbackTopics: [],
+    });
+
+    expect(result.sourceState).toBe("fallback_config");
+    expect(result.topics[0]?.sourceUrl).toBe(
+      "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    );
+    expect(result.topics).toHaveLength(5);
+  });
+
   it("returns fallback_error when the query fails", async () => {
     const result = await loadTopicsSource({
       env: {
@@ -155,6 +170,7 @@ describe("loadTopicsSource", () => {
         NOTION_TOPICS_DATA_SOURCE_ID: "12345678-1234-1234-1234-123456789abc",
       },
       fallbackTopics,
+      officialSubsetLoader: () => ({ ok: false, issues: [] }),
       createClient: () => ({
         dataSources: {
           query: vi.fn().mockRejectedValue(new Error("boom")),
@@ -176,6 +192,7 @@ describe("loadTopicsSource", () => {
         NOTION_TOPICS_DATA_SOURCE_ID: "12345678-1234-1234-1234-123456789abc",
       },
       fallbackTopics,
+      officialSubsetLoader: () => ({ ok: false, issues: [] }),
       createClient: () => ({
         dataSources: {
           query: vi.fn().mockResolvedValue({
@@ -208,6 +225,7 @@ describe("loadTopicsSource", () => {
           NOTION_TOPICS_DATA_SOURCE_ID: "12345678-1234-1234-1234-123456789abc",
         },
         fallbackTopics,
+        officialSubsetLoader: () => ({ ok: false, issues: [] }),
       }),
     ).resolves.toMatchObject({
       sourceState: "fallback_config",
