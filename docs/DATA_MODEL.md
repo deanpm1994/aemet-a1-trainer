@@ -23,6 +23,7 @@ Fields:
 
 Persistence notes:
 - Source topic content is loaded from Notion or local fallback data.
+- Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists.
 - User-owned topic study state is stored separately in Supabase table `topic_progress`.
 - `topic_progress` overlays `status`, `confidence`, `priority`, `next_review_at`, and `notes_status` by `user_id` and `topic_id`.
 - Official wording, source URL, retrieval date, and verification status remain source-owned and are not written by topic progress updates.

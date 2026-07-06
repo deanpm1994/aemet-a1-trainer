@@ -7,6 +7,7 @@ import {
   NotionConfigError,
   type NotionConfig,
 } from "./notion-client";
+import { loadOfficialSyllabusSubset } from "./official-syllabus-subset";
 import type { Topic } from "./types";
 
 export type TopicSourceState = "live" | "fallback_config" | "fallback_error";
@@ -74,6 +75,7 @@ type LoadTopicsSourceOptions = {
   env?: Record<string, string | undefined>;
   fallbackTopics?: Topic[];
   createClient?: (config: NotionConfig) => NotionTopicsClient;
+  officialSubsetLoader?: typeof loadOfficialSyllabusSubset;
 };
 
 function getProperty(
@@ -362,6 +364,16 @@ export async function loadTopicsSource(
 ): Promise<TopicSourceResult> {
   const fallbackTopics = options.fallbackTopics ?? defaultFallbackTopics;
   const env = options.env ?? process.env;
+  const importedSubset = (options.officialSubsetLoader ?? loadOfficialSyllabusSubset)();
+
+  if (importedSubset.ok && importedSubset.topics.length > 0) {
+    return {
+      topics: importedSubset.topics,
+      sourceState: "fallback_config",
+      message:
+        "Temario verificado parcial cargado desde el subconjunto oficial BOE; la sincronizacion completa de Notion sigue pendiente.",
+    };
+  }
 
   let config: NotionConfig;
 
