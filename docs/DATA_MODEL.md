@@ -61,6 +61,23 @@ Persistence notes:
 - Statements, options, answer keys, explanations, answer source status, source URLs, retrieval dates, and verification status remain source-owned.
 - Anonymous question progress remains source-only/local fallback state.
 
+## Entity: OfficialContentImport
+
+Fields:
+- source_name
+- source_url
+- retrieved_at
+- verification_status
+- official_text
+- normalized_text
+- import_notes
+
+Implementation notes:
+- This is an app-layer import boundary, not a persisted database table in this slice.
+- Imported official content remains source-owned.
+- User progress overlays must not overwrite imported source fields.
+- Real verified imports require a matching source manifest under `docs/official-sources/`.
+
 ## Entity: QuestionAttempt
 
 Fields:
