@@ -36,6 +36,8 @@ export type ImportedPastExamQuestionRecord = {
   verificationStatus: "verified" | "needs_review";
 };
 
+type ImportVerificationStatus = ImportedSyllabusTopicRecord["verificationStatus"];
+
 type RawSyllabusTopicRecord = {
   block: string;
   officialNumber: string;
@@ -60,8 +62,6 @@ type RawPastExamQuestionRecord = {
   verificationStatus: VerificationStatus;
 };
 
-const allowedImportVerificationStatuses = new Set(["verified", "needs_review"]);
-
 function normalizeWhitespace(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
@@ -83,16 +83,21 @@ function toSlug(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function isImportVerificationStatus(
+function getImportVerificationStatus(
   value: VerificationStatus,
-): value is ImportedSyllabusTopicRecord["verificationStatus"] {
-  return allowedImportVerificationStatuses.has(value);
+): ImportVerificationStatus | null {
+  if (value === "verified" || value === "needs_review") {
+    return value;
+  }
+
+  return null;
 }
 
 export function parseOfficialSyllabusTopicRecord(
   input: RawSyllabusTopicRecord,
 ): ValidationResult<ImportedSyllabusTopicRecord> {
   const issues: ImportIssue[] = [];
+  const verificationStatus = getImportVerificationStatus(input.verificationStatus);
 
   if (!normalizeWhitespace(input.sourceUrl)) {
     issues.push({
@@ -115,7 +120,7 @@ export function parseOfficialSyllabusTopicRecord(
     });
   }
 
-  if (!isImportVerificationStatus(input.verificationStatus)) {
+  if (!verificationStatus) {
     issues.push({
       field: "verificationStatus",
       message: "verificationStatus must be verified or needs_review",
@@ -124,6 +129,10 @@ export function parseOfficialSyllabusTopicRecord(
 
   if (issues.length > 0) {
     return { ok: false, issues };
+  }
+
+  if (!verificationStatus) {
+    throw new Error("verificationStatus should be validated before record creation");
   }
 
   return {
@@ -137,7 +146,7 @@ export function parseOfficialSyllabusTopicRecord(
       sourceName: normalizeWhitespace(input.sourceName),
       sourceUrl: normalizeWhitespace(input.sourceUrl),
       retrievedAt: normalizeWhitespace(input.retrievedAt),
-      verificationStatus: input.verificationStatus,
+      verificationStatus,
     },
   };
 }
@@ -166,6 +175,7 @@ export function validateOfficialPastExamQuestionRecord(
   input: RawPastExamQuestionRecord,
 ): ValidationResult<ImportedPastExamQuestionRecord> {
   const issues: ImportIssue[] = [];
+  const verificationStatus = getImportVerificationStatus(input.verificationStatus);
 
   if (!normalizeWhitespace(input.sourceUrl)) {
     issues.push({
@@ -195,7 +205,7 @@ export function validateOfficialPastExamQuestionRecord(
     });
   }
 
-  if (!isImportVerificationStatus(input.verificationStatus)) {
+  if (!verificationStatus) {
     issues.push({
       field: "verificationStatus",
       message: "verificationStatus must be verified or needs_review",
@@ -203,7 +213,7 @@ export function validateOfficialPastExamQuestionRecord(
   }
 
   if (
-    input.verificationStatus === "verified" &&
+    verificationStatus === "verified" &&
     (input.answerSourceStatus === "unknown" || input.answerSourceStatus === "user")
   ) {
     issues.push({
@@ -215,6 +225,10 @@ export function validateOfficialPastExamQuestionRecord(
 
   if (issues.length > 0) {
     return { ok: false, issues };
+  }
+
+  if (!verificationStatus) {
+    throw new Error("verificationStatus should be validated before record creation");
   }
 
   return {
@@ -231,7 +245,7 @@ export function validateOfficialPastExamQuestionRecord(
       sourceName: normalizeWhitespace(input.sourceName),
       sourceUrl: normalizeWhitespace(input.sourceUrl),
       retrievedAt: normalizeWhitespace(input.retrievedAt),
-      verificationStatus: input.verificationStatus,
+      verificationStatus,
     },
   };
 }
