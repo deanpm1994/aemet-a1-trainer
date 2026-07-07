@@ -6,7 +6,7 @@ import {
 } from "./official-syllabus-subset";
 
 describe("official syllabus subset", () => {
-  it("loads the verified BOE subset including Mathematics topics 1 through 9", () => {
+  it("loads the verified BOE subset including Mathematics topics 1 through 18", () => {
     const result = loadOfficialSyllabusSubset();
 
     expect(result.ok).toBe(true);
@@ -15,13 +15,13 @@ describe("official syllabus subset", () => {
       throw new Error("Expected verified syllabus subset");
     }
 
-    expect(result.topics).toHaveLength(13);
+    expect(result.topics).toHaveLength(22);
 
     const mathematicsTopics = result.topics.filter(
       (topic) => topic.block === "Mathematics",
     );
 
-    expect(mathematicsTopics).toHaveLength(9);
+    expect(mathematicsTopics).toHaveLength(18);
     expect(mathematicsTopics.map((topic) => topic.officialNumber)).toEqual([
       "1",
       "2",
@@ -32,21 +32,30 @@ describe("official syllabus subset", () => {
       "7",
       "8",
       "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
     ]);
-    expect(mathematicsTopics[0]?.sourceUrl).toBe(
+    expect(mathematicsTopics[17]?.sourceUrl).toBe(
       "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     );
-    expect(mathematicsTopics[0]?.retrievedAt).toBe("2026-07-06");
-    expect(mathematicsTopics[0]?.verificationStatus).toBe("verified");
+    expect(mathematicsTopics[17]?.retrievedAt).toBe("2026-07-06");
+    expect(mathematicsTopics[17]?.verificationStatus).toBe("verified");
   });
 
   it("keeps source-owned wording separate from normalized display titles", () => {
-    const firstMathTopic = officialSyllabusSubsetSource.find(
-      (topic) => topic.block === "Mathematics" && topic.officialNumber === "1",
+    const finalMathTopic = officialSyllabusSubsetSource.find(
+      (topic) => topic.block === "Mathematics" && topic.officialNumber === "18",
     );
 
-    expect(firstMathTopic).toBeDefined();
-    expect(firstMathTopic?.officialTitle).not.toBe(firstMathTopic?.normalizedTitle);
-    expect(firstMathTopic?.officialTitle).toContain(".");
+    expect(finalMathTopic).toBeDefined();
+    expect(finalMathTopic?.officialTitle).not.toBe(finalMathTopic?.normalizedTitle);
+    expect(finalMathTopic?.officialTitle).toContain(".");
   });
 });
