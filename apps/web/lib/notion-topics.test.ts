@@ -160,31 +160,12 @@ describe("loadTopicsSource", () => {
     expect(result.topics[0]?.sourceUrl).toBe(
       "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     );
-    expect(result.topics).toHaveLength(39);
+    expect(result.topics).toHaveLength(48);
     expect(
       result.topics
-        .filter((topic) => topic.block === "Physics")
+        .filter((topic) => topic.block === "Meteorology and Climatology")
         .map((topic) => topic.officialNumber),
-    ).toEqual([
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
-    ]);
+    ).toEqual(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
   });
 
   it("returns fallback_error when the query fails", async () => {

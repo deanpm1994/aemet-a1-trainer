@@ -457,6 +457,114 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Meteorology and Climatology",
+    officialNumber: "2",
+    officialTitle:
+      "Composición química de la atmósfera. Composición isotópica. Ozonosfera. Variabilidad de la composición atmosférica.",
+    normalizedTitle:
+      "Composicion quimica de la atmosfera Composicion isotopica Ozonosfera Variabilidad de la composicion atmosferica",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "3",
+    officialTitle:
+      "La radiación en la atmósfera. Radiación solar y terrestre. Procesos de absorción, emisión y dispersión. Balance radiativo terrestre.",
+    normalizedTitle:
+      "La radiacion en la atmosfera Radiacion solar y terrestre Procesos de absorcion emision y dispersion Balance radiativo terrestre",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "4",
+    officialTitle:
+      "Ecuación de estado del aire atmosférico. Ecuaciones fundamentales de la estática atmosférica. Espesor de una capa atmosférica.",
+    normalizedTitle:
+      "Ecuacion de estado del aire atmosferico Ecuaciones fundamentales de la estatica atmosferica Espesor de una capa atmosferica",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "5",
+    officialTitle:
+      "El agua en la atmósfera. Evaporación y condensación. Tensión de vapor. Variación de la temperatura de cambio de fase con la temperatura. Humedad absoluta, específica, relativa y razón de mezcla. Punto de rocío. Balance hídrico.",
+    normalizedTitle:
+      "El agua en la atmosfera Evaporacion y condensacion Tension de vapor Variacion de la temperatura de cambio de fase con la temperatura Humedad absoluta especifica relativa y razon de mezcla Punto de rocio Balance hidrico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "6",
+    officialTitle:
+      "Procesos adiabáticos en la atmósfera. El gradiente adiabático seco y saturado. Estabilidad estática. Inestabilidad condicional. Índices de estabilidad.",
+    normalizedTitle:
+      "Procesos adiabaticos en la atmosfera El gradiente adiabatico seco y saturado Estabilidad estatica Inestabilidad condicional Indices de estabilidad",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "7",
+    officialTitle:
+      "Nubes. Clasificación y génesis. Nubes cumuliformes y estratiformes. Nubes altas, medias y bajas. Nieblas.",
+    normalizedTitle:
+      "Nubes Clasificacion y genesis Nubes cumuliformes y estratiformes Nubes altas medias y bajas Nieblas",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "8",
+    officialTitle:
+      "Procesos microfísicos en nubes cálidas y frías. Nucleación homogénea y heterogénea. Colisión-coalescencia. Proceso Bergeron-Findeisen.",
+    normalizedTitle:
+      "Procesos microfisicos en nubes calidas y frias Nucleacion homogenea y heterogenea Colision coalescencia Proceso Bergeron Findeisen",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "9",
+    officialTitle:
+      "Precipitación. Tipos y mecanismos de formación. Intensidad y duración. Medida de la precipitación.",
+    normalizedTitle:
+      "Precipitacion Tipos y mecanismos de formacion Intensidad y duracion Medida de la precipitacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "10",
+    officialTitle:
+      "Visibilidad. Atenuación y extinción de la radiación en la atmósfera. Factores que afectan a la visibilidad. Medida instrumental de la visibilidad.",
+    normalizedTitle:
+      "Visibilidad Atenuacion y extincion de la radiacion en la atmosfera Factores que afectan a la visibilidad Medida instrumental de la visibilidad",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "Informatics and Communications",
     officialNumber: "1",
     officialTitle:
