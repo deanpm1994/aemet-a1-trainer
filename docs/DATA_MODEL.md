@@ -78,7 +78,7 @@ Implementation notes:
 - Imported official content remains source-owned.
 - User progress overlays must not overwrite imported source fields.
 - Real verified imports require a matching source manifest under `docs/official-sources/`.
-- Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists. The current checked-in subset includes the full Mathematics block plus one verified starter topic in each remaining syllabus block.
+- Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists. The current checked-in subset includes the full Mathematics and Physics blocks plus one verified starter topic in each remaining syllabus block.
 
 ## Entity: QuestionAttempt
 
