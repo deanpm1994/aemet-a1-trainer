@@ -565,6 +565,126 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Meteorology and Climatology",
+    officialNumber: "11",
+    officialTitle:
+      "Meteoros. Clasificación. Litometeoros, hidrometeoros y fotometeoros. Observación meteorológica de fenómenos meteorológicos.",
+    normalizedTitle:
+      "Meteoros Clasificacion Litometeoros hidrometeoros y fotometeoros Observacion meteorologica de fenomenos meteorologicos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "12",
+    officialTitle:
+      "La ecuación de movimiento atmosférico. Principales fuerzas. Sistemas de referencia absolutos y relativos. Aproximaciones características. Escalas de movimiento. Equilibrio geostrófico, gradiente y ciclostrófico.",
+    normalizedTitle:
+      "La ecuacion de movimiento atmosferico Principales fuerzas Sistemas de referencia absolutos y relativos Aproximaciones caracteristicas Escalas de movimiento Equilibrio geostrofico gradiente y ciclostrofico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "13",
+    officialTitle:
+      "Turbulencia en la atmósfera. Capa límite atmosférica. Intercambios turbulentos. Longitud de mezcla. Parámetros característicos de la capa límite.",
+    normalizedTitle:
+      "Turbulencia en la atmosfera Capa limite atmosferica Intercambios turbulentos Longitud de mezcla Parametros caracteristicos de la capa limite",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "14",
+    officialTitle:
+      "Circulación general de la atmósfera. Células de circulación. Ondas planetarias. Corrientes en chorro. Monzones.",
+    normalizedTitle:
+      "Circulacion general de la atmosfera Celulas de circulacion Ondas planetarias Corrientes en chorro Monzones",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "15",
+    officialTitle:
+      "Masas de aire y frentes. Clasificación. Estructura. Formación y evolución. Frentes fríos, cálidos, ocluidos y estacionarios.",
+    normalizedTitle:
+      "Masas de aire y frentes Clasificacion Estructura Formacion y evolucion Frentes frios calidos ocluidos y estacionarios",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "16",
+    officialTitle:
+      "Sistemas de presión. Anticiclones y borrascas. Estructura vertical. Evolución. Ciclogénesis y frontogénesis.",
+    normalizedTitle:
+      "Sistemas de presion Anticiclones y borrascas Estructura vertical Evolucion Ciclogenesis y frontogenesis",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "17",
+    officialTitle:
+      "Convección atmosférica. Tormentas. Células convectivas. Mesoescala. Sistemas convectivos de mesoescala.",
+    normalizedTitle:
+      "Conveccion atmosferica Tormentas Celulas convectivas Mesoescala Sistemas convectivos de mesoescala",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "18",
+    officialTitle:
+      "Ciclones tropicales. Génesis, estructura y evolución. Clasificación. Riesgos asociados.",
+    normalizedTitle:
+      "Ciclones tropicales Genesis estructura y evolucion Clasificacion Riesgos asociados",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "19",
+    officialTitle:
+      "Ondas de montaña y efecto foehn. Brisas marinas y terrestres. Circulaciones locales. Influencia del relieve en el tiempo.",
+    normalizedTitle:
+      "Ondas de montana y efecto foehn Brisas marinas y terrestres Circulaciones locales Influencia del relieve en el tiempo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "20",
+    officialTitle:
+      "Interacción atmósfera-océano. Intercambios de calor, humedad y momento. Oscilación del Sur-El Niño. Variabilidad acoplada.",
+    normalizedTitle:
+      "Interaccion atmosfera oceano Intercambios de calor humedad y momento Oscilacion del Sur El Nino Variabilidad acoplada",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "Informatics and Communications",
     officialNumber: "1",
     officialTitle:
