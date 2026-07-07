@@ -685,6 +685,126 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Meteorology and Climatology",
+    officialNumber: "21",
+    officialTitle:
+      "Fenómenos meteorológicos de impacto para la aviación I: Cizalladura y turbulencia. Causas de su formación. Tipos de turbulencia y su impacto en las aeronaves. Turbulencia por onda de montaña. Turbulencia en aire claro. Corriente en chorro y su impacto en la aviación.",
+    normalizedTitle:
+      "Fenomenos meteorologicos de impacto para la aviacion I Cizalladura y turbulencia Causas de su formacion Tipos de turbulencia y su impacto en las aeronaves Turbulencia por onda de montana Turbulencia en aire claro Corriente en chorro y su impacto en la aviacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "22",
+    officialTitle:
+      "Fenómenos meteorológicos de impacto para la aviación II: Engelamiento. Formación de hielo en las aeronaves: razón de engelamiento. Visibilidad. Reducción de visibilidad por nieblas y otros fenómenos. Tormentas y su impacto en la aviación.",
+    normalizedTitle:
+      "Fenomenos meteorologicos de impacto para la aviacion II Engelamiento Formacion de hielo en las aeronaves razon de engelamiento Visibilidad Reduccion de visibilidad por nieblas y otros fenomenos Tormentas y su impacto en la aviacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "23",
+    officialTitle:
+      "Fuerzas fundamentales de los movimientos atmosféricos. Fuerzas aparentes de los movimientos atmosféricos. Ecuación del momento en un sistema de coordenadas cartesianas en rotación.",
+    normalizedTitle:
+      "Fuerzas fundamentales de los movimientos atmosfericos Fuerzas aparentes de los movimientos atmosfericos Ecuacion del momento en un sistema de coordenadas cartesianas en rotacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "24",
+    officialTitle:
+      "Ecuaciones del momento en un sistema de coordenadas esféricas en rotación. Coordenadas naturales: Características. Ecuaciones del movimiento en coordenadas naturales. Análisis de escala de las ecuaciones del movimiento. Aproximación geostrófica e hidrostática. Número de Rossby.",
+    normalizedTitle:
+      "Ecuaciones del momento en un sistema de coordenadas esfericas en rotacion Coordenadas naturales Caracteristicas Ecuaciones del movimiento en coordenadas naturales Analisis de escala de las ecuaciones del movimiento Aproximacion geostrofica e hidrostatica Numero de Rossby",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "25",
+    officialTitle:
+      "Ecuación de continuidad: Deducciones euleriana y lagrangiana. Análisis de escala. Aproximación de Boussinesq. Ecuación de continuidad en coordenadas isobáricas. Principio de conservación de la energía aplicado a la atmósfera. Ecuación de la energía termodinámica. Análisis de escala. Ecuación de la energía termodinámica en coordenadas isobáricas.",
+    normalizedTitle:
+      "Ecuacion de continuidad Deducciones euleriana y lagrangiana Analisis de escala Aproximacion de Boussinesq Ecuacion de continuidad en coordenadas isobaricas Principio de conservacion de la energia aplicado a la atmosfera Ecuacion de la energia termodinamica Analisis de escala Ecuacion de la energia termodinamica en coordenadas isobaricas",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "26",
+    officialTitle:
+      "Balance de fuerzas en la vertical. Ecuación hidrostática. Los campos de geopotencial y espesor. Fórmulas barométricas. Altura geopotencial, altura dinámica y altura geométrica.",
+    normalizedTitle:
+      "Balance de fuerzas en la vertical Ecuacion hidrostatica Los campos de geopotencial y espesor Formulas barometricas Altura geopotencial altura dinamica y altura geometrica",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "27",
+    officialTitle:
+      "Ecuación del momento en coordenadas de presión. Equilibrio de fuerzas en la horizontal: Configuraciones básicas de flujo. Trayectorias y líneas de corriente: Fórmula de Blaton. Vientos inercial y ciclostrófico. Viento geostrófico. Viento del gradiente.",
+    normalizedTitle:
+      "Ecuacion del momento en coordenadas de presion Equilibrio de fuerzas en la horizontal Configuraciones basicas de flujo Trayectorias y lineas de corriente Formula de Blaton Vientos inercial y ciclostrofico Viento geostrofico Viento del gradiente",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "28",
+    officialTitle:
+      "Variación vertical del viento geostrófico. Viento térmico. Balance del viento térmico. Barotropía y baroclinidad. Principales características del viento ageostrófico.",
+    normalizedTitle:
+      "Variacion vertical del viento geostrofico Viento termico Balance del viento termico Barotropia y baroclinidad Principales caracteristicas del viento ageostrofico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "29",
+    officialTitle:
+      "Concepto de circulación. Teoremas de la circulación de Bjerknes y Kelvin. Concepto de vorticidad y su relación con la circulación. Vorticidad en coordenadas naturales. Ecuación de la vorticidad en coordenadas cartesianas: interpretación física. Análisis de escala de la ecuación de la vorticidad. Ecuación de la vorticidad en coordenadas isobáricas. Vorticidad potencial. Conservación de la vorticidad en el flujo atmosférico.",
+    normalizedTitle:
+      "Concepto de circulacion Teoremas de la circulacion de Bjerknes y Kelvin Concepto de vorticidad y su relacion con la circulacion Vorticidad en coordenadas naturales Ecuacion de la vorticidad en coordenadas cartesianas interpretacion fisica Analisis de escala de la ecuacion de la vorticidad Ecuacion de la vorticidad en coordenadas isobaricas Vorticidad potencial Conservacion de la vorticidad en el flujo atmosferico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "30",
+    officialTitle:
+      "La aproximación cuasigeostrófica. Sistemas de ecuaciones cuasigeostróficas. Predicción cuasigeostrófica: La ecuación de tendencia del geopotencial. Interpretación matemática y física de la ecuación de tendencia del geopotencial. Ecuación de la vorticidad potencial cuasigeostrófica.",
+    normalizedTitle:
+      "La aproximacion cuasigeostrofica Sistemas de ecuaciones cuasigeostroficas Prediccion cuasigeostrofica La ecuacion de tendencia del geopotencial Interpretacion matematica y fisica de la ecuacion de tendencia del geopotencial Ecuacion de la vorticidad potencial cuasigeostrofica",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "Informatics and Communications",
     officialNumber: "1",
     officialTitle:

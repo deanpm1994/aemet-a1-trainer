@@ -160,7 +160,7 @@ describe("loadTopicsSource", () => {
     expect(result.topics[0]?.sourceUrl).toBe(
       "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     );
-    expect(result.topics).toHaveLength(58);
+    expect(result.topics).toHaveLength(68);
     expect(
       result.topics
         .filter((topic) => topic.block === "Meteorology and Climatology")
@@ -186,6 +186,16 @@ describe("loadTopicsSource", () => {
       "18",
       "19",
       "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
     ]);
   });
 
