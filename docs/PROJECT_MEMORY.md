@@ -141,7 +141,7 @@ Study content readiness:
 - Unverified starter topics/questions are explicitly not treated as official-ready
 - Verified official syllabus wording and verified past-question imports remain the main blocker before calling the app official-content ready
 - Official content import foundation exists for syllabus-first ingestion and question-contract validation
-- Verified BOE syllabus import from Annex I of BOE-A-2026-1292 now includes the full Mathematics and Physics blocks plus Meteorology and Climatology topics 1 through 10, with one verified starter topic in Informatics and Communications and General/Common; this remains a partial subset, not a full verified syllabus
+- Verified BOE syllabus import from Annex I of BOE-A-2026-1292 now includes the full Mathematics and Physics blocks plus Meteorology and Climatology topics 1 through 20, with one verified starter topic in Informatics and Communications and General/Common; this remains a partial subset, not a full verified syllabus
 - Source-backed official date records remain required before showing a real countdown to any convocatoria, deadline, or exam phase
 
 Supabase notes:
@@ -171,7 +171,7 @@ Verified working recently:
 
 Next recommended MVP steps:
 - Run a real 30-minute production study-session smoke test on the candidate's phone: sign in, create or use session, focus timer, complete review, verify topic/question progress updates
-- Continue the BOE Annex I syllabus import with Meteorology and Climatology topics 11 onward in another controlled batch, then proceed through Informatics and Communications and General/Common before treating all topic blocks as official-ready
+- Continue the BOE Annex I syllabus import with Meteorology and Climatology topics 21 onward in another controlled batch, then proceed through Informatics and Communications and General/Common before treating all topic blocks as official-ready
 - Add a settings language selector if the candidate wants to switch between Spanish and English
 
 Ignored local artifacts:
