@@ -160,10 +160,10 @@ describe("loadTopicsSource", () => {
     expect(result.topics[0]?.sourceUrl).toBe(
       "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     );
-    expect(result.topics).toHaveLength(22);
+    expect(result.topics).toHaveLength(39);
     expect(
       result.topics
-        .filter((topic) => topic.block === "Mathematics")
+        .filter((topic) => topic.block === "Physics")
         .map((topic) => topic.officialNumber),
     ).toEqual([
       "1",
