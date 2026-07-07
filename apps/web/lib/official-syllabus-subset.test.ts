@@ -6,7 +6,7 @@ import {
 } from "./official-syllabus-subset";
 
 describe("official syllabus subset", () => {
-  it("loads the verified BOE subset including Physics topics 1 through 18", () => {
+  it("loads the verified BOE subset including Meteorology and Climatology topics 1 through 10", () => {
     const result = loadOfficialSyllabusSubset();
 
     expect(result.ok).toBe(true);
@@ -15,12 +15,14 @@ describe("official syllabus subset", () => {
       throw new Error("Expected verified syllabus subset");
     }
 
-    expect(result.topics).toHaveLength(39);
+    expect(result.topics).toHaveLength(48);
 
-    const physicsTopics = result.topics.filter((topic) => topic.block === "Physics");
+    const meteoTopics = result.topics.filter(
+      (topic) => topic.block === "Meteorology and Climatology",
+    );
 
-    expect(physicsTopics).toHaveLength(18);
-    expect(physicsTopics.map((topic) => topic.officialNumber)).toEqual([
+    expect(meteoTopics).toHaveLength(10);
+    expect(meteoTopics.map((topic) => topic.officialNumber)).toEqual([
       "1",
       "2",
       "3",
@@ -31,31 +33,23 @@ describe("official syllabus subset", () => {
       "8",
       "9",
       "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
     ]);
-    expect(physicsTopics[17]?.sourceUrl).toBe(
+    expect(meteoTopics[9]?.sourceUrl).toBe(
       "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     );
-    expect(physicsTopics[17]?.retrievedAt).toBe("2026-07-06");
-    expect(physicsTopics[17]?.verificationStatus).toBe("verified");
+    expect(meteoTopics[9]?.retrievedAt).toBe("2026-07-06");
+    expect(meteoTopics[9]?.verificationStatus).toBe("verified");
   });
 
   it("keeps source-owned wording separate from normalized display titles", () => {
-    const finalPhysicsTopic = officialSyllabusSubsetSource.find(
-      (topic) => topic.block === "Physics" && topic.officialNumber === "18",
+    const finalMeteoTopic = officialSyllabusSubsetSource.find(
+      (topic) =>
+        topic.block === "Meteorology and Climatology" &&
+        topic.officialNumber === "10",
     );
 
-    expect(finalPhysicsTopic).toBeDefined();
-    expect(finalPhysicsTopic?.officialTitle).not.toBe(
-      finalPhysicsTopic?.normalizedTitle,
-    );
-    expect(finalPhysicsTopic?.officialTitle).toContain(".");
+    expect(finalMeteoTopic).toBeDefined();
+    expect(finalMeteoTopic?.officialTitle).not.toBe(finalMeteoTopic?.normalizedTitle);
+    expect(finalMeteoTopic?.officialTitle).toContain(".");
   });
 });
