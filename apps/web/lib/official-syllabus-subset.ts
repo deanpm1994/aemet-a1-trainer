@@ -121,6 +121,114 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Mathematics",
+    officialNumber: "10",
+    officialTitle:
+      "Ecuaciones en derivadas parciales de primer y segundo orden. Clasificación. Método de separación de variables para su resolución. Aplicación a problemas clásicos: Ecuación del calor, ecuación de ondas y ecuación de Laplace.",
+    normalizedTitle:
+      "Ecuaciones en derivadas parciales de primer y segundo orden Clasificacion Metodo de separacion de variables para su resolucion Aplicacion a problemas clasicos Ecuacion del calor ecuacion de ondas y ecuacion de Laplace",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "11",
+    officialTitle:
+      "Series de Fourier. Series trigonométricas de Fourier. Conjuntos de funciones ortogonales. Integral de Fourier. Teorema de convolución. Interpretación física y aplicaciones. La transformada discreta de Fourier.",
+    normalizedTitle:
+      "Series de Fourier Series trigonometricas de Fourier Conjuntos de funciones ortogonales Integral de Fourier Teorema de convolucion Interpretacion fisica y aplicaciones La transformada discreta de Fourier",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "12",
+    officialTitle:
+      "Fundamentos de estadística descriptiva. Variables estadísticas. Distribución de frecuencias y representaciones gráficas. Medidas de posición, dispersión y forma. Momentos respecto del origen y centrales. Función generatriz de momentos.",
+    normalizedTitle:
+      "Fundamentos de estadistica descriptiva Variables estadisticas Distribucion de frecuencias y representaciones graficas Medidas de posicion dispersion y forma Momentos respecto del origen y centrales Funcion generatriz de momentos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "13",
+    officialTitle:
+      "Sucesos aleatorios. Concepto y propiedades fundamentales de la probabilidad. Probabilidad condicionada. Teorema de Bayes. Variables aleatorias. Variables discretas. Función de probabilidad. Variables continuas. Función de densidad. Esperanza matemática. Varianza. Función característica y función generatriz de momentos. Variables aleatorias bidimensionales. Distribuciones marginales y condicionadas. Covarianza y correlación. Teorema de Tchebychev.",
+    normalizedTitle:
+      "Sucesos aleatorios Concepto y propiedades fundamentales de la probabilidad Probabilidad condicionada Teorema de Bayes Variables aleatorias Variables discretas Funcion de probabilidad Variables continuas Funcion de densidad Esperanza matematica Varianza Funcion caracteristica y funcion generatriz de momentos Variables aleatorias bidimensionales Distribuciones marginales y condicionadas Covarianza y correlacion Teorema de Tchebychev",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "14",
+    officialTitle:
+      "Distribuciones estadísticas. Principales distribuciones estadísticas discretas y continuas: discreta uniforme, binomial, Poisson, continua uniforme, normal, ji cuadrado, t de Student y F de Fisher.",
+    normalizedTitle:
+      "Distribuciones estadisticas Principales distribuciones estadisticas discretas y continuas discreta uniforme binomial Poisson continua uniforme normal ji cuadrado t de Student y F de Fisher",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "15",
+    officialTitle:
+      "Inferencia estadística I. Estimación puntual de parámetros. Distribución de un estimador en el muestreo: Propiedades. Media y varianza muestrales. Método de máxima verosimilitud. Método de momentos. Estimación por intervalos: Conceptos básicos. Intervalos para media y varianza de una población normal. Intervalo para la diferencia de medias y el cociente de varianzas para dos poblaciones normales independientes.",
+    normalizedTitle:
+      "Inferencia estadistica I Estimacion puntual de parametros Distribucion de un estimador en el muestreo Propiedades Media y varianza muestrales Metodo de maxima verosimilitud Metodo de momentos Estimacion por intervalos Conceptos basicos Intervalos para media y varianza de una poblacion normal Intervalo para la diferencia de medias y el cociente de varianzas para dos poblaciones normales independientes",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "16",
+    officialTitle:
+      "Inferencia estadística II. Contrastes de hipótesis: Principales características. Fases de un contraste de hipótesis. Tipos de errores y significación. Contrastes bilaterales y unilaterales. Contrastes de la media y la varianza de una población normal. Contrastes de igualdad de medias e igualdad de varianzas de dos poblaciones normales.",
+    normalizedTitle:
+      "Inferencia estadistica II Contrastes de hipotesis Principales caracteristicas Fases de un contraste de hipotesis Tipos de errores y significacion Contrastes bilaterales y unilaterales Contrastes de la media y la varianza de una poblacion normal Contrastes de igualdad de medias e igualdad de varianzas de dos poblaciones normales",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "17",
+    officialTitle:
+      "Variables estadísticas bidimensionales. Covarianza y coeficiente de correlación. Análisis de regresión. Regresión lineal simple: Método de mínimos cuadrados. Coeficientes de regresión. Varianza residual.",
+    normalizedTitle:
+      "Variables estadisticas bidimensionales Covarianza y coeficiente de correlacion Analisis de regresion Regresion lineal simple Metodo de minimos cuadrados Coeficientes de regresion Varianza residual",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Mathematics",
+    officialNumber: "18",
+    officialTitle:
+      "Tratamiento numérico de los problemas matemáticos. Errores por truncamiento y cancelación, orden de aproximación, condicionamiento y estabilidad. Interpolación en una variable: interpolación de Taylor, interpolación de Lagrange y fórmula de Newton. Derivación e integración numéricas. Resolución numérica de ecuaciones diferenciales.",
+    normalizedTitle:
+      "Tratamiento numerico de los problemas matematicos Errores por truncamiento y cancelacion orden de aproximacion condicionamiento y estabilidad Interpolacion en una variable interpolacion de Taylor interpolacion de Lagrange y formula de Newton Derivacion e integracion numericas Resolucion numerica de ecuaciones diferenciales",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "Physics",
     officialNumber: "1",
     officialTitle:
