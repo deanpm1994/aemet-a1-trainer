@@ -805,6 +805,354 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Meteorology and Climatology",
+    officialNumber: "31",
+    officialTitle:
+      "Obtención de la ecuación omega a partir de las ecuaciones en aproximación cuasigeostrófica. Ecuación omega cuasigeostrófica: Interpretación matemática y física. Aproximación de Trenberth. Vector Q de Hoskins. Modelo idealizado de una perturbación baroclina.",
+    normalizedTitle:
+      "Obtencion de la ecuacion omega a partir de las ecuaciones en aproximacion cuasigeostrofica Ecuacion omega cuasigeostrofica Interpretacion matematica y fisica Aproximacion de Trenberth Vector Q de Hoskins Modelo idealizado de una perturbacion baroclina",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "32",
+    officialTitle:
+      "Ondas en la atmósfera: Características principales. Ondas acústicas. Ondas de gravedad y de inercia. Ondas de Kelvin. Ondas de Rossby: Propagación en una atmósfera barotrópica y en una atmósfera baroclina. Dispersión y velocidad de grupo.",
+    normalizedTitle:
+      "Ondas en la atmosfera Caracteristicas principales Ondas acusticas Ondas de gravedad y de inercia Ondas de Kelvin Ondas de Rossby Propagacion en una atmosfera barotropica y en una atmosfera baroclina Dispersion y velocidad de grupo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "33",
+    officialTitle:
+      "Inestabilidad hidrodinámica. Inestabilidad barotrópica. Balance energético en ondas barotrópicas. Inestabilidad baroclina. Energía de las ondas baroclinas. Ciclo de vida de perturbaciones atmosféricas en latitudes medias. Inestabilidad baroclina generalizada: Ciclogénesis.",
+    normalizedTitle:
+      "Inestabilidad hidrodinamica Inestabilidad barotropica Balance energetico en ondas barotropicas Inestabilidad baroclina Energia de las ondas baroclinas Ciclo de vida de perturbaciones atmosfericas en latitudes medias Inestabilidad baroclina generalizada Ciclogenesis",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "34",
+    officialTitle:
+      "Concepto de superficie límite y frontal. Discontinuidades en superficies frontales: Presión, temperatura, densidad y velocidad. Condiciones de contorno en frentes. Fórmula de Margules. Función frontogenética. Cinemática y termodinámica de la frontogénesis. Papel frontogénico de las configuraciones de flujo.",
+    normalizedTitle:
+      "Concepto de superficie limite y frontal Discontinuidades en superficies frontales Presion temperatura densidad y velocidad Condiciones de contorno en frentes Formula de Margules Funcion frontogenetica Cinematica y termodinamica de la frontogenesis Papel frontogenico de las configuraciones de flujo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "35",
+    officialTitle:
+      "Aspectos sinópticos de las zonas frontales. Los frentes en superficie: Frente frío, frente cálido, frente estacionario y frente ocluido. Principales características de los frentes en superficie y su impacto en las condiciones meteorológicas. Anafrentes y catafrentes. Los frentes en la media y alta troposfera.",
+    normalizedTitle:
+      "Aspectos sinopticos de las zonas frontales Los frentes en superficie Frente frio frente calido frente estacionario y frente ocluido Principales caracteristicas de los frentes en superficie y su impacto en las condiciones meteorologicas Anafrentes y catafrentes Los frentes en la media y alta troposfera",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "36",
+    officialTitle:
+      "Corrientes en chorro. Aspectos observacionales de las corrientes en chorro. Cinemática y dinámica de las corrientes en chorro. Análisis cuasigeostrófico.",
+    normalizedTitle:
+      "Corrientes en chorro Aspectos observacionales de las corrientes en chorro Cinematica y dinamica de las corrientes en chorro Analisis cuasigeostrofico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "37",
+    officialTitle:
+      "Meteorología mesoescalar. Escalas espaciales y temporales. La dinámica de los sistemas de mesoescala y diferencias con la escala sinóptica. Características mesoescalares asociadas a fenómenos orográficos: forzamiento térmico, ondas de montaña y bloqueos.",
+    normalizedTitle:
+      "Meteorologia mesoescalar Escalas espaciales y temporales La dinamica de los sistemas de mesoescala y diferencias con la escala sinoptica Caracteristicas mesoescalares asociadas a fenomenos orograficos forzamiento termico ondas de montana y bloqueos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "38",
+    officialTitle:
+      "Convección profunda. Iniciación y organización de la convección. Convección multicelular y supercelular. Características generales de los sistemas convectivos de mesoescala. Impactos asociados a la convección profunda.",
+    normalizedTitle:
+      "Conveccion profunda Iniciacion y organizacion de la conveccion Conveccion multicelular y supercelular Caracteristicas generales de los sistemas convectivos de mesoescala Impactos asociados a la conveccion profunda",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "39",
+    officialTitle:
+      "Capa límite planetaria. Fricción molecular y turbulenta. Ecuaciones del movimiento en la capa límite planetaria. Tensor de Reynolds. Número de Richardson. Teoría de la longitud de mezcla y el transporte turbulento. Estructura del viento en la capa límite. Espiral o capa de Ekman.",
+    normalizedTitle:
+      "Capa limite planetaria Friccion molecular y turbulenta Ecuaciones del movimiento en la capa limite planetaria Tensor de Reynolds Numero de Richardson Teoria de la longitud de mezcla y el transporte turbulento Estructura del viento en la capa limite Espiral o capa de Ekman",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "40",
+    officialTitle:
+      "Meteorología tropical. Estructura de los movimientos a gran escala en la zona ecuatorial. Análisis de escala de los movimientos tropicales. Origen de las perturbaciones ecuatoriales. Ciclones tropicales.",
+    normalizedTitle:
+      "Meteorologia tropical Estructura de los movimientos a gran escala en la zona ecuatorial Analisis de escala de los movimientos tropicales Origen de las perturbaciones ecuatoriales Ciclones tropicales",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "41",
+    officialTitle:
+      "Estructura térmica y dinámica de la estratosfera. Circulación zonal y meridional del viento en la atmósfera media. Célula de Brewer-Dobson. Ondas planetarias de propagación vertical. Calentamientos súbitos estratosféricos. Oscilación cuasibienal.",
+    normalizedTitle:
+      "Estructura termica y dinamica de la estratosfera Circulacion zonal y meridional del viento en la atmosfera media Celula de Brewer Dobson Ondas planetarias de propagacion vertical Calentamientos subitos estratosfericos Oscilacion cuasibienal",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "42",
+    officialTitle:
+      "Aproximación numérica de las ecuaciones de movimiento. Método de las diferencias finitas. Esquemas de diferenciación explícitos e implícitos. Consistencia, estabilidad y convergencia: La condición CFL. El método espectral. Modelos de ecuaciones primitivas.",
+    normalizedTitle:
+      "Aproximacion numerica de las ecuaciones de movimiento Metodo de las diferencias finitas Esquemas de diferenciacion explicitos e implicitos Consistencia estabilidad y convergencia La condicion CFL El metodo espectral Modelos de ecuaciones primitivas",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "43",
+    officialTitle:
+      "Asimilación de datos. Fases del ciclo de asimilación. Esquemas de predicción deterministas y probabilistas. Alcances temporales de predicción. Predecibilidad y limitaciones. Sistemas de predicción por conjuntos: Fundamentos básicos.",
+    normalizedTitle:
+      "Asimilacion de datos Fases del ciclo de asimilacion Esquemas de prediccion deterministas y probabilistas Alcances temporales de prediccion Predecibilidad y limitaciones Sistemas de prediccion por conjuntos Fundamentos basicos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "44",
+    officialTitle:
+      "Evolución del concepto y de las definiciones de clima. El sistema climático: Componentes. Variabilidad natural del clima y escalas temporales. Estados de equilibrio climático. Variabilidad climática y cambio climático.",
+    normalizedTitle:
+      "Evolucion del concepto y de las definiciones de clima El sistema climatico Componentes Variabilidad natural del clima y escalas temporales Estados de equilibrio climatico Variabilidad climatica y cambio climatico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "45",
+    officialTitle:
+      "Paleoclimatología y dataciones no instrumentales. Principales fuentes de datos paleoclimáticos y registros históricos. Evolución del clima terrestre a lo largo de la historia de nuestro planeta.",
+    normalizedTitle:
+      "Paleoclimatologia y dataciones no instrumentales Principales fuentes de datos paleoclimaticos y registros historicos Evolucion del clima terrestre a lo largo de la historia de nuestro planeta",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "46",
+    officialTitle:
+      "Distribución global media de variables atmosféricas. Variabilidad espacial y temporal de la presión, el geopotencial, la temperatura, la precipitación y la evaporación.",
+    normalizedTitle:
+      "Distribucion global media de variables atmosfericas Variabilidad espacial y temporal de la presion el geopotencial la temperatura la precipitacion y la evaporacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "47",
+    officialTitle:
+      "Distribución global media de variables oceánicas. Variabilidad espacial y temporal de la temperatura, la salinidad y la densidad.",
+    normalizedTitle:
+      "Distribucion global media de variables oceanicas Variabilidad espacial y temporal de la temperatura la salinidad y la densidad",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "48",
+    officialTitle:
+      "Caracterización de los climas del mundo. Clasificaciones clásicas de Köppen y Thornthwaite. Aplicación a la península ibérica y archipiélago canario.",
+    normalizedTitle:
+      "Caracterizacion de los climas del mundo Clasificaciones clasicas de Koppen y Thornthwaite Aplicacion a la peninsula iberica y archipielago canario",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "49",
+    officialTitle:
+      "La Tierra: Características principales. Movimientos de la Tierra. Proyecciones cartográficas utilizadas comúnmente en Meteorología. Geografía física de España: principales unidades de relieve y cuencas hidrográficas.",
+    normalizedTitle:
+      "La Tierra Caracteristicas principales Movimientos de la Tierra Proyecciones cartograficas utilizadas comunmente en Meteorologia Geografia fisica de Espana principales unidades de relieve y cuencas hidrograficas",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "50",
+    officialTitle:
+      "Balance global de energía. Balance de energía en la cima de la atmósfera: variaciones latitudinales y estacionales. Balance de energía en superficie: variaciones latitudinales. Ciclos diurno, estacional y anual. Transporte de energía latitudinal.",
+    normalizedTitle:
+      "Balance global de energia Balance de energia en la cima de la atmosfera variaciones latitudinales y estacionales Balance de energia en superficie variaciones latitudinales Ciclos diurno estacional y anual Transporte de energia latitudinal",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "51",
+    officialTitle:
+      "La circulación general de la atmósfera. Estructura media observada: Modelo tricelular. Variaciones estacionales y asimetrías zonales de la circulación tricelular. Balance de momento angular en el sistema tierra-atmósfera. Mecanismo de intercambio de momento angular.",
+    normalizedTitle:
+      "La circulacion general de la atmosfera Estructura media observada Modelo tricelular Variaciones estacionales y asimetrias zonales de la circulacion tricelular Balance de momento angular en el sistema tierra atmosfera Mecanismo de intercambio de momento angular",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "52",
+    officialTitle:
+      "La circulación general de los océanos. Corrientes oceánicas. Transporte de Ekman. Circulación termohalina. El hielo marino y su papel en la circulación termohalina.",
+    normalizedTitle:
+      "La circulacion general de los oceanos Corrientes oceanicas Transporte de Ekman Circulacion termohalina El hielo marino y su papel en la circulacion termohalina",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "53",
+    officialTitle:
+      "El ciclo hidrológico. Ecuación general del balance hídrico. Evaporación y transpiración. Balance hídrico en superficie: variaciones latitudinales.",
+    normalizedTitle:
+      "El ciclo hidrologico Ecuacion general del balance hidrico Evaporacion y transpiracion Balance hidrico en superficie variaciones latitudinales",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "54",
+    officialTitle:
+      "El ciclo del carbono. Ciclos geológico y biológico. Balance de concentraciones de CO2 en la atmósfera. Principales fuentes o sumideros de CO2.",
+    normalizedTitle:
+      "El ciclo del carbono Ciclos geologico y biologico Balance de concentraciones de CO2 en la atmosfera Principales fuentes o sumideros de CO2",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "55",
+    officialTitle:
+      "Modelos climáticos: concepto y objetivo. Jerarquía de modelos. Modelos climáticos globales: modelos acoplados y modelos del sistema tierra. Ecuaciones fundamentales. Parametrizaciones.",
+    normalizedTitle:
+      "Modelos climaticos concepto y objetivo Jerarquia de modelos Modelos climaticos globales modelos acoplados y modelos del sistema tierra Ecuaciones fundamentales Parametrizaciones",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "56",
+    officialTitle:
+      "Forzamiento radiativo. Temperatura efectiva. Efecto invernadero. Sensibilidad del sistema climático ante forzamientos radiativos. Interacciones y procesos de retroalimentación en el sistema climático.",
+    normalizedTitle:
+      "Forzamiento radiativo Temperatura efectiva Efecto invernadero Sensibilidad del sistema climatico ante forzamientos radiativos Interacciones y procesos de retroalimentacion en el sistema climatico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "57",
+    officialTitle:
+      "Variabilidad interanual del clima. Interacciones océano-atmósfera I: Caracterización de los episodios ENSO. Retroalimentación de Bjerknes. Interacciones océano-atmósfera II: Caracterización de los episodios NAO y PDO.",
+    normalizedTitle:
+      "Variabilidad interanual del clima Interacciones oceano atmosfera I Caracterizacion de los episodios ENSO Retroalimentacion de Bjerknes Interacciones oceano atmosfera II Caracterizacion de los episodios NAO y PDO",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "58",
+    officialTitle:
+      "Causas externas naturales de los cambios climáticos. Parámetros orbitales: Ciclos de Milankovich. Variaciones de la potencia solar. Erupciones volcánicas y su impacto en el sistema climático.",
+    normalizedTitle:
+      "Causas externas naturales de los cambios climaticos Parametros orbitales Ciclos de Milankovich Variaciones de la potencia solar Erupciones volcanicas y su impacto en el sistema climatico",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Meteorology and Climatology",
+    officialNumber: "59",
+    officialTitle:
+      "Causas externas antropogénicas de los cambios climáticos. Gases de efecto invernadero: Potencial de calentamiento global. Intensificación del efecto invernadero. Aerosoles de origen antropogénico. Modificación de la superficie por usos del suelo. Evolución y comparación de forzamientos radiativos naturales y antropogénicos.",
+    normalizedTitle:
+      "Causas externas antropogenicas de los cambios climaticos Gases de efecto invernadero Potencial de calentamiento global Intensificacion del efecto invernadero Aerosoles de origen antropogenico Modificacion de la superficie por usos del suelo Evolucion y comparacion de forzamientos radiativos naturales y antropogenicos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "Informatics and Communications",
     officialNumber: "1",
     officialTitle:
@@ -817,12 +1165,384 @@ export const officialSyllabusSubsetSource = [
     verificationStatus: "verified" as const,
   },
   {
+    block: "Informatics and Communications",
+    officialNumber: "2",
+    officialTitle:
+      "Lenguajes de programación. Lenguajes compilados e interpretados. Programación orientada a objetos.",
+    normalizedTitle:
+      "Lenguajes de programacion Lenguajes compilados e interpretados Programacion orientada a objetos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "3",
+    officialTitle:
+      "Lenguajes de programación para cálculo computacional: Fortran, Python y R. Estructuras de datos. Herramientas de control de flujo. Entrada y salida. Funciones. Librerías. Manejo de errores.",
+    normalizedTitle:
+      "Lenguajes de programacion para calculo computacional Fortran Python y R Estructuras de datos Herramientas de control de flujo Entrada y salida Funciones Librerias Manejo de errores",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "4",
+    officialTitle:
+      "Tecnologías web. Lenguaje de marcado de hipertexto (HTML). Conceptos y estructura básica de un documento HTML. Lenguajes de script: Javascript. Estructuras de datos. Herramientas de control de flujo. Funciones. Manejo de errores.",
+    normalizedTitle:
+      "Tecnologias web Lenguaje de marcado de hipertexto HTML Conceptos y estructura basica de un documento HTML Lenguajes de script Javascript Estructuras de datos Herramientas de control de flujo Funciones Manejo de errores",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "5",
+    officialTitle:
+      "Concepto de bases de datos: Principales componentes de un entorno de bases de datos. Sistemas de gestión de bases de datos (Relacionales; Orientados a objetos; NoSQL): Características y elementos constitutivos.",
+    normalizedTitle:
+      "Concepto de bases de datos Principales componentes de un entorno de bases de datos Sistemas de gestion de bases de datos Relacionales Orientados a objetos NoSQL Caracteristicas y elementos constitutivos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "6",
+    officialTitle:
+      "Estructuras de datos. Tablas, listas y árboles. Algoritmos: Ordenación, Búsqueda, Recursión, Grafos. Organizaciones de ficheros.",
+    normalizedTitle:
+      "Estructuras de datos Tablas listas y arboles Algoritmos Ordenacion Busqueda Recursion Grafos Organizaciones de ficheros",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "7",
+    officialTitle:
+      "Redes locales. Tipología. Medios de transmisión. Métodos de acceso. El modelo de referencia de interconexión de sistemas abiertos (OSI) de ISO. Arquitectura. Capas, interfaces y protocolos. Protocolos TCP/IP.",
+    normalizedTitle:
+      "Redes locales Tipologia Medios de transmision Metodos de acceso El modelo de referencia de interconexion de sistemas abiertos OSI de ISO Arquitectura Capas interfaces y protocolos Protocolos TCP IP",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "8",
+    officialTitle:
+      "Sistemas de Información Geográfica (SIG). Estructura de datos. Organización de la información geográfica en los SIG. Estructuras de datos de raster y vectoriales. Bases de datos espaciales y bases de datos temáticos. Análisis y modelización espacial.",
+    normalizedTitle:
+      "Sistemas de Informacion Geografica SIG Estructura de datos Organizacion de la informacion geografica en los SIG Estructuras de datos de raster y vectoriales Bases de datos espaciales y bases de datos tematicos Analisis y modelizacion espacial",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "9",
+    officialTitle:
+      "La red Internet: Arquitectura de red. Principios de funcionamiento. Servicios: Evolución, estado actual y tendencias.",
+    normalizedTitle:
+      "La red Internet Arquitectura de red Principios de funcionamiento Servicios Evolucion estado actual y tendencias",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "Informatics and Communications",
+    officialNumber: "10",
+    officialTitle:
+      "La seguridad en redes. Control de accesos. Técnicas criptográficas. Mecanismos de firma digital. Intrusiones. Cortafuegos. Redes privadas virtuales (VPN).",
+    normalizedTitle:
+      "La seguridad en redes Control de accesos Tecnicas criptograficas Mecanismos de firma digital Intrusiones Cortafuegos Redes privadas virtuales VPN",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
     block: "General/Common",
     officialNumber: "1",
     officialTitle:
-      "El Régimen jurídico del personal al servicio de las Administraciones públicas. El texto refundido de la Ley del Estatuto Básico del Empleado Público y otras normas: Tipos de empleados públicos y derechos y deberes del personal al servicio de la Administración Pública. Ley 53/1984, de 26 de diciembre, de incompatibilidades del personal al servicio de las Administraciones Públicas.",
+      "La Constitución Española de 1978: estructura, contenido, principios y valores fundamentales. Los derechos y deberes fundamentales: garantías y suspensión. La Corona. Reforma constitucional.",
     normalizedTitle:
-      "El Regimen juridico del personal al servicio de las Administraciones publicas El texto refundido de la Ley del Estatuto Basico del Empleado Publico y otras normas Tipos de empleados publicos y derechos y deberes del personal al servicio de la Administracion Publica Ley 53 1984 de 26 de diciembre de incompatibilidades del personal al servicio de las Administraciones Publicas",
+      "La Constitucion Espanola de 1978 estructura contenido principios y valores fundamentales Los derechos y deberes fundamentales garantias y suspension La Corona Reforma constitucional",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "2",
+    officialTitle:
+      "Las Cortes Generales. Composición, atribuciones y funcionamiento. La elaboración de las leyes. Los Tratados Internacionales. El Defensor del Pueblo.",
+    normalizedTitle:
+      "Las Cortes Generales Composicion atribuciones y funcionamiento La elaboracion de las leyes Los Tratados Internacionales El Defensor del Pueblo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "3",
+    officialTitle:
+      "El Gobierno. Composición, designación, funciones y relaciones con el resto de los poderes del Estado.",
+    normalizedTitle:
+      "El Gobierno Composicion designacion funciones y relaciones con el resto de los poderes del Estado",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "4",
+    officialTitle:
+      "La Administración Pública: principios constitucionales. La Administración General del Estado: organización y régimen jurídico. El Sector Público Institucional. La Administración Consultiva. La Administración de control.",
+    normalizedTitle:
+      "La Administracion Publica principios constitucionales La Administracion General del Estado organizacion y regimen juridico El Sector Publico Institucional La Administracion Consultiva La Administracion de control",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "5",
+    officialTitle:
+      "Las Comunidades Autónomas. Los Estatutos de Autonomía. Organización política y administrativa. La delimitación de competencias entre el Estado y las Comunidades Autónomas. La Administración Local: entidades que la integran. La provincia, el municipio y la isla.",
+    normalizedTitle:
+      "Las Comunidades Autonomas Los Estatutos de Autonomia Organizacion politica y administrativa La delimitacion de competencias entre el Estado y las Comunidades Autonomas La Administracion Local entidades que la integran La provincia el municipio y la isla",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "6",
+    officialTitle:
+      "La Unión Europea: antecedentes, evolución, objetivos y naturaleza jurídica. Los Tratados originarios y modificativos. El proceso de ampliación. El Brexit. Instituciones de la Unión Europea. La participación de los Estados miembros en el proceso decisorio. El Derecho de la Unión Europea. Relación entre el Derecho de la Unión Europea y el ordenamiento jurídico de los Estados Miembros. Políticas de la Unión Europea.",
+    normalizedTitle:
+      "La Union Europea antecedentes evolucion objetivos y naturaleza juridica Los Tratados originarios y modificativos El proceso de ampliacion El Brexit Instituciones de la Union Europea La participacion de los Estados miembros en el proceso decisorio El Derecho de la Union Europea Relacion entre el Derecho de la Union Europea y el ordenamiento juridico de los Estados Miembros Politicas de la Union Europea",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "7",
+    officialTitle:
+      "Las fuentes del ordenamiento jurídico administrativo. La jerarquía de las fuentes. La ley. Las disposiciones del Ejecutivo con fuerza de ley: decreto-ley y decreto legislativo. El reglamento: concepto, clases y límites. Otras fuentes del derecho administrativo.",
+    normalizedTitle:
+      "Las fuentes del ordenamiento juridico administrativo La jerarquia de las fuentes La ley Las disposiciones del Ejecutivo con fuerza de ley decreto ley y decreto legislativo El reglamento concepto clases y limites Otras fuentes del derecho administrativo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "8",
+    officialTitle:
+      "El acto administrativo: concepto, clases y elementos. Eficacia y validez de los actos administrativos. Revisión, anulación y revocación. El principio de legalidad en la actuación administrativa.",
+    normalizedTitle:
+      "El acto administrativo concepto clases y elementos Eficacia y validez de los actos administrativos Revision anulacion y revocacion El principio de legalidad en la actuacion administrativa",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "9",
+    officialTitle:
+      "Las Leyes 39/2015, de Procedimiento Administrativo Común de las Administraciones Públicas y 40/2015, de Régimen Jurídico del Sector Público, y su normativa de desarrollo. El procedimiento administrativo común y sus fases. La revisión de los actos en vía administrativa: revisión de oficio y recursos administrativos. El recurso contencioso-administrativo.",
+    normalizedTitle:
+      "Las Leyes 39 2015 de Procedimiento Administrativo Comun de las Administraciones Publicas y 40 2015 de Regimen Juridico del Sector Publico y su normativa de desarrollo El procedimiento administrativo comun y sus fases La revision de los actos en via administrativa revision de oficio y recursos administrativos El recurso contencioso administrativo",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "10",
+    officialTitle:
+      "Los contratos del sector público: concepto y clases. Preparación, adjudicación, efectos, cumplimiento y extinción. Procedimientos de contratación. Garantías. Especialidades de los contratos de obras, de concesión de obras, de concesión de servicios, de suministro y de servicios. El recurso especial en materia de contratación.",
+    normalizedTitle:
+      "Los contratos del sector publico concepto y clases Preparacion adjudicacion efectos cumplimiento y extincion Procedimientos de contratacion Garantias Especialidades de los contratos de obras de concesion de obras de concesion de servicios de suministro y de servicios El recurso especial en materia de contratacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "11",
+    officialTitle:
+      "Procedimientos y formas de la actividad administrativa. La actividad de limitación, arbitral, de servicio público y de fomento. Formas de gestión de los servicios públicos. Las ayudas públicas. La actividad administrativa de control.",
+    normalizedTitle:
+      "Procedimientos y formas de la actividad administrativa La actividad de limitacion arbitral de servicio publico y de fomento Formas de gestion de los servicios publicos Las ayudas publicas La actividad administrativa de control",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "12",
+    officialTitle:
+      "La responsabilidad patrimonial de las Administraciones Públicas. Procedimiento de responsabilidad patrimonial. La acción de responsabilidad. La potestad sancionadora de las Administraciones Públicas. Especialidades del procedimiento administrativo sancionador.",
+    normalizedTitle:
+      "La responsabilidad patrimonial de las Administraciones Publicas Procedimiento de responsabilidad patrimonial La accion de responsabilidad La potestad sancionadora de las Administraciones Publicas Especialidades del procedimiento administrativo sancionador",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "13",
+    officialTitle:
+      "Régimen jurídico del personal al servicio de las Administraciones públicas. El texto refundido de la Ley del Estatuto Básico del Empleado Público y otras normas: Tipos de empleados públicos y derechos y deberes del personal al servicio de la Administración Pública. Incompatibilidades. Régimen disciplinario.",
+    normalizedTitle:
+      "Regimen juridico del personal al servicio de las Administraciones publicas El texto refundido de la Ley del Estatuto Basico del Empleado Publico y otras normas Tipos de empleados publicos y derechos y deberes del personal al servicio de la Administracion Publica Incompatibilidades Regimen disciplinario",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "14",
+    officialTitle:
+      "El presupuesto del Estado en España: contenido, elaboración y estructura. Fases del ciclo presupuestario. Estabilidad presupuestaria y sostenibilidad financiera. La Unión Económica y Monetaria.",
+    normalizedTitle:
+      "El presupuesto del Estado en Espana contenido elaboracion y estructura Fases del ciclo presupuestario Estabilidad presupuestaria y sostenibilidad financiera La Union Economica y Monetaria",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "15",
+    officialTitle:
+      "El control del gasto público en España. Función interventora y control financiero permanente. El Tribunal de Cuentas. La contabilidad pública.",
+    normalizedTitle:
+      "El control del gasto publico en Espana Funcion interventora y control financiero permanente El Tribunal de Cuentas La contabilidad publica",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "16",
+    officialTitle:
+      "Las políticas públicas: elaboración, ejecución y evaluación. La Agencia Estatal de Evaluación de Políticas Públicas. La Gobernanza pública y el Gobierno abierto: concepto y principios informadores del Gobierno Abierto: Colaboración, participación, transparencia y rendición de cuentas.",
+    normalizedTitle:
+      "Las politicas publicas elaboracion ejecucion y evaluacion La Agencia Estatal de Evaluacion de Politicas Publicas La Gobernanza publica y el Gobierno abierto concepto y principios informadores del Gobierno Abierto Colaboracion participacion transparencia y rendicion de cuentas",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "17",
+    officialTitle:
+      "Políticas de igualdad y contra la violencia de género. Políticas dirigidas a la atención a personas con discapacidad y/o dependientes.",
+    normalizedTitle:
+      "Politicas de igualdad y contra la violencia de genero Politicas dirigidas a la atencion a personas con discapacidad y o dependientes",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "18",
+    officialTitle:
+      "Política de protección de datos personales. Régimen Jurídico. El Reglamento (UE) 2016/679 de 27 de abril relativo a la protección de datos personales y a la libre circulación de estos datos. Principios y derechos. Obligaciones. Régimen sancionador. El Supervisor Europeo de Protección de Datos. La Agencia Española de Protección de Datos.",
+    normalizedTitle:
+      "Politica de proteccion de datos personales Regimen Juridico El Reglamento UE 2016 679 de 27 de abril relativo a la proteccion de datos personales y a la libre circulacion de estos datos Principios y derechos Obligaciones Regimen sancionador El Supervisor Europeo de Proteccion de Datos La Agencia Espanola de Proteccion de Datos",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "19",
+    officialTitle:
+      "La Agenda 2030 para el Desarrollo Sostenible y los Objetivos de Desarrollo Sostenible. Antecedentes y evolución. Sostenibilidad económica, social y ambiental.",
+    normalizedTitle:
+      "La Agenda 2030 para el Desarrollo Sostenible y los Objetivos de Desarrollo Sostenible Antecedentes y evolucion Sostenibilidad economica social y ambiental",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "20",
+    officialTitle:
+      "El Estado Mayor General del Aire y del Espacio y el Centro Nacional de Predicción de Defensa. Organización, cometidos y funciones. La Organización Europea de Explotación de Satélites Meteorológicos EUMETSAT. El Programa Espacial Europeo. Meteosat Tercera Generación.",
+    normalizedTitle:
+      "El Estado Mayor General del Aire y del Espacio y el Centro Nacional de Prediccion de Defensa Organizacion cometidos y funciones La Organizacion Europea de Explotacion de Satelites Meteorologicos EUMETSAT El Programa Espacial Europeo Meteosat Tercera Generacion",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "21",
+    officialTitle:
+      "El Centro Europeo de Previsiones Meteorológicas a Plazo Medio (ECMWF). Organización, cometidos y funciones. El programa Copernicus de la Comisión Europea. El Servicio de Cambio Climático de Copernicus (C3S). El Servicio de Vigilancia Atmosférica de Copernicus (CAMS).",
+    normalizedTitle:
+      "El Centro Europeo de Previsiones Meteorologicas a Plazo Medio ECMWF Organizacion cometidos y funciones El programa Copernicus de la Comision Europea El Servicio de Cambio Climatico de Copernicus C3S El Servicio de Vigilancia Atmosferica de Copernicus CAMS",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "22",
+    officialTitle:
+      "La Organización Meteorológica Mundial (OMM). Convenio fundacional. Estructura. Plan Estratégico de la OMM. Programas y actividades de la OMM.",
+    normalizedTitle:
+      "La Organizacion Meteorologica Mundial OMM Convenio fundacional Estructura Plan Estrategico de la OMM Programas y actividades de la OMM",
+    sourceName: "BOE",
+    sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
+    retrievedAt: "2026-07-06",
+    verificationStatus: "verified" as const,
+  },
+  {
+    block: "General/Common",
+    officialNumber: "23",
+    officialTitle:
+      "Políticas públicas en materia de igualdad de género, contra la violencia de género y protección integral de la infancia y la adolescencia frente a la violencia. Discapacidad y dependencia: régimen jurídico. La Ley 15/2022, de 12 de julio, integral para la igualdad de trato y la no discriminación. Ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI.",
+    normalizedTitle:
+      "Politicas publicas en materia de igualdad de genero contra la violencia de genero y proteccion integral de la infancia y la adolescencia frente a la violencia Discapacidad y dependencia regimen juridico La Ley 15 2022 de 12 de julio integral para la igualdad de trato y la no discriminacion Ley 4 2023 de 28 de febrero para la igualdad real y efectiva de las personas trans y para la garantia de los derechos de las personas LGTBI",
     sourceName: "BOE",
     sourceUrl: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-1292",
     retrievedAt: "2026-07-06",
