@@ -78,7 +78,8 @@ Implementation notes:
 - Imported official content remains source-owned.
 - User progress overlays must not overwrite imported source fields.
 - Real verified imports require a matching source manifest under `docs/official-sources/`.
-- Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists. The current checked-in subset includes the full Mathematics and Physics blocks, Meteorology and Climatology topics 1 through 30, and one verified starter topic in Informatics and Communications and General/Common.
+- Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists. The current checked-in subset includes the full BOE-A-2026-1292 acceso libre programme: Mathematics, Physics, Meteorology and Climatology, Informatics and Communications, and General/Common.
+- The checked-in General/Common block follows the acceso libre Temas generales programme, not the separate promoción interna Temas generales block.
 
 ## Entity: QuestionAttempt
 
