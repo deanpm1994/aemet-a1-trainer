@@ -164,6 +164,37 @@ describe("loadQuestionsSource", () => {
     expect(result.questions).toEqual(fallbackQuestions);
   });
 
+  it("prefers the verified official subset when Notion config is missing", async () => {
+    const result = await loadQuestionsSource({
+      env: {},
+    });
+
+    expect(result.sourceState).toBe("fallback_config");
+    expect(result.questions[0]?.id).toBe(
+      "aemet-a1-acceso-libre-primer-ejercicio-2018-8",
+    );
+    expect(result.questions[0]?.answerSourceStatus).toBe("official");
+  });
+
+  it("falls back to mock questions when the official subset is invalid", async () => {
+    const result = await loadQuestionsSource({
+      env: {},
+      officialQuestionsLoader: () => ({
+        ok: false,
+        issues: [
+          {
+            index: 0,
+            field: "sourceUrl",
+            message: "sourceUrl is required for official imports",
+          },
+        ],
+      }),
+    });
+
+    expect(result.sourceState).toBe("fallback_config");
+    expect(result.questions).toEqual(fallbackQuestions);
+  });
+
   it("skips invalid question rows instead of failing the whole sync", async () => {
     const result = await loadQuestionsSource({
       env: {
