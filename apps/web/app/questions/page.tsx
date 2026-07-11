@@ -4,7 +4,6 @@ import { QuestionAttemptForm } from "@/components/question-attempt-form";
 import { QuizRunner } from "@/components/quiz-runner";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { buildContentReadiness } from "@/lib/content-readiness";
-import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
 import { loadQuestionsSource } from "@/lib/notion-questions";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
@@ -76,10 +75,7 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
     loadQuestionsSource(),
     loadTopicsSource(),
   ]);
-  const sourceQuestions = [
-    ...questionSource.questions,
-    ...buildDidacticQuestions(topicSource.topics),
-  ];
+  const sourceQuestions = questionSource.questions;
   const { sourceState, message } = questionSource;
   let questions = sourceQuestions;
   let canPersist = false;
