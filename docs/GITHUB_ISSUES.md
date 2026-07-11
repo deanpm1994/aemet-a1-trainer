@@ -66,6 +66,18 @@ Purpose: verify the private working version on the candidate's real phone with a
 
 ## #9 feat(import): continue official historical past exam import
 
+GitHub status: closed.
+
+Closure note: work was absorbed by the verified historical subset import; create a new focused issue before the next source batch.
+
+## #12 feat(content): expand detailed Spanish topic notes
+
+GitHub status: closed 2026-07-11.
+
+Closure note: reviewed, clearly non-official Spanish notes now cover all 128 verified topics while source-owned BOE metadata remains unchanged. Full test suite, lint, and production build passed.
+
+## #13 feat(import): resume verified historical exams
+
 GitHub status: open.
 
-Purpose: continue official AEMET/MITECO historical Acceso Libre import, with 2014 as the next expected source target unless inspection suggests a better order.
+Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.

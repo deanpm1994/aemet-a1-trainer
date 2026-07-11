@@ -43,7 +43,7 @@
 - Add Spanish study cards per verified topic (complete)
 - Add one non-official syllabus-scope question per verified topic (complete)
 - Add topic and random quiz feedback (complete)
-- Keep detailed study notes beyond Mathematics and Meteorology and Climatology as a follow-up
+- Add detailed Spanish study notes for all 128 verified topics (complete; explicitly non-official)
 
 ## Phase 4 — Notion integration (complete)
 
