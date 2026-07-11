@@ -1,92 +1,71 @@
-# Initial GitHub Issues
+# GitHub Issue Backlog
 
-## Epic 1 — Project foundation
+Last checked: 2026-07-10
 
-### Issue 1
-Create Next.js TypeScript app scaffold.
+Current issues from `gh issue list --state all --limit 50`:
 
-### Issue 2
-Add Tailwind CSS and base layout.
+## #2 feat(focus): persist focus session review outcomes
 
-### Issue 3
-Create route placeholders:
-- dashboard
-- topics
-- questions
-- calendar
-- focus
-- monitoring
-- settings
+GitHub status: closed 2026-07-09.
 
-### Issue 4
-Create project documentation and AGENTS.md.
+Verification before closing:
+- `study_sessions` stores focus review fields.
+- `/focus` saves review decisions through the study-session repository.
+- Completed focus sessions update topic/question progress overlays.
+- `npm --prefix apps/web test -- focus-planner.test.ts study-sessions.test.ts study-sessions-repository.test.ts focus-progress.test.ts` passed: 4 files, 27 tests.
 
-## Epic 2 — Topic checklist
+## #3 feat(progress): persist topic and question progress per user
 
-### Issue 5
-Create Topic TypeScript type.
+GitHub status: closed 2026-07-09.
 
-### Issue 6
-Create mock topic data with verification statuses.
+Verification before closing:
+- Supabase migrations exist for `topic_progress`, `question_progress`, and `question_attempts` with RLS policies.
+- Repository tests cover user-owned topic progress, question progress, and question attempts.
+- Dashboard/topic/question routes overlay signed-in user progress without mutating source-owned official content.
+- `npm --prefix apps/web test -- topic-progress.test.ts topic-progress-repository.test.ts question-progress-persistence.test.ts question-progress-repository.test.ts question-attempts.test.ts question-attempts-repository.test.ts dashboard-today.test.ts` passed: 7 files, 24 tests.
 
-### Issue 7
-Build topics list page.
+## #4 feat(monitoring): implement BOE/AEMET monitoring MVP
 
-### Issue 8
-Build topic progress component.
+GitHub status: open.
 
-### Issue 9
-Build topic detail page.
+Current implementation is a manual/read-only monitoring workflow. GitHub issue was updated with this partial status on 2026-07-09. Missing for this issue:
+- persisted monitoring sources/events
+- source snapshot retrieval
+- hash comparison
+- keyword/event detection
+- scheduled execution
+- action queue backed by real checks
 
-## Epic 3 — Dashboard
+## #5 feat(pwa): add installable PWA shell and study reminders
 
-### Issue 10
-Create dashboard summary cards.
+GitHub status: open.
 
-### Issue 11
-Create countdown placeholder.
+GitHub issue was updated with this partial status on 2026-07-09. Implemented:
+- manifest/installability metadata
+- project-owned icons
+- persisted reminder preference settings
 
-### Issue 12
-Create today’s study mission card.
+Still missing:
+- visible in-app reminder behavior
+- service worker/offline shell, if still desired
+- browser notification permission flow and delivery, if in scope
+- scheduled reminder delivery
+- manual installability verification in a browser
 
-### Issue 13
-Create weekly progress card.
+## #6 docs(roadmap): refresh project memory and issue backlog docs after Phase 5
 
-## Epic 4 — Focus mode
+GitHub status: closed 2026-07-10.
 
-### Issue 14
-Create focus session type.
+Closure note: closed after `docs/ROADMAP.md`, `docs/GITHUB_ISSUES.md`, and `docs/PROJECT_MEMORY.md` were reconciled with Phase 5 completion and current issue state.
 
-### Issue 15
-Build focus timer UI.
+## #8 test(release): run private MVP study smoke test
 
-### Issue 16
-Build session completion checklist.
+GitHub status: open.
 
-## Epic 5 — Question bank
+Purpose: verify the private working version on the candidate's real phone with a 30-minute end-to-end study flow: sign in, create or load a plan, run focus, complete review, and confirm persisted progress after reload.
 
-### Issue 17
-Create Question TypeScript type.
+## #9 feat(import): continue official historical past exam import
 
-### Issue 18
-Create mock question data.
+GitHub status: open.
 
-### Issue 19
-Build question list page.
-
-### Issue 20
-Build question filters.
-
-## Epic 6 — Future integrations
-
-### Issue 21
-Research Notion API integration.
-
-### Issue 22
-Research Supabase schema.
-
-### Issue 23
-Research Google Calendar API.
-
-### Issue 24
-Research BOE/AEMET monitoring implementation.
+Purpose: continue official AEMET/MITECO historical Acceso Libre import, with 2014 as the next expected source target unless inspection suggests a better order.

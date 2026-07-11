@@ -79,6 +79,8 @@ export type Question = {
   options: string[];
   correctAnswer: string;
   answerSourceStatus: AnswerSourceStatus;
+  answerSourceUrl?: string;
+  answerRetrievedAt?: string;
   explanation: string;
   topicIds: string[];
   difficulty: 1 | 2 | 3 | 4 | 5;

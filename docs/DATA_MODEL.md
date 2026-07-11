@@ -44,6 +44,8 @@ Fields:
 - options
 - correct_answer
 - answer_source_status
+- answer_source_url
+- answer_retrieved_at
 - explanation
 - topic_ids
 - difficulty
@@ -54,6 +56,11 @@ Fields:
 
 Persistence notes:
 - Source question content is loaded from Notion or local fallback data.
+- When Notion is not configured, the local fallback now prefers a checked-in official past-exam subset before mock questions.
+- The checked-in official past-exam subset contains verified questions from the MITECO/AEMET 2018, 2017, 2016, and 2015 acceso libre primer ejercicio documents.
+- Verified official answer keys require `answer_source_status=official`, `answer_source_url`, and `answer_retrieved_at`.
+- Official questions without official answer keys may be imported only with `verification_status=needs_review` and `answer_source_status=unknown`.
+- Topic IDs and difficulty for imported past questions are app-owned study metadata, not official-source claims.
 - User-owned practice progress is stored separately in Supabase table `question_progress`.
 - `question_progress` overlays `attempts_count`, `last_attempt_at`, `next_review_at`, and `mistake_types` by `user_id` and `question_id`.
 - Detailed signed-in attempt history is stored in Supabase table `question_attempts`.
@@ -80,6 +87,8 @@ Implementation notes:
 - Real verified imports require a matching source manifest under `docs/official-sources/`.
 - Real verified syllabus topics may now be loaded from a checked-in BOE subset source through the official import layer before broader Notion or full-source ingestion exists. The current checked-in subset includes the full BOE-A-2026-1292 acceso libre programme: Mathematics, Physics, Meteorology and Climatology, Informatics and Communications, and General/Common.
 - The checked-in General/Common block follows the acceso libre Temas generales programme, not the separate promoción interna Temas generales block.
+- Real verified past-exam questions may now be loaded from a checked-in MITECO/AEMET subset source through the official import layer before full historical exam ingestion exists.
+- The past-exam subset is intentionally partial and excludes formula-heavy, OCR-sensitive, or annulled questions until manual extraction review is completed.
 
 ## Entity: QuestionAttempt
 
