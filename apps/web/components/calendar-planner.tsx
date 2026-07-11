@@ -68,7 +68,7 @@ export function CalendarPlanner({
   function resetSessions() {
     if (!canPersist) {
       setSessions(resetSessionsToRecommendedWeek(recommendedSessions));
-      setMessage("Planificador reiniciado en local. Inicia sesión para guardar cambios.");
+      setMessage("Semana generada en local según temas pendientes. Inicia sesión para guardar cambios.");
       return;
     }
 
@@ -119,7 +119,7 @@ export function CalendarPlanner({
           onClick={resetSessions}
           type="button"
         >
-          Restablecer semana recomendada
+          Generar semana recomendada
         </button>
       </section>
 

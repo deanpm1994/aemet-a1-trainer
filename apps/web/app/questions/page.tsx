@@ -1,10 +1,12 @@
 import { PageHeader } from "@/components/page-header";
 import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { QuestionAttemptForm } from "@/components/question-attempt-form";
+import { QuizRunner } from "@/components/quiz-runner";
 import { SourceStateBanner } from "@/components/source-state-banner";
-import { topics as fallbackTopics } from "@/lib/mock-data";
 import { buildContentReadiness } from "@/lib/content-readiness";
+import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
 import { loadQuestionsSource } from "@/lib/notion-questions";
+import { loadTopicsSource } from "@/lib/notion-topics";
 import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
 import {
   getQuestionAttempts,
@@ -22,6 +24,7 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
+import { selectRandomQuestions, selectTopicQuestions } from "@/lib/quiz";
 import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import type { MistakeType } from "@/lib/types";
@@ -63,8 +66,21 @@ function parseConfidenceAfter(value: FormDataEntryValue | null): number {
   return Math.min(5, Math.max(1, parsed));
 }
 
-export default async function QuestionsPage() {
-  const { questions: sourceQuestions, sourceState, message } = await loadQuestionsSource();
+type QuestionsPageProps = {
+  searchParams: Promise<{ mode?: string; topic?: string }>;
+};
+
+export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
+  const query = await searchParams;
+  const [questionSource, topicSource] = await Promise.all([
+    loadQuestionsSource(),
+    loadTopicsSource(),
+  ]);
+  const sourceQuestions = [
+    ...questionSource.questions,
+    ...buildDidacticQuestions(topicSource.topics),
+  ];
+  const { sourceState, message } = questionSource;
   let questions = sourceQuestions;
   let canPersist = false;
   let progressMessage = "Inicia sesión para guardar progreso de preguntas.";
@@ -98,7 +114,13 @@ export default async function QuestionsPage() {
   const stats = buildQuestionStats(questions);
   const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
   const painPoints = getPracticePainPoints(questions);
-  const contentReadiness = buildContentReadiness(fallbackTopics, questions);
+  const contentReadiness = buildContentReadiness(topicSource.topics, questions);
+  const randomSeed = Number.parseInt(new Date().toISOString().slice(0, 10).replaceAll("-", ""), 10);
+  const quizQuestions = query.topic
+    ? selectTopicQuestions(questions, query.topic)
+    : query.mode === "random"
+      ? selectRandomQuestions(questions, 10, randomSeed)
+      : [];
 
   async function saveQuestionAttemptAction(formData: FormData) {
     "use server";
@@ -170,6 +192,23 @@ export default async function QuestionsPage() {
       <SourceStateBanner sourceState={sourceState} message={message} />
 
       <ContentReadinessCard readiness={contentReadiness} />
+
+      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+        <strong>Material didáctico no oficial.</strong> Cada tema verificado incluye una
+        pregunta de alcance basada en su título oficial. Las preguntas históricas conservan
+        su fuente y estado de verificación propios.
+      </section>
+
+      <section className="flex flex-wrap gap-3">
+        <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href="/questions?mode=random">
+          Test aleatorio
+        </a>
+        <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">
+          Elegir tema
+        </a>
+      </section>
+
+      {quizQuestions.length > 0 ? <QuizRunner questions={quizQuestions} /> : null}
 
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>
