@@ -1,5 +1,4 @@
 import { CalendarPlanner } from "@/components/calendar-planner";
-import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
 import { loadQuestionsSource } from "@/lib/notion-questions";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { orchestrateStudyWeek } from "@/lib/study-orchestrator";
@@ -20,10 +19,7 @@ export default async function CalendarPage() {
     loadTopicsSource(),
     loadQuestionsSource(),
   ]);
-  const questions = [
-    ...questionSource.questions,
-    ...buildDidacticQuestions(topicSource.topics),
-  ];
+  const questions = questionSource.questions;
   const recommendedSessions = orchestrateStudyWeek({
     topics: topicSource.topics,
     questions,
