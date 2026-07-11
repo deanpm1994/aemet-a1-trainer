@@ -63,4 +63,24 @@ describe("topic study material", () => {
     );
     expect(cards.every((card) => card.richNotes.length >= 3)).toBe(true);
   });
+
+  it("adds labelled rich notes for every verified Informatics topic", () => {
+    const loaded = loadOfficialSyllabusSubset();
+
+    expect(loaded.ok).toBe(true);
+
+    if (!loaded.ok) {
+      throw new Error("Expected official syllabus");
+    }
+
+    const cards = loaded.topics
+      .filter((topic) => topic.block === "Informatics and Communications")
+      .map(getTopicStudyCard);
+
+    expect(cards).toHaveLength(10);
+    expect(cards.every((card) => card.label === "Material didáctico no oficial")).toBe(
+      true,
+    );
+    expect(cards.every((card) => card.richNotes.length >= 3)).toBe(true);
+  });
 });

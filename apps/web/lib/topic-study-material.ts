@@ -30,6 +30,16 @@ const RICH_NOTES_BY_TOPIC_ID: Record<string, string[]> = {
   "physics-16": ["Relaciona variables naturales con cada potencial termodinámico.", "Usa diferencial fundamental para deducir condición de equilibrio.", "Separa estabilidad local, equilibrio y representación elegida."],
   "physics-17": ["Diferencia orden de transición y discontinuidad relevante.", "Relaciona pendiente de coexistencia con Clausius-Clapeyron.", "Interpreta diagrama de fases antes de usar una ecuación."],
   "physics-18": ["Separa mecanismos de interacción radiación-materia.", "Relaciona ley de Kirchhoff, Planck, Stefan-Boltzmann y Wien.", "Comprueba unidades espectrales y límites de cuerpo negro."],
+  "informatics-and-communications-1": ["Compara responsabilidades de Windows, Linux y shell.", "Practica rutas, permisos y variables de entorno con ejemplos cortos.", "Lee un shell script identificando entrada, control de flujo y efectos."],
+  "informatics-and-communications-2": ["Distingue compilación, interpretación y tiempo de ejecución.", "Relaciona objeto, clase, estado y comportamiento.", "Compara una solución procedural con una orientada a objetos."],
+  "informatics-and-communications-3": ["Relaciona tipo de problema con estructura de datos y lenguaje.", "Divide un programa en entrada, transformación, salida y manejo de errores.", "Escribe caso de prueba para flujo normal y fallo esperado."],
+  "informatics-and-communications-4": ["Separa estructura HTML, comportamiento JavaScript y datos.", "Recorre una estructura de control indicando entradas y salida.", "Identifica dónde capturar y comunicar un error de ejecución."],
+  "informatics-and-communications-5": ["Distingue datos, modelo, consulta y sistema gestor.", "Compara modelo relacional, orientado a objetos y NoSQL por caso de uso.", "Describe entidad, relación, restricción y consulta de un ejemplo."],
+  "informatics-and-communications-6": ["Elige tabla, lista, árbol o grafo según operaciones dominantes.", "Compara coste conceptual de buscar, ordenar y recorrer.", "Traza una llamada recursiva y su condición de parada."],
+  "informatics-and-communications-7": ["Dibuja capas OSI y sitúa TCP/IP como modelo práctico.", "Relaciona medio, topología, interfaz, protocolo y servicio.", "Sigue un paquete por capas sin confundir dirección y aplicación."],
+  "informatics-and-communications-8": ["Distingue dato raster, vectorial, espacial y temático.", "Relaciona geometría, atributos, referencia espacial y consulta.", "Formula un análisis espacial y explica su salida esperada."],
+  "informatics-and-communications-9": ["Relaciona Internet con arquitectura, protocolos y servicios.", "Distingue funcionamiento de red, servicio de aplicación y tendencia tecnológica.", "Explica recorrido básico desde cliente hasta servicio remoto."],
+  "informatics-and-communications-10": ["Relaciona amenaza, control de acceso y mecanismo de protección.", "Distingue confidencialidad, integridad, autenticidad y disponibilidad.", "Compara cifrado, firma, cortafuegos y VPN por objetivo."],
 };
 
 function firstSentence(value: string): string {
