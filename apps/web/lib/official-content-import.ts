@@ -1,4 +1,9 @@
-import type { AnswerSourceStatus, Topic, VerificationStatus } from "./types";
+import type {
+  AnswerSourceStatus,
+  Question,
+  Topic,
+  VerificationStatus,
+} from "./types";
 
 type ImportIssue = {
   field: string;
@@ -30,10 +35,14 @@ export type ImportedPastExamQuestionRecord = {
   options: string[];
   correctAnswer: string;
   answerSourceStatus: AnswerSourceStatus;
+  answerSourceUrl: string;
+  answerRetrievedAt: string;
   sourceName: string;
   sourceUrl: string;
   retrievedAt: string;
   verificationStatus: "verified" | "needs_review";
+  topicIds: string[];
+  difficulty: Question["difficulty"];
 };
 
 type ImportVerificationStatus = ImportedSyllabusTopicRecord["verificationStatus"];
@@ -56,10 +65,14 @@ type RawPastExamQuestionRecord = {
   options: string[];
   correctAnswer: string;
   answerSourceStatus: AnswerSourceStatus;
+  answerSourceUrl: string;
+  answerRetrievedAt: string;
   sourceName: string;
   sourceUrl: string;
   retrievedAt: string;
   verificationStatus: VerificationStatus;
+  topicIds: string[];
+  difficulty: number;
 };
 
 function normalizeWhitespace(value: string): string {
@@ -91,6 +104,10 @@ function getImportVerificationStatus(
   }
 
   return null;
+}
+
+function isSupportedDifficulty(value: number): value is Question["difficulty"] {
+  return [1, 2, 3, 4, 5].includes(value);
 }
 
 export function parseOfficialSyllabusTopicRecord(
@@ -214,12 +231,52 @@ export function validateOfficialPastExamQuestionRecord(
 
   if (
     verificationStatus === "verified" &&
-    (input.answerSourceStatus === "unknown" || input.answerSourceStatus === "user")
+    input.answerSourceStatus !== "official"
   ) {
     issues.push({
       field: "answerSourceStatus",
       message:
-        "verified official question imports cannot use unknown or user answer sources",
+        "verified official question imports require official answer sources",
+    });
+  }
+
+  if (
+    verificationStatus === "verified" &&
+    input.answerSourceStatus === "official"
+  ) {
+    if (!normalizeWhitespace(input.answerSourceUrl)) {
+      issues.push({
+        field: "answerSourceUrl",
+        message: "answerSourceUrl is required for official answer imports",
+      });
+    }
+
+    if (!normalizeWhitespace(input.answerRetrievedAt)) {
+      issues.push({
+        field: "answerRetrievedAt",
+        message: "answerRetrievedAt is required for official answer imports",
+      });
+    }
+  }
+
+  if (verificationStatus === "verified" && !normalizeWhitespace(input.correctAnswer)) {
+    issues.push({
+      field: "correctAnswer",
+      message: "correctAnswer is required for verified question imports",
+    });
+  }
+
+  if (!Array.isArray(input.topicIds)) {
+    issues.push({
+      field: "topicIds",
+      message: "topicIds must be an array",
+    });
+  }
+
+  if (!isSupportedDifficulty(input.difficulty)) {
+    issues.push({
+      field: "difficulty",
+      message: "difficulty must be an integer from 1 to 5",
     });
   }
 
@@ -229,6 +286,10 @@ export function validateOfficialPastExamQuestionRecord(
 
   if (!verificationStatus) {
     throw new Error("verificationStatus should be validated before record creation");
+  }
+
+  if (!isSupportedDifficulty(input.difficulty)) {
+    throw new Error("difficulty should be validated before record creation");
   }
 
   return {
@@ -242,10 +303,43 @@ export function validateOfficialPastExamQuestionRecord(
       options: input.options.map((option) => normalizeWhitespace(option)),
       correctAnswer: normalizeWhitespace(input.correctAnswer),
       answerSourceStatus: input.answerSourceStatus,
+      answerSourceUrl: normalizeWhitespace(input.answerSourceUrl),
+      answerRetrievedAt: normalizeWhitespace(input.answerRetrievedAt),
       sourceName: normalizeWhitespace(input.sourceName),
       sourceUrl: normalizeWhitespace(input.sourceUrl),
       retrievedAt: normalizeWhitespace(input.retrievedAt),
       verificationStatus,
+      topicIds: input.topicIds.map((topicId) => normalizeWhitespace(topicId)),
+      difficulty: input.difficulty,
     },
+  };
+}
+
+export function mapImportedPastExamQuestionToQuestion(
+  record: ImportedPastExamQuestionRecord,
+): Question {
+  return {
+    id: record.id,
+    name: `${record.sourceExam} ${record.sourceYear} pregunta ${record.questionNumber}`,
+    type: "multiple_choice",
+    sourceYear: record.sourceYear,
+    sourceExam: record.sourceExam,
+    sourceUrl: record.sourceUrl,
+    retrievedAt: record.retrievedAt,
+    verificationStatus: record.verificationStatus,
+    questionNumber: record.questionNumber,
+    statement: record.statement,
+    options: record.options,
+    correctAnswer: record.correctAnswer,
+    answerSourceStatus: record.answerSourceStatus,
+    answerSourceUrl: record.answerSourceUrl,
+    answerRetrievedAt: record.answerRetrievedAt,
+    explanation: "",
+    topicIds: record.topicIds,
+    difficulty: record.difficulty,
+    attemptsCount: 0,
+    lastAttemptAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    nextReviewAt: "TODO_VERIFY_OFFICIAL_SOURCE",
+    mistakeTypes: ["none"],
   };
 }

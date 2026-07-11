@@ -5,6 +5,7 @@ import {
   createNotionClient,
   NotionConfigError,
 } from "./notion-client";
+import { loadOfficialPastExamSubset } from "./official-past-exam-subset";
 import type {
   AnswerSourceStatus,
   MistakeType,
@@ -73,6 +74,7 @@ type NotionQuestionsClient = {
 type LoadQuestionsSourceOptions = {
   env?: Record<string, string | undefined>;
   fallbackQuestions?: Question[];
+  officialQuestionsLoader?: typeof loadOfficialPastExamSubset;
   createClient?: (config: { token: string; questionsDataSourceId: string }) => NotionQuestionsClient;
 };
 
@@ -432,10 +434,26 @@ function mapQuestionPageSafely(
   }
 }
 
+function getLocalFallbackQuestions(options: LoadQuestionsSourceOptions): Question[] {
+  if (options.fallbackQuestions) {
+    return options.fallbackQuestions;
+  }
+
+  const officialQuestionsLoader =
+    options.officialQuestionsLoader ?? loadOfficialPastExamSubset;
+  const officialSubset = officialQuestionsLoader();
+
+  if (officialSubset.ok) {
+    return officialSubset.questions;
+  }
+
+  return defaultFallbackQuestions;
+}
+
 export async function loadQuestionsSource(
   options: LoadQuestionsSourceOptions = {},
 ): Promise<QuestionSourceResult> {
-  const fallbackQuestions = options.fallbackQuestions ?? defaultFallbackQuestions;
+  const fallbackQuestions = getLocalFallbackQuestions(options);
   const env = options.env ?? process.env;
 
   let config: ReturnType<typeof getQuestionsConfig>;

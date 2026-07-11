@@ -44,30 +44,30 @@
 - Sync questions from Notion
 - Add verification status handling
 
-## Phase 5 — Supabase persistence
+## Phase 5 — Supabase persistence (complete)
 
-- Phase 5.1: persist profile, study preferences, and reminder preferences
-- Phase 5.2: add email/password auth for settings persistence testing
-- Phase 5.3: persist calendar study sessions
-- Phase 5.4: persist focus-session timer and review outcomes
-- Phase 5.5: persist topic progress overlays
-- Phase 5.6: persist question progress overlays
-- Phase 5.7: persist detailed question attempt history
-- Phase 5.8: update topic/question progress from completed focus sessions
-- Add Supabase schema
-- Add auth
-- Add row-level security
-- Add user settings
+- Phase 5.1: persist profile, study preferences, and reminder preferences (complete)
+- Phase 5.2: add email/password auth for settings persistence testing (complete)
+- Phase 5.3: persist calendar study sessions (complete)
+- Phase 5.4: persist focus-session timer and review outcomes (complete)
+- Phase 5.5: persist topic progress overlays (complete)
+- Phase 5.6: persist question progress overlays (complete)
+- Phase 5.7: persist detailed question attempt history (complete)
+- Phase 5.8: update topic/question progress from completed focus sessions (complete)
+- Add Supabase schema (complete)
+- Add auth (complete)
+- Add row-level security (complete)
+- Add user settings (complete)
 
-## Phase 6 — Monitoring
+## Phase 6 — Monitoring (manual shell complete; automation pending)
 
-- Add BOE/AEMET source list skeleton
+- Add BOE/AEMET source list skeleton (complete)
 - Add snapshot checking
 - Add keyword detection
 - Add monitoring events
 - Add notification hooks
 
-## Phase 7 — PWA and reminders
+## Phase 7 — PWA and reminders (partial)
 
 - Add PWA manifest (complete)
 - Add installable mobile view metadata (complete)
