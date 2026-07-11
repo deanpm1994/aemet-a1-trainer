@@ -6,6 +6,49 @@ import {
 } from "./official-past-exam-subset";
 
 describe("official past exam subset", () => {
+  it("loads the verified AEMET/MITECO 2014 first-exercise slice", () => {
+    const result = loadOfficialPastExamSubset();
+
+    expect(result.ok).toBe(true);
+
+    if (!result.ok) {
+      throw new Error("Expected verified past-exam subset");
+    }
+
+    const imported2014Questions = result.questions.filter(
+      (question) => question.sourceYear === 2014,
+    );
+
+    expect(result.questions).toHaveLength(27);
+    expect(imported2014Questions.map((question) => question.questionNumber)).toEqual([
+      "1",
+      "2",
+      "3",
+      "5",
+      "6",
+      "8",
+      "9",
+      "10",
+    ]);
+    expect(imported2014Questions.map((question) => question.correctAnswer)).toEqual([
+      "A",
+      "D",
+      "A",
+      "B",
+      "B",
+      "C",
+      "C",
+      "A",
+    ]);
+    expect(imported2014Questions.every((question) => question.answerSourceStatus === "official")).toBe(true);
+    expect(imported2014Questions[0]).toMatchObject({
+      id: "aemet-a1-acceso-libre-primer-ejercicio-2014-1",
+      sourceUrl: expect.stringContaining("ex_met_lib_2014"),
+      answerSourceUrl: expect.stringContaining("plantilla%20respuestas_tcm30-92321"),
+      answerRetrievedAt: "2026-07-11",
+    });
+  });
+
   it("loads the verified MITECO/AEMET 2018 first-exercise subset", () => {
     const result = loadOfficialPastExamSubset();
 
@@ -15,7 +58,7 @@ describe("official past exam subset", () => {
       throw new Error("Expected verified past-exam subset");
     }
 
-    expect(result.questions).toHaveLength(19);
+    expect(result.questions).toHaveLength(27);
     expect(
       result.questions
         .filter((question) => question.sourceYear === 2018)
@@ -36,7 +79,7 @@ describe("official past exam subset", () => {
         .filter((question) => question.sourceYear === 2015)
         .map((question) => question.questionNumber),
     ).toEqual(["19", "20", "21", "22"]);
-    expect(result.questions[0]).toMatchObject({
+    expect(result.questions.find((question) => question.sourceYear === 2018)).toMatchObject({
       id: "aemet-a1-acceso-libre-primer-ejercicio-2018-8",
       sourceExam: "AEMET A1 acceso libre primer ejercicio",
       sourceYear: 2018,
@@ -50,7 +93,7 @@ describe("official past exam subset", () => {
 
   it("preserves official question wording and answer provenance", () => {
     const sourceQuestion = officialPastExamSubsetSource.find(
-      (question) => question.questionNumber === "10",
+      (question) => question.sourceYear === 2018 && question.questionNumber === "10",
     );
 
     expect(sourceQuestion).toBeDefined();
