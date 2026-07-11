@@ -35,6 +35,12 @@ const questionSourceUrl2015 =
 const answerSourceUrl2015 =
   "https://www.miteco.gob.es/content/dam/miteco/es/ministerio/empleo-publico/personal-funcionario/plantilla_ejercicio1_meteorologos_libre_tcm30-94710.pdf";
 
+const questionSourceUrl2014 =
+  "https://www.aemet.es/documentos/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/otras_convocatorias/ex_met_lib_2014.pdf";
+
+const answerSourceUrl2014 =
+  "https://www.miteco.gob.es/content/dam/miteco/es/ministerio/servicios/empleo-publico/plantilla%20respuestas_tcm30-92321.pdf";
+
 const commonSourceFields2018 = {
   sourceExam: "AEMET A1 acceso libre primer ejercicio",
   sourceYear: 2018,
@@ -91,7 +97,77 @@ const commonSourceFields2015 = {
   difficulty: 3,
 };
 
+const commonSourceFields2014 = {
+  sourceExam: "AEMET A1 acceso libre primer ejercicio",
+  sourceYear: 2014,
+  sourceName: "AEMET",
+  sourceUrl: questionSourceUrl2014,
+  retrievedAt: "2026-07-11",
+  verificationStatus: "verified" as const,
+  answerSourceStatus: "official" as const,
+  answerSourceUrl: answerSourceUrl2014,
+  answerRetrievedAt: "2026-07-11",
+  topicIds: [],
+  difficulty: 3,
+};
+
 export const officialPastExamSubsetSource = [
+  {
+    ...commonSourceFields2014,
+    questionNumber: "1",
+    statement: "El rotacional de un campo vectorial plano tal que en el punto de coordenadas polares (r, θ), r > 0, el vector del campo tiene módulo 1 y está dirigido según la perpendicular al radio en sentido contrario a las agujas del reloj vale:",
+    options: ["A) 1/r", "B) -1/r²", "C) 0", "D) r"],
+    correctAnswer: "A",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "2",
+    statement: "El flujo correspondiente al potencial complejo Ω(z) = i ln z es de tipo:",
+    options: ["A) uniforme", "B) con una fuente", "C) con un sumidero", "D) con circulación"],
+    correctAnswer: "D",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "3",
+    statement: "Suponga que un conjunto de variables aleatorias tiene matriz de covarianzas diagonal, con ningún valor nulo en la diagonal. Indique la respuesta verdadera:",
+    options: ["A) La primera componente principal es la variable con más varianza", "B) La primera componente principal es la variable con menos varianza", "C) La última componente principal es nula", "D) La correlación entre la primera y la segunda componente principal es distinta de cero"],
+    correctAnswer: "A",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "5",
+    statement: "Sean X, Y y Z tres variables aleatorias incorrelacionadas de varianza unidad. Se definen los dos conjuntos de variables aleatorias A = {X, Y}, B = {Y + Z}. La primera correlación canónica entre los conjuntos A y B vale:",
+    options: ["A) 0", "B) (1/2)⁰·⁵", "C) 1/3", "D) 1"],
+    correctAnswer: "B",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "6",
+    statement: "Sean X e Y dos variables aleatorias con funciones de densidad que son uniformes entre 0 y 1 y con valores cero en el resto, U[0,1], independientes entre sí. La probabilidad P(X + Y ≤ 3/2) vale:",
+    options: ["A) 1", "B) 7/8", "C) 3/8", "D) 1/2"],
+    correctAnswer: "B",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "8",
+    statement: "Una variable aleatoria tiene distribución normal N(20, 4). Si se eligen de forma independiente tres valores de esa variable, la probabilidad de que los tres sean mayores que 20 es:",
+    options: ["A) 0.5", "B) 0.25", "C) 0.125", "D) 0.375"],
+    correctAnswer: "C",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "9",
+    statement: "En un experimento aleatorio, los sucesos A y B verifican P(A) = 0.4, P(B) = 0.6, P(B/A) = 0.5. Entonces:",
+    options: ["A) A y B son independientes", "B) A y B son incompatibles", "C) P(A/B) = 1/3", "D) P(A U B) = 0.5"],
+    correctAnswer: "C",
+  },
+  {
+    ...commonSourceFields2014,
+    questionNumber: "10",
+    statement: "Dados dos conjuntos de datos X e Y, se sabe que su coeficiente de correlación lineal es ρ = -0.7, que la media de X es 0, que el valor absoluto de la pendiente de la recta de regresión de Y sobre X es 1/3 y que esa recta pasa por el punto (1, 2/3). Entonces, la media de Y vale:",
+    options: ["A) 1", "B) 1/3", "C) -2/3", "D) 0"],
+    correctAnswer: "A",
+  },
   {
     ...commonSourceFields2018,
     questionNumber: "8",

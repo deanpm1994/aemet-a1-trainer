@@ -171,7 +171,7 @@ describe("loadQuestionsSource", () => {
 
     expect(result.sourceState).toBe("fallback_config");
     expect(result.questions[0]?.id).toBe(
-      "aemet-a1-acceso-libre-primer-ejercicio-2018-8",
+      "aemet-a1-acceso-libre-primer-ejercicio-2014-1",
     );
     expect(result.questions[0]?.answerSourceStatus).toBe("official");
   });
