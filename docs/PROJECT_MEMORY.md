@@ -175,6 +175,9 @@ Verified working recently:
 - Focus completion now saves related topic/question progress overlays for signed-in users
 - Basic PWA manifest/installability metadata builds cleanly and exposes `/manifest.webmanifest`
 - Dashboard, topics, and questions show study-content readiness without treating unverified starter content as official
+- Study MVP now adds Spanish study cards for every verified topic. Cards are explicitly labelled `Material didáctico no oficial`; Mathematics and Meteorology and Climatology receive additional study prompts, not source-owned official notes.
+- Questions route now adds one unverified syllabus-scope practice question per verified topic, topic quiz entry points, deterministic random quiz selection, and immediate Spanish feedback. Official historical questions retain their own provenance and status.
+- Calendar recommended week now ranks due review, weak, and unstarted topics and creates editable weekday 07:30–11:00 topic/question/review sessions. It does not use an official exam date.
 
 Next recommended MVP steps:
 - Order of action:
@@ -183,6 +186,7 @@ Next recommended MVP steps:
   3. Implement #4 BOE/AEMET monitoring MVP: persisted checks, snapshot/hash comparison, keyword/event detection, review queue, and no invented official conclusions.
   4. Implement remaining #5 PWA/reminder work: visible in-app reminders first, then notification/offline support only if scoped and verified.
   5. Add a settings language selector if the candidate wants to switch between Spanish and English.
+  6. Expand non-official detailed topic notes beyond Mathematics and Meteorology and Climatology only after candidate feedback identifies highest-value areas.
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`

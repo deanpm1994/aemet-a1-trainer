@@ -35,6 +35,15 @@
 - Add default schedule based on user work hours
 - Add session completion checklist
 - Add Today dashboard workflow from sessions, topics, questions, and monitoring readiness
+- Add deterministic schedule orchestrator using due/weak/unstarted topics and the default morning template (complete)
+
+## Study content MVP (complete; non-official guidance clearly labelled)
+
+- Expose complete verified BOE syllabus (complete)
+- Add Spanish study cards per verified topic (complete)
+- Add one non-official syllabus-scope question per verified topic (complete)
+- Add topic and random quiz feedback (complete)
+- Keep detailed study notes beyond Mathematics and Meteorology and Climatology as a follow-up
 
 ## Phase 4 — Notion integration (complete)
 
