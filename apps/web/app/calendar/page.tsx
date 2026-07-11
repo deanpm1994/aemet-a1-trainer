@@ -1,4 +1,8 @@
 import { CalendarPlanner } from "@/components/calendar-planner";
+import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
+import { loadQuestionsSource } from "@/lib/notion-questions";
+import { loadTopicsSource } from "@/lib/notion-topics";
+import { orchestrateStudyWeek } from "@/lib/study-orchestrator";
 import { PageHeader } from "@/components/page-header";
 import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
@@ -7,14 +11,26 @@ import {
   replaceStudySessionsWithRecommendedWeek,
   saveStudySessionPlan,
 } from "@/lib/study-sessions-repository";
-import { studySessions } from "@/lib/mock-data";
 import type { StudySession } from "@/lib/types";
 
 type StudySessionsRepositoryClient = Parameters<typeof ensureStudySessions>[0];
 
 export default async function CalendarPage() {
+  const [topicSource, questionSource] = await Promise.all([
+    loadTopicsSource(),
+    loadQuestionsSource(),
+  ]);
+  const questions = [
+    ...questionSource.questions,
+    ...buildDidacticQuestions(topicSource.topics),
+  ];
+  const recommendedSessions = orchestrateStudyWeek({
+    topics: topicSource.topics,
+    questions,
+    startDate: new Date().toISOString().slice(0, 10),
+  });
   let canPersist = false;
-  let initialSessions = studySessions;
+  let initialSessions = recommendedSessions;
   let statusMessage = "Los cambios del planificador son locales hasta iniciar sesión.";
 
   try {
@@ -27,7 +43,7 @@ export default async function CalendarPage() {
       initialSessions = await ensureStudySessions(
         client as StudySessionsRepositoryClient,
         userId,
-        studySessions,
+        recommendedSessions,
       );
       canPersist = true;
       statusMessage = "Sesiones de calendario cargadas desde Supabase.";
@@ -88,7 +104,7 @@ export default async function CalendarPage() {
       const sessions = await replaceStudySessionsWithRecommendedWeek(
         client as StudySessionsRepositoryClient,
         userId,
-        studySessions,
+        recommendedSessions,
       );
 
       return {
@@ -113,7 +129,7 @@ export default async function CalendarPage() {
       />
       <CalendarPlanner
         initialSessions={initialSessions}
-        recommendedSessions={studySessions}
+        recommendedSessions={recommendedSessions}
         canPersist={canPersist}
         statusMessage={statusMessage}
         onSaveSession={saveSessionAction}

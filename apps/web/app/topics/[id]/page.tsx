@@ -8,6 +8,7 @@ import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-co
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import { applyTopicProgress } from "@/lib/topic-progress-persistence";
 import { getTopicProgress, saveTopicProgress } from "@/lib/topic-progress-repository";
+import { getTopicStudyCard } from "@/lib/topic-study-material";
 import type { Topic, TopicPriority, TopicStatus } from "@/lib/types";
 
 type TopicDetailPageProps = {
@@ -86,6 +87,8 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
   if (!topic) {
     notFound();
   }
+
+  const studyCard = getTopicStudyCard(topic);
 
   async function saveTopicProgressAction(formData: FormData) {
     "use server";
@@ -203,6 +206,35 @@ export default async function TopicDetailPage({ params }: TopicDetailPageProps) 
             onSave={saveTopicProgressAction}
           />
         </article>
+      </section>
+
+      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
+        <p className="text-sm font-medium text-amber-900">{studyCard.label}</p>
+        <h2 className="mt-2 text-xl font-semibold tracking-tight text-ink">Guía de estudio</h2>
+        <div className="mt-4 grid gap-5 md:grid-cols-3">
+          <div>
+            <h3 className="font-medium text-ink">Objetivo</h3>
+            <ul className="mt-2 space-y-2 text-sm text-ink/80">
+              {studyCard.objectives.map((objective) => <li key={objective}>{objective}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-medium text-ink">Checklist</h3>
+            <ul className="mt-2 space-y-2 text-sm text-ink/80">
+              {studyCard.checklist.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-medium text-ink">Repaso</h3>
+            <ul className="mt-2 space-y-2 text-sm text-ink/80">
+              {studyCard.reviewPrompts.map((prompt) => <li key={prompt}>{prompt}</li>)}
+              {studyCard.richNotes.map((note) => <li key={note}>{note}</li>)}
+            </ul>
+          </div>
+        </div>
+        <a className="mt-5 inline-flex rounded-full bg-ink px-4 py-2 text-sm font-medium text-white" href={`/questions?topic=${topic.id}`}>
+          Practicar este tema
+        </a>
       </section>
     </div>
   );
