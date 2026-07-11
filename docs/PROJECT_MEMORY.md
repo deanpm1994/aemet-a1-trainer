@@ -162,7 +162,7 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Focus/session persistence issue #2 was closed after focused verification: 4 files, 27 tests passed.
 - Topic/question progress persistence issue #3 was closed after focused verification: 7 files, 24 tests passed.
-- GitHub issues #2, #3, #6, and #9 are closed; issues #4, #5, #8, and #12 remain open. Issue #8 requires a real candidate phone smoke test; issue #12 tracks detailed non-official topic guidance.
+- GitHub issues #2, #3, #6, #9, and #12 are closed; issues #4, #5, #8, and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
 - Vercel production deployment completed with ready state `READY`
 - Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner

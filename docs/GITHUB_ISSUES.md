@@ -72,6 +72,12 @@ Closure note: work was absorbed by the verified historical subset import; create
 
 ## #12 feat(content): expand detailed Spanish topic notes
 
-GitHub status: open pending release verification.
+GitHub status: closed 2026-07-11.
 
-Scope: reviewed, clearly non-official Spanish notes now cover all 128 verified topics while source-owned BOE metadata remains unchanged. Close only after full test, lint, and build verification.
+Closure note: reviewed, clearly non-official Spanish notes now cover all 128 verified topics while source-owned BOE metadata remains unchanged. Full test suite, lint, and production build passed.
+
+## #13 feat(import): resume verified historical exams
+
+GitHub status: open.
+
+Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
