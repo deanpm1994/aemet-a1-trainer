@@ -162,7 +162,7 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Focus/session persistence issue #2 was closed after focused verification: 4 files, 27 tests passed.
 - Topic/question progress persistence issue #3 was closed after focused verification: 7 files, 24 tests passed.
-- GitHub issues #2, #3, and #6 are closed; issues #4, #5, #8, and #9 remain open. Issues #8 and #9 were created for the private MVP smoke test and continued official past-exam import.
+- GitHub issues #2, #3, #6, and #9 are closed; issues #4, #5, #8, and #12 remain open. Issue #8 requires a real candidate phone smoke test; issue #12 tracks detailed non-official topic guidance.
 - Vercel production deployment completed with ready state `READY`
 - Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
@@ -175,18 +175,17 @@ Verified working recently:
 - Focus completion now saves related topic/question progress overlays for signed-in users
 - Basic PWA manifest/installability metadata builds cleanly and exposes `/manifest.webmanifest`
 - Dashboard, topics, and questions show study-content readiness without treating unverified starter content as official
-- Study MVP now adds Spanish study cards for every verified topic. Cards are explicitly labelled `Material didáctico no oficial`; Mathematics and Meteorology and Climatology receive additional study prompts, not source-owned official notes.
+- Study MVP now adds Spanish study cards with three detailed review prompts for every verified topic. Cards are explicitly labelled `Material didáctico no oficial`; they do not replace source-owned BOE titles, URLs, retrieval dates, or verification status.
 - Questions route now adds one unverified syllabus-scope practice question per verified topic, topic quiz entry points, deterministic random quiz selection, and immediate Spanish feedback. Official historical questions retain their own provenance and status.
 - Calendar recommended week now ranks due review, weak, and unstarted topics and creates editable weekday 07:30–11:00 topic/question/review sessions. It does not use an official exam date.
 
 Next recommended MVP steps:
 - Order of action:
   1. Run #8 private MVP phone smoke test: sign in, create or use session, focus timer, complete review, reload, verify topic/question progress updates.
-  2. Continue #9 official historical past-exam import, starting with 2014 Acceso Libre unless source inspection suggests a better order.
+  2. Continue official historical past-exam import in a newly scoped issue, starting with 2014 Acceso Libre only after source inspection.
   3. Implement #4 BOE/AEMET monitoring MVP: persisted checks, snapshot/hash comparison, keyword/event detection, review queue, and no invented official conclusions.
   4. Implement remaining #5 PWA/reminder work: visible in-app reminders first, then notification/offline support only if scoped and verified.
   5. Add a settings language selector if the candidate wants to switch between Spanish and English.
-  6. Expand non-official detailed topic notes beyond Mathematics and Meteorology and Climatology only after candidate feedback identifies highest-value areas.
 
 Ignored local artifacts:
 - `apps/web/package-lock.json`
