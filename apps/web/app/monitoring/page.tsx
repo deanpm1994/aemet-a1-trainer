@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/page-header";
 import { monitoringEvents, monitoringSources } from "@/lib/mock-data";
-import { getMonitoringEvents, getMonitoringSources } from "@/lib/monitoring-repository";
+import { ensureMonitoringSources, getMonitoringEvents, getMonitoringSources } from "@/lib/monitoring-repository";
+import { runManualMonitoringCheck } from "@/lib/monitoring-manual-check";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import {
   buildMonitoringSummary,
@@ -18,6 +19,7 @@ export default async function MonitoringPage() {
     const userId = await getAuthenticatedUserId();
     if (userId) {
       const client = await createSupabaseServerClient();
+      await ensureMonitoringSources(client as never, userId);
       const [storedSources, storedEvents] = await Promise.all([
         getMonitoringSources(client as never, userId),
         getMonitoringEvents(client as never, userId),
@@ -27,6 +29,15 @@ export default async function MonitoringPage() {
     }
   } catch {
     // Manual placeholders remain available when persistence is unavailable.
+  }
+
+  async function checkSourceAction(formData: FormData) {
+    "use server";
+    const sourceId = String(formData.get("sourceId") ?? "");
+    const url = String(formData.get("url") ?? "");
+    const keywords = String(formData.get("keywords") ?? "").split("|").filter(Boolean);
+    const client = await createSupabaseServerClient();
+    await runManualMonitoringCheck({ client: client as never, sourceId, url, keywords });
   }
   const summary = buildMonitoringSummary(sources, events);
   const pendingEvents = getPendingMonitoringEvents(events);
@@ -123,6 +134,12 @@ export default async function MonitoringPage() {
                   <dd>{source.keywords.join(", ")}</dd>
                 </div>
               </dl>
+              <form action={checkSourceAction} className="mt-4">
+                <input type="hidden" name="sourceId" value={source.id} />
+                <input type="hidden" name="url" value={source.url} />
+                <input type="hidden" name="keywords" value={source.keywords.join("|")} />
+                <button className="rounded-xl bg-slate-900 px-3 py-2 text-sm font-medium text-white" type="submit">Comprobar ahora</button>
+              </form>
             </article>
           ))}
         </div>

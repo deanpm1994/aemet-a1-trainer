@@ -2,6 +2,16 @@ import type { MonitoringEvent, MonitoringSource } from "./types";
 
 type Client = { from: (table: string) => any };
 
+const defaultSources = [
+  { key: "aemet-a1", name: "AEMET Grupo A1 acceso libre", url: "https://www.aemet.es/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/acceso_libre", sourceType: "aemet" },
+  { key: "boe-search", name: "BOE búsqueda", url: "https://www.boe.es/buscar/", sourceType: "boe" },
+];
+
+export async function ensureMonitoringSources(client: Client, userId: string): Promise<void> {
+  const { error } = await client.from("monitoring_sources").upsert(defaultSources.map((source) => ({ id: `${userId}:${source.key}`, user_id: userId, name: source.name, url: source.url, source_type: source.sourceType, keywords: ["Cuerpo Superior de Meteorólogos del Estado", "convocatoria", "plantilla"], verification_status: "verified" })), { onConflict: "id" });
+  if (error) throw error;
+}
+
 export async function getMonitoringSources(client: Client, userId: string): Promise<MonitoringSource[]> {
   const { data, error } = await client.from("monitoring_sources").select("*").eq("user_id", userId).order("name");
   if (error) throw error;
