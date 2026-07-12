@@ -319,6 +319,32 @@ export const officialPastExamSubsetSource = [
     correctAnswer: "C",
   },
   {
+    ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "33",
+    statement: "¿Qué ley establece que la potencia emitida por unidad de área por un cuerpo negro es directamente proporcional a la cuarta potencia de la temperatura absoluta del citado cuerpo?",
+    options: ["A) Ley de Kirchhoff.", "B) Ley de Planck.", "C) Ley de Stefan-Boltzmann.", "D) Ley de Wien."], correctAnswer: "C",
+  },
+  {
+    ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "34",
+    statement: "En el Sistema Internacional, la radiancia se expresa en:",
+    options: ["A) W · sr⁻¹", "B) W · nm⁻¹", "C) W · m⁻² · K⁻¹", "D) W · m⁻² · sr⁻¹"], correctAnswer: "D",
+  },
+  {
+    ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "35",
+    statement: "La disminución media de la temperatura en la troposfera terrestre por cada kilómetro que se asciende en ella es:",
+    options: ["A) 9.8 ºC", "B) 6.5 ºC", "C) 0.0098 ºC", "D) 0.0065 ºC"], correctAnswer: "B",
+  },
+  {
+    ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "36",
+    statement: "Entre los gases atmosféricos indicados, marque el que absorbe las radiaciones más energéticas:",
+    options: ["A) Oxígeno", "B) Dióxido de carbono", "C) Óxido nitroso", "D) Ozono"], correctAnswer: "A",
+  },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "37", statement: "En relación con el porcentaje en volumen de los gases en la troposfera, elija la frase correcta:", options: ["A) El nitrógeno molecular tiene una importante variación con la altura.", "B) El oxígeno molecular tiene una importante variación con la altura.", "C) El dióxido de carbono tiene una importante variación con la altura.", "D) El vapor de agua tiene una importante variación con la altura."], correctAnswer: "D" },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "38", statement: "Cuando tenemos estratificación estable con aire seco, la temperatura potencial:", options: ["A) disminuye con la altura.", "B) se mantiene constante con la altura.", "C) aumenta con la altura.", "D) depende de la cizalladura del viento que haya."], correctAnswer: "C" },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "39", statement: "El ritmo de disminución de la temperatura con la altura en una masa de aire húmedo que asciende adiabáticamente hasta llegar al nivel de condensación es:", options: ["A) siempre menor que en una masa de aire seco.", "B) igual que en una masa de aire seco.", "C) menor cuanto menor sea la humedad específica de la masa de aire.", "D) mayor que en una masa de aire seco."], correctAnswer: "A" },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "40", statement: "Cuando ocurre el llamado “efecto Föhn” se conserva:", options: ["A) la temperatura seudopotencial equivalente.", "B) la temperatura adiabática del termómetro húmedo.", "C) la temperatura potencial virtual.", "D) la temperatura adiabática equivalente."], correctAnswer: "A" },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "41", statement: "En un ascenso adiabático (sin saturación), la temperatura del punto de rocío:", options: ["A) disminuye ≅ 9.8 º/km.", "B) disminuye ≅ 1.6 º/km.", "C) disminuye ≅ 6.5 º/km.", "D) es constante."], correctAnswer: "B" },
+  { ...commonSourceFields2014, retrievedAt: "2026-07-12", answerRetrievedAt: "2026-07-12", questionNumber: "42", statement: "El intervalo de bruma en una niebla radiativa es:", options: ["A) el tiempo que tarda en disiparse la bruma y que depende de la concentración inicial de gotitas de agua.", "B) el tiempo entre bruma y niebla, y que depende de la concentración inicial de vapor de agua.", "C) el descenso de temperatura que implica una condensación de 0.5 gramos de vapor de agua en 1 m3 de aire.", "D) la cantidad de vapor de agua a condensar para que la visibilidad horizontal sea inferior a 1 km."], correctAnswer: "C" },
+  {
     ...commonSourceFields2018,
     questionNumber: "8",
     statement: "Señale la afirmación correcta:",
