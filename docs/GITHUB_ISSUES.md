@@ -80,4 +80,4 @@ Closure note: reviewed, clearly non-official Spanish notes now cover all 128 ver
 
 GitHub status: open.
 
-Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The first 2014 batch imports questions 1, 2, 3, 5, 6, 8, 9, and 10 with official answer provenance; questions 4 and 7 remain excluded pending visual formula review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
+Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The 2014 batches import questions 1, 2, 3, 5, 6, 8, 9, 10, 13, and 15 through 22 with official answer provenance; questions 4, 7, 11, 12, and 14 remain excluded pending formula/OCR review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
