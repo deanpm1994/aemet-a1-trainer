@@ -1,5 +1,8 @@
 import { PageHeader } from "@/components/page-header";
 import { monitoringEvents, monitoringSources } from "@/lib/mock-data";
+import { ensureMonitoringSources, getMonitoringEvents, getMonitoringSources } from "@/lib/monitoring-repository";
+import { runManualMonitoringCheck } from "@/lib/monitoring-manual-check";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import {
   buildMonitoringSummary,
   buildSourceVerificationQueue,
@@ -8,10 +11,37 @@ import {
   isMonitoringSourceConfigured,
 } from "@/lib/monitoring";
 
-export default function MonitoringPage() {
-  const summary = buildMonitoringSummary(monitoringSources, monitoringEvents);
-  const pendingEvents = getPendingMonitoringEvents(monitoringEvents);
-  const verificationQueue = buildSourceVerificationQueue(monitoringSources);
+export default async function MonitoringPage() {
+  let sources = monitoringSources;
+  let events = monitoringEvents;
+
+  try {
+    const userId = await getAuthenticatedUserId();
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      await ensureMonitoringSources(client as never, userId);
+      const [storedSources, storedEvents] = await Promise.all([
+        getMonitoringSources(client as never, userId),
+        getMonitoringEvents(client as never, userId),
+      ]);
+      if (storedSources.length > 0) sources = storedSources;
+      if (storedEvents.length > 0) events = storedEvents;
+    }
+  } catch {
+    // Manual placeholders remain available when persistence is unavailable.
+  }
+
+  async function checkSourceAction(formData: FormData) {
+    "use server";
+    const sourceId = String(formData.get("sourceId") ?? "");
+    const url = String(formData.get("url") ?? "");
+    const keywords = String(formData.get("keywords") ?? "").split("|").filter(Boolean);
+    const client = await createSupabaseServerClient();
+    await runManualMonitoringCheck({ client: client as never, sourceId, url, keywords });
+  }
+  const summary = buildMonitoringSummary(sources, events);
+  const pendingEvents = getPendingMonitoringEvents(events);
+  const verificationQueue = buildSourceVerificationQueue(sources);
 
   return (
     <div className="space-y-8">
@@ -64,7 +94,7 @@ export default function MonitoringPage() {
           </p>
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
-          {monitoringSources.map((source) => (
+          {sources.map((source) => (
             <article
               key={source.id}
               className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -104,6 +134,12 @@ export default function MonitoringPage() {
                   <dd>{source.keywords.join(", ")}</dd>
                 </div>
               </dl>
+              <form action={checkSourceAction} className="mt-4">
+                <input type="hidden" name="sourceId" value={source.id} />
+                <input type="hidden" name="url" value={source.url} />
+                <input type="hidden" name="keywords" value={source.keywords.join("|")} />
+                <button className="rounded-xl bg-slate-900 px-3 py-2 text-sm font-medium text-white" type="submit">Comprobar ahora</button>
+              </form>
             </article>
           ))}
         </div>
