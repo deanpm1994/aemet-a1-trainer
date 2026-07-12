@@ -4,7 +4,7 @@ import { QuestionAttemptForm } from "@/components/question-attempt-form";
 import { QuizRunner } from "@/components/quiz-runner";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { buildContentReadiness } from "@/lib/content-readiness";
-import { loadQuestionsSource } from "@/lib/notion-questions";
+import { loadCanonicalQuestionsSource } from "@/lib/canonical-questions-source";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
 import {
@@ -72,7 +72,7 @@ type QuestionsPageProps = {
 export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
   const query = await searchParams;
   const [questionSource, topicSource] = await Promise.all([
-    loadQuestionsSource(),
+    loadCanonicalQuestionsSource(),
     loadTopicsSource(),
   ]);
   const sourceQuestions = questionSource.questions;
