@@ -485,6 +485,14 @@ export async function loadQuestionsSource(
       .map((result) => mapQuestionPageSafely(result))
       .filter((question): question is Question => question !== null);
 
+    if (mappedQuestions.length === 0) {
+      return {
+        questions: fallbackQuestions,
+        sourceState: "fallback_error",
+        message: "Notion no devolvió preguntas válidas. Mostrando preguntas verificadas locales.",
+      };
+    }
+
     return {
       questions: mappedQuestions,
       sourceState: "live",

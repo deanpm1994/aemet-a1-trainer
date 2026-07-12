@@ -1,6 +1,5 @@
 import { CalendarPlanner } from "@/components/calendar-planner";
-import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
-import { loadQuestionsSource } from "@/lib/notion-questions";
+import { loadCanonicalQuestionsSource } from "@/lib/canonical-questions-source";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { orchestrateStudyWeek } from "@/lib/study-orchestrator";
 import { PageHeader } from "@/components/page-header";
@@ -18,12 +17,9 @@ type StudySessionsRepositoryClient = Parameters<typeof ensureStudySessions>[0];
 export default async function CalendarPage() {
   const [topicSource, questionSource] = await Promise.all([
     loadTopicsSource(),
-    loadQuestionsSource(),
+    loadCanonicalQuestionsSource(),
   ]);
-  const questions = [
-    ...questionSource.questions,
-    ...buildDidacticQuestions(topicSource.topics),
-  ];
+  const questions = questionSource.questions;
   const recommendedSessions = orchestrateStudyWeek({
     topics: topicSource.topics,
     questions,

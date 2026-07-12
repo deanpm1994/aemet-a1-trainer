@@ -222,8 +222,22 @@ describe("loadQuestionsSource", () => {
       }),
     });
 
-    expect(result.sourceState).toBe("live");
-    expect(result.questions).toEqual([]);
+    expect(result.sourceState).toBe("fallback_error");
+    expect(result.questions).toEqual(fallbackQuestions);
+  });
+
+  it("falls back to verified questions when Notion has no rows", async () => {
+    const result = await loadQuestionsSource({
+      env: {
+        NOTION_TOKEN: "secret_test_token",
+        NOTION_QUESTIONS_DATA_SOURCE_ID: "12345678-1234-1234-1234-123456789abc",
+      },
+      fallbackQuestions,
+      createClient: () => ({ dataSources: { query: vi.fn().mockResolvedValue({ results: [] }) } }),
+    });
+
+    expect(result.sourceState).toBe("fallback_error");
+    expect(result.questions).toEqual(fallbackQuestions);
   });
 });
 

@@ -55,13 +55,14 @@ Fields:
 - mistake_type
 
 Persistence notes:
-- Source question content is loaded from Notion or local fallback data.
-- When Notion is not configured, the local fallback now prefers a checked-in official past-exam subset before mock questions.
+- Source question content is loaded from the canonical Supabase `questions` table.
+- A checked-in official past-exam subset is a verified migration-outage fallback; Notion is not a runtime question authority.
 - The checked-in official past-exam subset contains verified questions from the AEMET/MITECO 2014, 2015, 2016, 2017, and 2018 acceso libre primer ejercicio documents.
 - Verified official answer keys require `answer_source_status=official`, `answer_source_url`, and `answer_retrieved_at`.
 - Official questions without official answer keys may be imported only with `verification_status=needs_review` and `answer_source_status=unknown`.
 - Topic IDs and difficulty for imported past questions are app-owned study metadata, not official-source claims.
 - User-owned practice progress is stored separately in Supabase table `question_progress`.
+- Source provenance/audit records are stored separately in Supabase table `question_sources`.
 - `question_progress` overlays `attempts_count`, `last_attempt_at`, `next_review_at`, and `mistake_types` by `user_id` and `question_id`.
 - Detailed signed-in attempt history is stored in Supabase table `question_attempts`.
 - A saved attempt records the selected answer, user-marked correctness, mistake types, confidence, notes, and attempt date.
