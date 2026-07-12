@@ -14,5 +14,5 @@
 - document_description: Cuestionario del primer ejercicio de las pruebas selectivas para el ingreso en el Cuerpo Superior de Meteorólogos del Estado, turno libre, convocatoria publicada por Orden AAA/1183/2014, de 26 de junio.
 - authoritative_scope: Official question wording from the AEMET historical exam PDF; official answers from MITECO's first-exercise answer template.
 - verification_decision: verified_for_partial_question_subset
-- unresolved_questions: Questions 4 and 7 have OCR-ambiguous formula notation. Questions 11, 12, and 14 are formula-heavy and remain TODO_VERIFY_OFFICIAL_SOURCE. Questions 23 onwards require separate source inspection before verified import.
-- import_notes: Checked-in records are limited to questions 1, 2, 3, 5, 6, 8, 9, 10, 13, and 15 through 22. They preserve source metadata and official answer provenance; this is not a complete 2014 exam archive.
+- unresolved_questions: Questions 4 and 7 have OCR-ambiguous formula notation. Questions 11, 12, and 14 are formula-heavy and remain TODO_VERIFY_OFFICIAL_SOURCE. Questions 23 through 26 and 33 onwards require separate source inspection before verified import.
+- import_notes: Checked-in records are limited to questions 1, 2, 3, 5, 6, 8, 9, 10, 13, 15 through 22, and 27 through 32. They preserve source metadata and official answer provenance; this is not a complete 2014 exam archive.

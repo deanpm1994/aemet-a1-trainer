@@ -19,7 +19,7 @@ describe("official past exam subset", () => {
       (question) => question.sourceYear === 2014,
     );
 
-    expect(result.questions).toHaveLength(36);
+    expect(result.questions).toHaveLength(42);
     expect(imported2014Questions.map((question) => question.questionNumber)).toEqual([
       "1",
       "2",
@@ -38,25 +38,16 @@ describe("official past exam subset", () => {
       "20",
       "21",
       "22",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
     ]);
     expect(imported2014Questions.map((question) => question.correctAnswer)).toEqual([
-      "A",
-      "D",
-      "A",
-      "B",
-      "B",
-      "C",
-      "C",
-      "A",
-      "B",
-      "B",
-      "A",
-      "B",
-      "D",
-      "D",
-      "B",
-      "A",
-      "D",
+      "A", "D", "A", "B", "B", "C", "C", "A", "B", "B", "A", "B",
+      "D", "D", "B", "A", "D", "B", "B", "D", "A", "D", "C",
     ]);
     expect(imported2014Questions.every((question) => question.answerSourceStatus === "official")).toBe(true);
     expect(imported2014Questions[0]).toMatchObject({
@@ -66,7 +57,7 @@ describe("official past exam subset", () => {
       answerRetrievedAt: "2026-07-11",
     });
     expect(imported2014Questions.at(-1)).toMatchObject({
-      id: "aemet-a1-acceso-libre-primer-ejercicio-2014-22",
+      id: "aemet-a1-acceso-libre-primer-ejercicio-2014-32",
       sourceUrl: expect.stringContaining("ex_met_lib_2014"),
       answerSourceUrl: expect.stringContaining("plantilla%20respuestas_tcm30-92321"),
       retrievedAt: "2026-07-12",
@@ -83,7 +74,7 @@ describe("official past exam subset", () => {
       throw new Error("Expected verified past-exam subset");
     }
 
-    expect(result.questions).toHaveLength(36);
+    expect(result.questions).toHaveLength(42);
     expect(
       result.questions
         .filter((question) => question.sourceYear === 2018)

@@ -152,7 +152,7 @@ Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
-- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 36 verified historical questions were seeded on 2026-07-12: 2014×17, 2015×4, 2016×5, 2017×5, and 2018×5. Notion no longer controls runtime question availability.
+- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 42 verified historical questions were seeded on 2026-07-12: 2014×23, 2015×4, 2016×5, 2017×5, and 2018×5. Notion no longer controls runtime question availability.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
 - Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`
