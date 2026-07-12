@@ -1,5 +1,7 @@
 import { PageHeader } from "@/components/page-header";
 import { monitoringEvents, monitoringSources } from "@/lib/mock-data";
+import { getMonitoringEvents, getMonitoringSources } from "@/lib/monitoring-repository";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import {
   buildMonitoringSummary,
   buildSourceVerificationQueue,
@@ -8,10 +10,27 @@ import {
   isMonitoringSourceConfigured,
 } from "@/lib/monitoring";
 
-export default function MonitoringPage() {
-  const summary = buildMonitoringSummary(monitoringSources, monitoringEvents);
-  const pendingEvents = getPendingMonitoringEvents(monitoringEvents);
-  const verificationQueue = buildSourceVerificationQueue(monitoringSources);
+export default async function MonitoringPage() {
+  let sources = monitoringSources;
+  let events = monitoringEvents;
+
+  try {
+    const userId = await getAuthenticatedUserId();
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      const [storedSources, storedEvents] = await Promise.all([
+        getMonitoringSources(client as never, userId),
+        getMonitoringEvents(client as never, userId),
+      ]);
+      if (storedSources.length > 0) sources = storedSources;
+      if (storedEvents.length > 0) events = storedEvents;
+    }
+  } catch {
+    // Manual placeholders remain available when persistence is unavailable.
+  }
+  const summary = buildMonitoringSummary(sources, events);
+  const pendingEvents = getPendingMonitoringEvents(events);
+  const verificationQueue = buildSourceVerificationQueue(sources);
 
   return (
     <div className="space-y-8">
@@ -64,7 +83,7 @@ export default function MonitoringPage() {
           </p>
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
-          {monitoringSources.map((source) => (
+          {sources.map((source) => (
             <article
               key={source.id}
               className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
