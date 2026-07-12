@@ -50,7 +50,7 @@
 - Create Notion database mapping
 - Sync topics from Notion
 - Sync bibliography from Notion
-- Sync questions from Notion
+- Keep Notion question sync optional for future editorial import; Supabase is canonical runtime storage
 - Add verification status handling
 
 ## Phase 5 — Supabase persistence (complete)
