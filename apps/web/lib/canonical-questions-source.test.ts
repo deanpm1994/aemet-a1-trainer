@@ -12,18 +12,18 @@ if (!fallback.ok) {
 }
 
 describe("loadCanonicalQuestionsSource", () => {
-  it("returns all 27 verified Supabase questions when canonical query succeeds", async () => {
+  it("returns all 36 verified Supabase questions when canonical query succeeds", async () => {
     const result = await loadCanonicalQuestionsSource({
       createClient: async () => ({}),
       loadQuestions: async () => fallback.questions,
     });
 
     expect(result.sourceState).toBe("live");
-    expect(result.questions).toHaveLength(27);
-    expect(new Set(result.questions.map((question) => question.id)).size).toBe(27);
+    expect(result.questions).toHaveLength(36);
+    expect(new Set(result.questions.map((question) => question.id)).size).toBe(36);
   });
 
-  it("returns the same 27 checked-in verified questions when canonical query fails", async () => {
+  it("returns the same 36 checked-in verified questions when canonical query fails", async () => {
     const result = await loadCanonicalQuestionsSource({
       createClient: async () => ({}),
       loadQuestions: async () => {
@@ -32,7 +32,7 @@ describe("loadCanonicalQuestionsSource", () => {
     });
 
     expect(result.sourceState).toBe("fallback_error");
-    expect(result.questions).toHaveLength(27);
+    expect(result.questions).toHaveLength(36);
     expect(result.questions.map((question) => question.id)).toEqual(
       fallback.questions.map((question) => question.id),
     );
