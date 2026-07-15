@@ -53,7 +53,16 @@ describe("official past exam subset", () => {
       "A", "D", "A", "D", "B", "B", "C", "C", "C", "A", "B", "B", "A", "B",
       "D", "D", "B", "A", "D", "B", "B", "D", "A", "D", "C", "C", "D", "B", "A", "D", "C", "A", "A", "B", "C",
     ]);
+    expect(["11", "12", "14"].every((number) =>
+      !imported2014Questions.some((question) => question.questionNumber === number),
+    )).toBe(true);
     expect(imported2014Questions.every((question) => question.answerSourceStatus === "official")).toBe(true);
+    expect(imported2014Questions.every((question) =>
+      question.sourceUrl.includes("ex_met_lib_2014") &&
+      question.answerSourceUrl?.includes("plantilla%20respuestas_tcm30-92321") &&
+      Boolean(question.retrievedAt) && Boolean(question.answerRetrievedAt),
+    )).toBe(true);
+    expect(result.questions.every((question) => question.topicIds.length > 0)).toBe(true);
     expect(imported2014Questions[0]).toMatchObject({
       id: "aemet-a1-acceso-libre-primer-ejercicio-2014-1",
       sourceUrl: expect.stringContaining("ex_met_lib_2014"),
