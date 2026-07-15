@@ -11,13 +11,23 @@ export type CanonicalQuestionsSource = {
   message: string;
 };
 
-export async function loadCanonicalQuestionsSource(): Promise<CanonicalQuestionsSource> {
+type CanonicalQuestionsSourceOptions = {
+  createClient?: () => Promise<unknown>;
+  loadQuestions?: (client: unknown) => Promise<Question[]>;
+};
+
+export async function loadCanonicalQuestionsSource(
+  options: CanonicalQuestionsSourceOptions = {},
+): Promise<CanonicalQuestionsSource> {
   const fallback = loadOfficialPastExamSubset();
   const fallbackQuestions = fallback.ok ? fallback.questions : [];
+  const createClient = options.createClient ?? createSupabaseServerClient;
+  const loadQuestions = options.loadQuestions ?? ((client) =>
+    getVerifiedCanonicalQuestions(client as never));
 
   try {
-    const client = await createSupabaseServerClient();
-    const questions = await getVerifiedCanonicalQuestions(client as never);
+    const client = await createClient();
+    const questions = await loadQuestions(client);
 
     if (questions.length > 0) {
       return { questions, sourceState: "live", message: "Preguntas verificadas cargadas desde Supabase." };
