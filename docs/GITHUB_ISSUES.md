@@ -38,19 +38,18 @@ Current implementation is a manual/read-only monitoring workflow. GitHub issue w
 
 ## #5 feat(pwa): add installable PWA shell and study reminders
 
-GitHub status: open.
+GitHub status: closed 2026-07-15.
 
-GitHub issue was updated with this partial status on 2026-07-09. Implemented:
+Closure note:
 - manifest/installability metadata
 - project-owned icons
 - persisted reminder preference settings
+- visible in-app morning and light-review reminders at the configured local minute while the signed-in app is open
+- one dismissal per local date and reminder slot, stored in browser local storage
+- explicit absence of browser notifications, push, service worker, offline cache, and background delivery
+- focused helper tests, lint, and production build passed
 
-Still missing:
-- visible in-app reminder behavior
-- service worker/offline shell, if still desired
-- browser notification permission flow and delivery, if in scope
-- scheduled reminder delivery
-- manual installability verification in a browser
+Future browser notifications, offline support, or scheduled delivery require a newly scoped issue and separate verification.
 
 ## #6 docs(roadmap): refresh project memory and issue backlog docs after Phase 5
 
@@ -80,4 +79,4 @@ Closure note: reviewed, clearly non-official Spanish notes now cover all 128 ver
 
 GitHub status: open.
 
-Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The first 2014 batch imports questions 1, 2, 3, 5, 6, 8, 9, and 10 with official answer provenance; questions 4 and 7 remain excluded pending visual formula review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
+Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The 2014 batches import questions 1, 2, 3, 5, 6, 8, 9, 10, 13, 15 through 22, and 27 through 42 with official answer provenance; questions 4, 7, 11, 12, and 14 remain excluded pending formula/OCR review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
