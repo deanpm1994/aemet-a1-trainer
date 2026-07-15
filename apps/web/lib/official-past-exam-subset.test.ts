@@ -19,11 +19,12 @@ describe("official past exam subset", () => {
       (question) => question.sourceYear === 2014,
     );
 
-    expect(result.questions).toHaveLength(52);
+    expect(result.questions).toHaveLength(53);
     expect(imported2014Questions.map((question) => question.questionNumber)).toEqual([
       "1",
       "2",
       "3",
+      "4",
       "5",
       "6",
       "8",
@@ -48,7 +49,7 @@ describe("official past exam subset", () => {
       "37", "38", "39", "40", "41", "42",
     ]);
     expect(imported2014Questions.map((question) => question.correctAnswer)).toEqual([
-      "A", "D", "A", "B", "B", "C", "C", "A", "B", "B", "A", "B",
+      "A", "D", "A", "D", "B", "B", "C", "C", "A", "B", "B", "A", "B",
       "D", "D", "B", "A", "D", "B", "B", "D", "A", "D", "C", "C", "D", "B", "A", "D", "C", "A", "A", "B", "C",
     ]);
     expect(imported2014Questions.every((question) => question.answerSourceStatus === "official")).toBe(true);
@@ -76,7 +77,7 @@ describe("official past exam subset", () => {
       throw new Error("Expected verified past-exam subset");
     }
 
-    expect(result.questions).toHaveLength(52);
+    expect(result.questions).toHaveLength(53);
     expect(
       result.questions
         .filter((question) => question.sourceYear === 2018)
