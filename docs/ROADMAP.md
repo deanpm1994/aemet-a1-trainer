@@ -80,7 +80,7 @@
 
 - Add PWA manifest (complete)
 - Add installable mobile view metadata (complete)
-- Add reminder settings shell (complete; delivery inactive)
-- Add notifications
+- Add in-app reminders for the configured local minute (complete; only while the app is open)
+- Add browser notifications (pending; not active)
 - Add countdown/status widget shell (complete; no source-backed official dates loaded)
-- Add offline review mode
+- Add offline review mode (pending)
