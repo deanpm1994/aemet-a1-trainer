@@ -135,6 +135,15 @@ export const officialPastExamSubsetSource = [
   },
   {
     ...commonSourceFields2014,
+    retrievedAt: "2026-07-15",
+    answerRetrievedAt: "2026-07-15",
+    questionNumber: "4",
+    statement: "Suponga que tiene dos datos a y b, 0 < a < b, para los que se postula que proceden de una población con función de densidad que es uniforme entre 0 y θ y con valor cero en el resto, U[0, θ]. ¿Cuál es el estimador de máxima verosimilitud de θ?",
+    options: ["A) 1", "B) (a+b)²", "C) (a+b)/2", "D) b"],
+    correctAnswer: "D",
+  },
+  {
+    ...commonSourceFields2014,
     questionNumber: "5",
     statement: "Sean X, Y y Z tres variables aleatorias incorrelacionadas de varianza unidad. Se definen los dos conjuntos de variables aleatorias A = {X, Y}, B = {Y + Z}. La primera correlación canónica entre los conjuntos A y B vale:",
     options: ["A) 0", "B) (1/2)⁰·⁵", "C) 1/3", "D) 1"],
