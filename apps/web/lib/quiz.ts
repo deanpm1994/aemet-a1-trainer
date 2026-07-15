@@ -6,6 +6,24 @@ export type QuizFeedback = {
   explanation: string;
 };
 
+export type PracticeSessionMode = "random" | "topic";
+export type PracticeSessionSize = 20 | 50 | "survival";
+
+export function getSessionQuestions(
+  questions: Question[],
+  size: PracticeSessionSize,
+  seed: number,
+): Question[] {
+  return selectRandomQuestions(questions, size === "survival" ? questions.length : size, seed);
+}
+
+export function getCoverageMessage(available: number, requested: PracticeSessionSize): string | null {
+  if (requested !== "survival" && available < requested) {
+    return `Cobertura limitada: hay ${available} preguntas elegibles; no se repetirán durante esta sesión.`;
+  }
+  return null;
+}
+
 export function selectTopicQuestions(questions: Question[], topicId: string): Question[] {
   return questions.filter(
     (question) => question.correctAnswer && question.topicIds.includes(topicId),

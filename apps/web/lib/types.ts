@@ -56,6 +56,10 @@ export type QuestionType =
 
 export type AnswerSourceStatus = "official" | "inferred" | "user" | "unknown";
 
+/** Identifies whether the question comes from an official exam or our study bank. */
+export type QuestionOrigin = "official_historic" | "didactic_reviewed";
+export type EditorialStatus = "official" | "reviewed";
+
 export type MistakeType =
   | "concept"
   | "formula"
@@ -79,6 +83,8 @@ export type Question = {
   options: string[];
   correctAnswer: string;
   answerSourceStatus: AnswerSourceStatus;
+  origin?: QuestionOrigin;
+  editorialStatus?: EditorialStatus;
   answerSourceUrl?: string;
   answerRetrievedAt?: string;
   explanation: string;

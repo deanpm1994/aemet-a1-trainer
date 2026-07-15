@@ -5,6 +5,8 @@ import { QuizRunner } from "@/components/quiz-runner";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { buildContentReadiness } from "@/lib/content-readiness";
 import { loadCanonicalQuestionsSource } from "@/lib/canonical-questions-source";
+import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
+import { getHiddenQuestionIds, hideQuestion } from "@/lib/hidden-questions-repository";
 import { loadTopicsSource } from "@/lib/notion-topics";
 import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
 import {
@@ -23,13 +25,14 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
-import { selectRandomQuestions, selectTopicQuestions } from "@/lib/quiz";
+import { getSessionQuestions, selectTopicQuestions, type PracticeSessionSize } from "@/lib/quiz";
 import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
 import type { MistakeType } from "@/lib/types";
 
 type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
 type QuestionAttemptRepositoryClient = Parameters<typeof getQuestionAttempts>[0];
+type HiddenQuestionsRepositoryClient = Parameters<typeof getHiddenQuestionIds>[0];
 
 const allowedMistakeTypes: MistakeType[] = [
   "concept",
@@ -66,7 +69,7 @@ function parseConfidenceAfter(value: FormDataEntryValue | null): number {
 }
 
 type QuestionsPageProps = {
-  searchParams: Promise<{ mode?: string; topic?: string }>;
+  searchParams: Promise<{ mode?: string; topic?: string; size?: string }>;
 };
 
 export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
@@ -77,8 +80,11 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
   ]);
   const sourceQuestions = questionSource.questions;
   const { sourceState, message } = questionSource;
-  let questions = sourceQuestions;
+  const didacticQuestions = buildDidacticQuestions(topicSource.topics);
+  const questionsById = new Map([...sourceQuestions, ...didacticQuestions].map((question) => [question.id, question]));
+  let questions = [...questionsById.values()];
   let canPersist = false;
+  let hiddenQuestionIds: string[] = [];
   let progressMessage = "Inicia sesión para guardar progreso de preguntas.";
 
   try {
@@ -93,6 +99,9 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
         userId,
       );
       questions = applyQuestionProgress(sourceQuestions, progress);
+      hiddenQuestionIds = await getHiddenQuestionIds(client as HiddenQuestionsRepositoryClient, userId);
+      questions = applyQuestionProgress([...questionsById.values()], progress)
+        .filter((question) => !hiddenQuestionIds.includes(question.id));
       canPersist = true;
       progressMessage = "Progreso de preguntas cargado desde Supabase.";
     }
@@ -112,11 +121,9 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
   const painPoints = getPracticePainPoints(questions);
   const contentReadiness = buildContentReadiness(topicSource.topics, questions);
   const randomSeed = Number.parseInt(new Date().toISOString().slice(0, 10).replaceAll("-", ""), 10);
-  const quizQuestions = query.topic
-    ? selectTopicQuestions(questions, query.topic)
-    : query.mode === "random"
-      ? selectRandomQuestions(questions, 10, randomSeed)
-      : [];
+  const sessionSize: PracticeSessionSize = query.size === "50" ? 50 : query.size === "survival" ? "survival" : 20;
+  const sessionPool = query.topic ? selectTopicQuestions(questions, query.topic) : query.mode === "random" ? questions.filter((question) => question.correctAnswer) : [];
+  const quizQuestions = getSessionQuestions(sessionPool, sessionSize, randomSeed);
 
   async function saveQuestionAttemptAction(formData: FormData) {
     "use server";
@@ -177,12 +184,26 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
     }
   }
 
+  async function hideQuestionAction(formData: FormData) {
+    "use server";
+    const userId = await getAuthenticatedUserId();
+    const questionId = String(formData.get("questionId") ?? "");
+    if (!userId || !questionId) return { ok: false, message: "Inicia sesión para ocultar preguntas en tus futuras sesiones." };
+    try {
+      const client = await createSupabaseServerClient();
+      await hideQuestion(client as HiddenQuestionsRepositoryClient, userId, questionId);
+      return { ok: true, message: "Pregunta oculta de tus próximas sesiones." };
+    } catch {
+      return { ok: false, message: "No se pudo ocultar la pregunta." };
+    }
+  }
+
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Preguntas"
         title="Banco de preguntas MVP"
-        description="La sincronización de preguntas prefiere un workspace dedicado de Notion y usa datos locales si no hay sincronización. La redacción oficial y las fuentes de respuesta se mantienen explícitas mediante metadatos."
+        description="Preguntas históricas oficiales y material didáctico revisado, siempre etiquetados por separado y con su procedencia explícita."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
@@ -190,21 +211,20 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
       <ContentReadinessCard readiness={contentReadiness} />
 
       <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-        <strong>Material didáctico no oficial.</strong> Cada tema verificado incluye una
-        pregunta de alcance basada en su título oficial. Las preguntas históricas conservan
-        su fuente y estado de verificación propios.
+        <strong>Material didáctico revisado no oficial.</strong> Hay tres preguntas por cada tema verificado, citadas al programa BOE. Las preguntas históricas conservan la procedencia de examen y plantilla oficial.
       </section>
 
-      <section className="flex flex-wrap gap-3">
-        <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href="/questions?mode=random">
-          Test aleatorio
-        </a>
-        <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">
-          Elegir tema
-        </a>
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Nueva sesión</h2>
+        <div className="mt-3 flex flex-wrap gap-3">
+          {["20", "50", "survival"].map((size) => <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href={`/questions?mode=random&size=${size}`} key={size}>Aleatorio · {size === "survival" ? "Supervivencia" : size}</a>)}
+          <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">Por tema</a>
+        </div>
+        {query.topic ? <div className="mt-3 flex flex-wrap gap-3 text-sm"><span className="self-center text-slate-600">Sesión por tema:</span>{["20", "50", "survival"].map((size) => <a className="rounded-full border border-slate-300 px-3 py-1.5" href={`/questions?topic=${query.topic}&size=${size}`} key={size}>{size === "survival" ? "Supervivencia" : size}</a>)}</div> : null}
       </section>
 
-      {quizQuestions.length > 0 ? <QuizRunner questions={quizQuestions} /> : null}
+      {quizQuestions.length > 0 ? <QuizRunner canPersist={canPersist} onHideQuestion={hideQuestionAction} onSaveAttempt={saveQuestionAttemptAction} questions={quizQuestions} sessionSize={sessionSize} /> : null}
+      {(query.mode === "random" || query.topic) && quizQuestions.length === 0 ? <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">No hay preguntas elegibles para esta sesión. Puede deberse a tus preguntas ocultas o a que el tema aún no tiene cobertura.</section> : null}
 
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>

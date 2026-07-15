@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   evaluateQuizAnswer,
+  getCoverageMessage,
+  getSessionQuestions,
   selectRandomQuestions,
   selectTopicQuestions,
 } from "./quiz";
@@ -43,5 +45,10 @@ describe("quiz", () => {
       correctAnswer: "A",
       explanation: "Explicación uno.",
     });
+  });
+
+  it("limits short sessions without repeating their eligible pool", () => {
+    expect(getSessionQuestions(questions, 50, 42)).toHaveLength(2);
+    expect(getCoverageMessage(2, 50)).toContain("Cobertura limitada");
   });
 });

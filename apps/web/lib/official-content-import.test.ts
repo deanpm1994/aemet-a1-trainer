@@ -201,6 +201,8 @@ describe("official content import", () => {
       answerSourceUrl:
         "https://www.miteco.gob.es/content/dam/miteco/es/ministerio/empleo-publico/personal-funcionario/plantilla_definitiva_notas_1ejercicio_libre_cs_meteorologos_tcm30-498798.pdf",
       answerRetrievedAt: "2026-07-09",
+      origin: "official_historic",
+      editorialStatus: "official",
       explanation: "",
       topicIds: [],
       difficulty: 3,

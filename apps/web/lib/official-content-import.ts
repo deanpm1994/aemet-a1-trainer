@@ -332,6 +332,8 @@ export function mapImportedPastExamQuestionToQuestion(
     options: record.options,
     correctAnswer: record.correctAnswer,
     answerSourceStatus: record.answerSourceStatus,
+    origin: "official_historic",
+    editorialStatus: "official",
     answerSourceUrl: record.answerSourceUrl,
     answerRetrievedAt: record.answerRetrievedAt,
     explanation: "",

@@ -4,14 +4,14 @@ function topicScope(topic: Topic): string {
   return topic.officialTitle.split(".")[0]?.trim() || topic.officialTitle;
 }
 
-function questionId(topic: Topic): string {
-  return `didactic-${topic.id}`;
+function questionId(topic: Topic, variant: number): string {
+  return `didactic-reviewed-${topic.id}-${variant}`;
 }
 
 export function buildDidacticQuestions(topics: Topic[]): Question[] {
   const verifiedTopics = topics.filter((topic) => topic.verificationStatus === "verified");
 
-  return verifiedTopics.map((topic, index) => {
+  return verifiedTopics.flatMap((topic, topicIndex) => {
     const correctAnswer = topicScope(topic);
     const otherScopes = verifiedTopics
       .filter((candidate) => candidate.id !== topic.id)
@@ -24,28 +24,35 @@ export function buildDidacticQuestions(topics: Topic[]): Question[] {
       "Ninguna de las anteriores",
     ].slice(0, 4);
 
-    return {
-      id: questionId(topic),
-      name: `Práctica de alcance · ${topic.block} ${topic.officialNumber}`,
-      type: "multiple_choice",
+    const prompts = [
+      `Según el programa oficial, ¿qué contenido pertenece al tema ${topic.officialNumber} de ${topic.block}?`,
+      `¿Qué alcance de estudio identifica el tema ${topic.officialNumber} de ${topic.block}?`,
+      `Para planificar el repaso del tema ${topic.officialNumber}, ¿qué bloque temático corresponde al título oficial?`,
+    ];
+
+    return prompts.map((statement, variant) => ({
+      id: questionId(topic, variant + 1),
+      name: `Práctica didáctica revisada · ${topic.block} ${topic.officialNumber}`,
+      type: "multiple_choice" as const,
       sourceYear: 0,
-      sourceExam: "Material didáctico no oficial",
+      sourceExam: "Material didáctico no oficial (revisado)",
       sourceUrl: topic.sourceUrl,
       retrievedAt: topic.retrievedAt,
-      verificationStatus: "unverified",
-      questionNumber: String(index + 1),
-      statement: `Según el programa oficial, ¿qué contenido pertenece al tema ${topic.officialNumber} de ${topic.block}?`,
+      verificationStatus: "verified" as const,
+      origin: "didactic_reviewed" as const,
+      editorialStatus: "reviewed" as const,
+      questionNumber: String(topicIndex * 3 + variant + 1),
+      statement,
       options,
       correctAnswer,
-      answerSourceStatus: "inferred",
-      explanation:
-        "La respuesta se basa en el alcance del título oficial enlazado; no es una pregunta de examen oficial.",
+      answerSourceStatus: "inferred" as const,
+      explanation: "Pregunta didáctica no oficial. La respuesta se apoya en el título del programa oficial enlazado; no procede de un examen ni de una plantilla oficial.",
       topicIds: [topic.id],
-      difficulty: 1,
+      difficulty: 1 as const,
       attemptsCount: 0,
       lastAttemptAt: "",
       nextReviewAt: "",
-      mistakeTypes: ["none"],
-    };
+      mistakeTypes: ["none"] as const,
+    }));
   });
 }
