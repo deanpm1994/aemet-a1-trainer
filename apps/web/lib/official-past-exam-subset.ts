@@ -158,6 +158,15 @@ export const officialPastExamSubsetSource = [
   },
   {
     ...commonSourceFields2014,
+    retrievedAt: "2026-07-15",
+    answerRetrievedAt: "2026-07-15",
+    questionNumber: "7",
+    statement: "Un conjunto de N datos, xᵢ, i = 1, ..., N, tiene distribución simétrica bimodal y su varianza es 100. Además se sabe que ∑ᵢ₌₁ᴺ (xᵢ − a)² es mínima cuando a = 20. El coeficiente de variación de Pearson de estos datos vale:",
+    options: ["A) 1", "B) 2", "C) 0.5", "D) 0.1"],
+    correctAnswer: "C",
+  },
+  {
+    ...commonSourceFields2014,
     questionNumber: "8",
     statement: "Una variable aleatoria tiene distribución normal N(20, 4). Si se eligen de forma independiente tres valores de esa variable, la probabilidad de que los tres sean mayores que 20 es:",
     options: ["A) 0.5", "B) 0.25", "C) 0.125", "D) 0.375"],
