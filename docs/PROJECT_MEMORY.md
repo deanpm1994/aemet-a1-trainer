@@ -123,7 +123,7 @@ Phase 6 status:
 
 Phase 7 status:
 - Basic PWA installability metadata and project-owned icon placeholders implemented
-- Reminder preferences remain saved settings only
+- Saved reminder preferences now show a dismissible in-app banner at the configured local minute while the signed-in app is open
 - Countdown/status widget shell implemented; it explicitly shows no verified official date until source-backed date records exist
 - No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
 
@@ -142,17 +142,17 @@ Study content readiness:
 - Verified official syllabus wording and verified past-question imports remain the main blocker before calling the app official-content ready
 - Official content import foundation exists for syllabus-first ingestion and question-contract validation
 - Verified BOE syllabus import from Annex I of BOE-A-2026-1292 now includes the full acceso libre programme: Mathematics, Physics, Meteorology and Climatology, Informatics and Communications, and General/Common. The earlier 127-topic count was corrected to 128 because BOE-A-2026-1292 lists 23 acceso libre Temas generales.
-- Verified past-exam subset is imported from official AEMET/MITECO acceso libre primer ejercicio sources. Current checked-in questions: 2018 questions 8, 10, 13, 17, and 19; 2017 questions 12, 13, 14, 15, and 16; 2016 questions 14, 15, 16, 17, and 20; 2015 questions 19, 20, 21, and 22; 2014 questions 1, 2, 3, 5, 6, 8, 9, and 10. The subset includes official answer-source provenance from official answer-template resolutions, including the 2014 MITECO template, the corrected 2016 answer-template resolution, and the 2015 MITECO answer-template agreement.
+- Verified past-exam subset is imported from official AEMET/MITECO acceso libre primer ejercicio sources. Current checked-in questions: 2018 questions 8, 10, 13, 17, and 19; 2017 questions 12, 13, 14, 15, and 16; 2016 questions 14, 15, 16, 17, and 20; 2015 questions 19, 20, 21, and 22; 2014 questions 1, 2, 3, 5, 6, 8, 9, 10, 13, 15 through 22, and 27 through 42. The subset includes official answer-source provenance from official answer-template resolutions, including the 2014 MITECO template, the corrected 2016 answer-template resolution, and the 2015 MITECO answer-template agreement.
 - AEMET official Grupo A1 guide URL for accesso libre work: `https://www.aemet.es/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/acceso_libre`.
 - AEMET previous-call page for historical exam discovery: `https://www.aemet.es/es/empleo_y_becas/empleo_publico/oposiciones/grupo_a1/otras_convocatorias`; use the Acceso Libre column.
-- Remaining past-exam import work: continue importing official AEMET/MITECO PDFs in batches, keep no-answer official exams as `needs_review`, exclude annulled questions from verified practice import unless explicitly modeled, and manually review formula-heavy or OCR-sensitive question text before checked-in import. The 2014 batch excludes questions 4 and 7 pending visual formula transcription review.
+- Remaining past-exam import work: continue importing official AEMET/MITECO PDFs in batches, keep no-answer official exams as `needs_review`, exclude annulled questions from verified practice import unless explicitly modeled, and manually review formula-heavy or OCR-sensitive question text before checked-in import. The 2014 batch excludes questions 4, 7, 11, 12, and 14 pending further formula/OCR review.
 - Source-backed official date records remain required before showing a real countdown to any convocatoria, deadline, or exam phase
 
 Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
-- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The initial 27 verified historical questions were seeded on 2026-07-12; Notion no longer controls runtime question availability.
+- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 52 verified historical questions were seeded on 2026-07-12: 2014×33, 2015×4, 2016×5, 2017×5, and 2018×5. Notion no longer controls runtime question availability.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
 - Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`
@@ -163,7 +163,7 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Focus/session persistence issue #2 was closed after focused verification: 4 files, 27 tests passed.
 - Topic/question progress persistence issue #3 was closed after focused verification: 7 files, 24 tests passed.
-- GitHub issues #2, #3, #6, #9, and #12 are closed; issues #4, #5, #8, and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
+- GitHub issues #2, #3, #5, #6, #9, and #12 are closed; issues #4, #8, and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
 - Vercel production deployment completed with ready state `READY`
 - Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
@@ -185,7 +185,7 @@ Next recommended MVP steps:
   1. Run #8 private MVP phone smoke test: sign in, create or use session, focus timer, complete review, reload, verify topic/question progress updates.
   2. Continue official historical past-exam import in a newly scoped issue, starting with 2014 Acceso Libre only after source inspection.
   3. Implement #4 BOE/AEMET monitoring MVP: persisted checks, snapshot/hash comparison, keyword/event detection, review queue, and no invented official conclusions.
-  4. Implement remaining #5 PWA/reminder work: visible in-app reminders first, then notification/offline support only if scoped and verified.
+  4. Consider browser notifications or offline support only after a separate scope and verification plan; current reminders are in-app only.
   5. Add a settings language selector if the candidate wants to switch between Spanish and English.
 
 Ignored local artifacts:
