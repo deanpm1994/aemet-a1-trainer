@@ -123,7 +123,7 @@ Phase 6 status:
 
 Phase 7 status:
 - Basic PWA installability metadata and project-owned icon placeholders implemented
-- Reminder preferences remain saved settings only
+- Saved reminder preferences now show a dismissible in-app banner at the configured local minute while the signed-in app is open
 - Countdown/status widget shell implemented; it explicitly shows no verified official date until source-backed date records exist
 - No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
 
@@ -163,7 +163,7 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Focus/session persistence issue #2 was closed after focused verification: 4 files, 27 tests passed.
 - Topic/question progress persistence issue #3 was closed after focused verification: 7 files, 24 tests passed.
-- GitHub issues #2, #3, #6, #9, and #12 are closed; issues #4, #5, #8, and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
+- GitHub issues #2, #3, #5, #6, #9, and #12 are closed; issues #4, #8, and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
 - Vercel production deployment completed with ready state `READY`
 - Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
@@ -185,7 +185,7 @@ Next recommended MVP steps:
   1. Run #8 private MVP phone smoke test: sign in, create or use session, focus timer, complete review, reload, verify topic/question progress updates.
   2. Continue official historical past-exam import in a newly scoped issue, starting with 2014 Acceso Libre only after source inspection.
   3. Implement #4 BOE/AEMET monitoring MVP: persisted checks, snapshot/hash comparison, keyword/event detection, review queue, and no invented official conclusions.
-  4. Implement remaining #5 PWA/reminder work: visible in-app reminders first, then notification/offline support only if scoped and verified.
+  4. Consider browser notifications or offline support only after a separate scope and verification plan; current reminders are in-app only.
   5. Add a settings language selector if the candidate wants to switch between Spanish and English.
 
 Ignored local artifacts:

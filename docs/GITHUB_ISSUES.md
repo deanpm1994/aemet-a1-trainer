@@ -38,19 +38,18 @@ Current implementation is a manual/read-only monitoring workflow. GitHub issue w
 
 ## #5 feat(pwa): add installable PWA shell and study reminders
 
-GitHub status: open.
+GitHub status: closed 2026-07-15.
 
-GitHub issue was updated with this partial status on 2026-07-09. Implemented:
+Closure note:
 - manifest/installability metadata
 - project-owned icons
 - persisted reminder preference settings
+- visible in-app morning and light-review reminders at the configured local minute while the signed-in app is open
+- one dismissal per local date and reminder slot, stored in browser local storage
+- explicit absence of browser notifications, push, service worker, offline cache, and background delivery
+- focused helper tests, lint, and production build passed
 
-Still missing:
-- visible in-app reminder behavior
-- service worker/offline shell, if still desired
-- browser notification permission flow and delivery, if in scope
-- scheduled reminder delivery
-- manual installability verification in a browser
+Future browser notifications, offline support, or scheduled delivery require a newly scoped issue and separate verification.
 
 ## #6 docs(roadmap): refresh project memory and issue backlog docs after Phase 5
 
