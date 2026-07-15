@@ -68,13 +68,11 @@
 - Add row-level security (complete)
 - Add user settings (complete)
 
-## Phase 6 — Monitoring (manual shell complete; automation pending)
+## Phase 6 — Monitoring (manual persisted checks complete; automation pending)
 
 - Add BOE/AEMET source list skeleton (complete)
-- Add snapshot checking
-- Add keyword detection
-- Add monitoring events
-- Add notification hooks
+- Add manual persisted snapshot/hash checks and review-only events (complete)
+- Add scheduled execution and notification hooks (pending)
 
 ## Phase 7 — PWA and reminders (partial)
 
