@@ -1,6 +1,6 @@
 # GitHub Issue Backlog
 
-Last checked: 2026-07-10
+Last checked: 2026-07-15
 
 Current issues from `gh issue list --state all --limit 50`:
 
@@ -26,15 +26,9 @@ Verification before closing:
 
 ## #4 feat(monitoring): implement BOE/AEMET monitoring MVP
 
-GitHub status: open.
+GitHub status: closed 2026-07-15.
 
-Current implementation is a manual/read-only monitoring workflow. GitHub issue was updated with this partial status on 2026-07-09. Missing for this issue:
-- persisted monitoring sources/events
-- source snapshot retrieval
-- hash comparison
-- keyword/event detection
-- scheduled execution
-- action queue backed by real checks
+Closure note: authenticated manual checks persist allowlisted BOE/AEMET source snapshots, compare SHA-256 hashes, record keyword hits, and create review-only change events. Scheduling, alerts, and automatic official conclusions remain out of scope.
 
 ## #5 feat(pwa): add installable PWA shell and study reminders
 
@@ -79,4 +73,4 @@ Closure note: reviewed, clearly non-official Spanish notes now cover all 128 ver
 
 GitHub status: open.
 
-Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The 2014 batches import questions 1, 2, 3, 5, 6, 8, 9, 10, 13, 15 through 22, and 27 through 42 with official answer provenance; questions 4, 7, 11, 12, and 14 remain excluded pending formula/OCR review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
+Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The 2014 batches import questions 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 15 through 22, and 27 through 42 with official answer provenance; questions 11, 12, and 14 remain excluded pending formula/OCR review. Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed.
