@@ -120,6 +120,7 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
             >
               <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                 <span>{question.type}</span>
+                {question.origin === "didactic_reviewed" ? <span className="rounded-full bg-amber-100 px-2 py-1 text-amber-950">Creada para practicar · no oficial</span> : null}
                 <span>Dificultad {question.difficulty}</span>
                 <span>{question.verificationStatus}</span>
                 <span>Intentos {question.attemptsCount}</span>

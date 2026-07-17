@@ -2,8 +2,9 @@ import type { Question } from "./types";
 
 export type QuizFeedback = {
   correct: boolean;
-  correctAnswer: string;
+  selectedAnswerLabel: string;
   explanation: string;
+  sourceUrl: string;
 };
 
 export type PracticeSessionMode = "random" | "topic";
@@ -58,8 +59,9 @@ export function evaluateQuizAnswer(
 ): QuizFeedback {
   return {
     correct: answersMatch(selectedAnswer, question.correctAnswer),
-    correctAnswer: question.correctAnswer,
+    selectedAnswerLabel: question.correctAnswer,
     explanation: question.explanation,
+    sourceUrl: question.sourceUrl,
   };
 }
 

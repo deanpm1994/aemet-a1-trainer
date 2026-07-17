@@ -38,7 +38,7 @@ describe("loadCanonicalQuestionsSource", () => {
     );
   });
 
-  it("does not treat a reviewed didactic row as an official historic question", async () => {
+  it("includes a reviewed didactic row while keeping its non-official origin", async () => {
     const didactic = {
       ...fallback.questions[0]!,
       id: "didactic-reviewed-mathematics-1-1",
@@ -52,7 +52,7 @@ describe("loadCanonicalQuestionsSource", () => {
       loadQuestions: async () => [...fallback.questions, didactic],
     });
 
-    expect(result.questions).toHaveLength(52);
-    expect(result.questions.some((question) => question.id.startsWith("didactic-"))).toBe(false);
+    expect(result.questions).toHaveLength(55);
+    expect(result.questions.find((question) => question.id.startsWith("didactic-"))?.origin).toBe("didactic_reviewed");
   });
 });

@@ -42,8 +42,9 @@ describe("quiz", () => {
   it("reveals correct answer and explanation after selection", () => {
     expect(evaluateQuizAnswer(questions[0]!, "B")).toEqual({
       correct: false,
-      correctAnswer: "A",
+      selectedAnswerLabel: "A",
       explanation: "Explicación uno.",
+      sourceUrl: "https://example.test",
     });
   });
 

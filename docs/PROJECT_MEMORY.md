@@ -152,7 +152,7 @@ Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
-- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 54 verified historical questions were seeded on 2026-07-12: 2014×35, 2015×4, 2016×5, 2017×5, and 2018×5. Every checked-in historical question has an app-owned syllabus-topic mapping. The 2014 questions 11, 12 and 14 remain `TODO_VERIFY_OFFICIAL_SOURCE` and excluded because formula/OCR transcription is unresolved. Notion no longer controls runtime question availability.
+- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 54 verified historical questions were seeded on 2026-07-12: 2014×35, 2015×4, 2016×5, 2017×5, and 2018×5. Every checked-in historical question has an app-owned syllabus-topic mapping. The 2014 questions 11, 12 and 14 remain `TODO_VERIFY_OFFICIAL_SOURCE` and excluded because formula/OCR transcription is unresolved. The earlier title-derived syllabus prompts were deleted from Supabase; Notion no longer controls runtime question availability.
 - Title-derived didactic questions are excluded from the question bank and practice sessions. A BOE syllabus title is not sufficient factual context for a subject-matter question. Future didactic items require a factual source and editorial review before import.
 - Signed-in users may hide questions only for their own future sessions through `hidden_questions`; RLS prevents access to other users’ preferences.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
@@ -179,7 +179,8 @@ Verified working recently:
 - Basic PWA manifest/installability metadata builds cleanly and exposes `/manifest.webmanifest`
 - Dashboard, topics, and questions show study-content readiness without treating unverified starter content as official
 - Study MVP now adds Spanish study cards with three detailed review prompts for every verified topic. Cards are explicitly labelled `Material didáctico no oficial`; they do not replace source-owned BOE titles, URLs, retrieval dates, or verification status.
-- Questions route now adds one unverified syllabus-scope practice question per verified topic, topic quiz entry points, deterministic random quiz selection, and immediate Spanish feedback. Official historical questions retain their own provenance and status.
+- Questions route supports topic quiz entry points, deterministic random quiz selection, and immediate Spanish feedback. Official historical questions retain their own provenance and status.
+- Reviewed didactic-question infrastructure now supports fixed `choose_correct`/`choose_incorrect` instructions, a visible non-official marker, source disclosure after submission, and one-choice validation. No sourced 128-item didactic bank is checked in yet: authoring must use an authoritative factual source for each item rather than a BOE title alone.
 - Calendar recommended week now ranks due review, weak, and unstarted topics and creates editable weekday 07:30–11:00 topic/question/review sessions. It does not use an official exam date.
 
 Next recommended MVP steps:

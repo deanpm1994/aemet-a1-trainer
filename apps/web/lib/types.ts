@@ -59,6 +59,10 @@ export type AnswerSourceStatus = "official" | "inferred" | "user" | "unknown";
 /** Identifies whether the question comes from an official exam or our study bank. */
 export type QuestionOrigin = "official_historic" | "didactic_reviewed";
 export type EditorialStatus = "official" | "reviewed";
+export type QuestionSelectionInstruction =
+  | "as_written"
+  | "choose_correct"
+  | "choose_incorrect";
 
 export type MistakeType =
   | "concept"
@@ -85,6 +89,11 @@ export type Question = {
   answerSourceStatus: AnswerSourceStatus;
   origin?: QuestionOrigin;
   editorialStatus?: EditorialStatus;
+  /**
+   * Didactic questions state whether the candidate must select a true or a
+   * false option. Historic questions retain their source wording.
+   */
+  selectionInstruction?: QuestionSelectionInstruction;
   answerSourceUrl?: string;
   answerRetrievedAt?: string;
   explanation: string;

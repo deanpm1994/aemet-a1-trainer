@@ -11,8 +11,11 @@ export type CanonicalQuestionsSource = {
   message: string;
 };
 
-export function filterOfficialHistoricQuestions(questions: Question[]): Question[] {
-  return questions.filter((question) => question.origin === "official_historic");
+export function filterPracticeQuestions(questions: Question[]): Question[] {
+  return questions.filter((question) =>
+    question.origin === "official_historic" ||
+    (question.origin === "didactic_reviewed" && question.editorialStatus === "reviewed"),
+  );
 }
 
 type CanonicalQuestionsSourceOptions = {
@@ -24,17 +27,17 @@ export async function loadCanonicalQuestionsSource(
   options: CanonicalQuestionsSourceOptions = {},
 ): Promise<CanonicalQuestionsSource> {
   const fallback = loadOfficialPastExamSubset();
-  const fallbackQuestions = fallback.ok ? filterOfficialHistoricQuestions(fallback.questions) : [];
+  const fallbackQuestions = fallback.ok ? filterPracticeQuestions(fallback.questions) : [];
   const createClient = options.createClient ?? createSupabaseServerClient;
   const loadQuestions = options.loadQuestions ?? ((client) =>
     getVerifiedCanonicalQuestions(client as never));
 
   try {
     const client = await createClient();
-    const questions = filterOfficialHistoricQuestions(await loadQuestions(client));
+    const questions = filterPracticeQuestions(await loadQuestions(client));
 
     if (questions.length > 0) {
-      return { questions, sourceState: "live", message: "Preguntas verificadas cargadas desde Supabase." };
+      return { questions, sourceState: "live", message: "Preguntas de práctica cargadas desde Supabase." };
     }
   } catch {
     // Checked-in verified source keeps private practice available during migration incidents.

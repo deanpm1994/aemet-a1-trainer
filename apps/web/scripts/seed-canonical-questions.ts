@@ -30,6 +30,7 @@ const questions = officialPastExamSubsetSource.map((question) => ({
   answer_retrieved_at: question.answerRetrievedAt,
   origin: "official_historic",
   editorial_status: "official",
+  selection_instruction: "as_written",
   explanation: "",
   topic_ids: question.topicIds,
   difficulty: question.difficulty,
