@@ -16,7 +16,7 @@ export function mapCanonicalQuestionRow(row: QuestionRow): Question {
 }
 
 export async function getVerifiedCanonicalQuestions(client: QuestionsTableClient): Promise<Question[]> {
-  const { data, error } = await client.from("questions").select("*").in("origin", ["official_historic", "didactic_reviewed"]).order("source_year", { ascending: false }).order("question_number", { ascending: true });
+  const { data, error } = await client.from("questions").select("*").eq("origin", "official_historic").order("source_year", { ascending: false }).order("question_number", { ascending: true });
   if (error) throw error;
   return (data ?? []).map(mapCanonicalQuestionRow);
 }

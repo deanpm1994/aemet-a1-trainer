@@ -11,6 +11,10 @@ export type CanonicalQuestionsSource = {
   message: string;
 };
 
+export function filterOfficialHistoricQuestions(questions: Question[]): Question[] {
+  return questions.filter((question) => question.origin === "official_historic");
+}
+
 type CanonicalQuestionsSourceOptions = {
   createClient?: () => Promise<unknown>;
   loadQuestions?: (client: unknown) => Promise<Question[]>;
@@ -20,14 +24,14 @@ export async function loadCanonicalQuestionsSource(
   options: CanonicalQuestionsSourceOptions = {},
 ): Promise<CanonicalQuestionsSource> {
   const fallback = loadOfficialPastExamSubset();
-  const fallbackQuestions = fallback.ok ? fallback.questions : [];
+  const fallbackQuestions = fallback.ok ? filterOfficialHistoricQuestions(fallback.questions) : [];
   const createClient = options.createClient ?? createSupabaseServerClient;
   const loadQuestions = options.loadQuestions ?? ((client) =>
     getVerifiedCanonicalQuestions(client as never));
 
   try {
     const client = await createClient();
-    const questions = await loadQuestions(client);
+    const questions = filterOfficialHistoricQuestions(await loadQuestions(client));
 
     if (questions.length > 0) {
       return { questions, sourceState: "live", message: "Preguntas verificadas cargadas desde Supabase." };

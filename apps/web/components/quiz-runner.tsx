@@ -1,22 +1,19 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 
-import { evaluateQuizAnswer, getCoverageMessage, selectRandomQuestions, type PracticeSessionSize } from "@/lib/quiz";
+import { evaluateQuizAnswer, selectRandomQuestions, type PracticeSessionSize } from "@/lib/quiz";
 import type { Question } from "@/lib/types";
 
 type SaveAttempt = (formData: FormData) => Promise<{ ok: boolean; message: string }>;
-type HideQuestion = (formData: FormData) => Promise<{ ok: boolean; message: string }>;
-
 type QuizRunnerProps = {
   questions: Question[];
   sessionSize: PracticeSessionSize;
   canPersist: boolean;
   onSaveAttempt: SaveAttempt;
-  onHideQuestion: HideQuestion;
 };
 
-export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt, onHideQuestion }: QuizRunnerProps) {
+export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }: QuizRunnerProps) {
   const [sessionQuestions, setSessionQuestions] = useState(questions);
   const [index, setIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -26,11 +23,9 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt, 
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
   const [finished, setFinished] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
   const [isPending, startTransition] = useTransition();
   const question = sessionQuestions[index];
   const feedback = submitted && selectedAnswer && question ? evaluateQuizAnswer(question, selectedAnswer) : null;
-  const coverage = useMemo(() => getCoverageMessage(sessionQuestions.length, sessionSize), [sessionQuestions.length, sessionSize]);
 
   function submit() {
     if (!selectedAnswer || !question) return;
@@ -50,7 +45,7 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt, 
       formData.set("mistakeTypes", result.correct ? "none" : "concept");
       formData.set("confidenceAfter", "3");
       formData.set("notes", "");
-      startTransition(async () => setSaveMessage((await onSaveAttempt(formData)).message));
+      startTransition(async () => { await onSaveAttempt(formData); });
     }
   }
 
@@ -72,33 +67,26 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt, 
     setSubmitted(false);
   }
 
-  function hideCurrentQuestion() {
-    if (!question || !canPersist) return;
-    const formData = new FormData();
-    formData.set("questionId", question.id);
-    startTransition(async () => setSaveMessage((await onHideQuestion(formData)).message));
-  }
-
   if (!question || finished) {
     const incorrect = answered - correct;
     const accuracy = answered === 0 ? 0 : Math.round((correct / answered) * 100);
-    return <section className="rounded-3xl border border-indigo-200 bg-indigo-50 p-6">
-      <h2 className="text-xl font-semibold text-slate-950">Resumen de sesión</h2>
+    return <section className="w-full max-w-xl rounded-3xl border border-indigo-200 bg-indigo-50 p-6">
+      <h1 className="text-xl font-semibold text-slate-950">Resumen de sesión</h1>
       <dl className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-800 sm:grid-cols-4">
         <div><dt>Respondidas</dt><dd className="text-xl font-semibold">{answered}</dd></div>
         <div><dt>Correctas</dt><dd className="text-xl font-semibold">{correct}</dd></div>
         <div><dt>Incorrectas</dt><dd className="text-xl font-semibold">{incorrect}</dd></div>
         <div><dt>Precisión · mejor racha</dt><dd className="text-xl font-semibold">{accuracy}% · {bestStreak}</dd></div>
       </dl>
+      <a className="mt-6 inline-flex min-h-11 items-center rounded-full bg-indigo-700 px-4 py-2 font-medium text-white" href="/questions">Volver a preguntas</a>
     </section>;
   }
 
-  return <section className="rounded-3xl border border-indigo-200 bg-indigo-50 p-4 sm:p-6">
+  return <section className="w-full max-w-2xl rounded-3xl border border-indigo-200 bg-indigo-50 p-4 sm:p-6">
     <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-indigo-900">
       <span>{sessionSize === "survival" ? `Supervivencia · ${answered + 1} respondidas` : `Pregunta ${answered + 1} de ${Math.min(sessionSize, sessionQuestions.length)}`}</span>
-      <span>{question.origin === "official_historic" ? "Histórica oficial" : "Didáctica revisada · no oficial"}</span>
+      <a className="rounded-full px-3 py-1 underline" href="/questions">Salir</a>
     </div>
-    {coverage ? <p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-950">{coverage}</p> : null}
     <h2 className="mt-4 text-lg font-semibold leading-7 text-slate-950 sm:text-xl">{question.statement}</h2>
     <div className="mt-5 grid gap-3">
       {question.options.map((option) => <button aria-pressed={selectedAnswer === option} className={`min-h-12 rounded-2xl border px-4 py-3 text-left text-sm text-slate-800 ${selectedAnswer === option ? "border-indigo-700 bg-indigo-100" : "border-indigo-200 bg-white"} disabled:cursor-not-allowed disabled:opacity-70`} disabled={submitted} key={option} onClick={() => setSelectedAnswer(option)} type="button">{option}</button>)}
@@ -108,12 +96,8 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt, 
       <p className="font-semibold">{feedback.correct ? "Correcta" : "Incorrecta"}</p>
       <p className="mt-2">Respuesta correcta: {feedback.correctAnswer}</p>
       <p className="mt-2">{feedback.explanation}</p>
-      <a className="mt-3 inline-block text-indigo-800 underline" href={question.sourceUrl} rel="noreferrer" target="_blank">{question.origin === "official_historic" ? "Ver fuente oficial del examen" : "Ver referencia pública del temario"}</a>
-      <p className="mt-3 text-slate-500">{isPending ? "Guardando…" : saveMessage}</p>
       <div className="mt-4 flex flex-wrap gap-3">
-        <button className="min-h-11 rounded-full bg-indigo-700 px-4 py-2 font-medium text-white" onClick={nextQuestion} type="button">Siguiente pregunta</button>
-        {canPersist ? <button className="min-h-11 rounded-full border border-slate-300 px-4 py-2 font-medium text-slate-800" onClick={hideCurrentQuestion} type="button">Ocultar esta pregunta</button> : null}
-        <button className="min-h-11 rounded-full border border-slate-300 px-4 py-2 font-medium text-slate-800" onClick={() => setFinished(true)} type="button">Finalizar sesión</button>
+        <button className="min-h-11 rounded-full bg-indigo-700 px-4 py-2 font-medium text-white disabled:opacity-70" disabled={isPending} onClick={nextQuestion} type="button">Siguiente pregunta</button>
       </div>
     </div> : null}
   </section>;

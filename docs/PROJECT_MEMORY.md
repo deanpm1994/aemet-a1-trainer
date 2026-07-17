@@ -153,11 +153,11 @@ Supabase notes:
 - Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
 - Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 54 verified historical questions were seeded on 2026-07-12: 2014×35, 2015×4, 2016×5, 2017×5, and 2018×5. Every checked-in historical question has an app-owned syllabus-topic mapping. The 2014 questions 11, 12 and 14 remain `TODO_VERIFY_OFFICIAL_SOURCE` and excluded because formula/OCR transcription is unresolved. Notion no longer controls runtime question availability.
-- The canonical bank also includes 384 cited, editorially reviewed non-official didactic questions (three per each of the 128 verified BOE syllabus topics). They are marked `didactic_reviewed`, never represented as official historical questions, and cite the BOE topic source.
+- Title-derived didactic questions are excluded from the question bank and practice sessions. A BOE syllabus title is not sufficient factual context for a subject-matter question. Future didactic items require a factual source and editorial review before import.
 - Signed-in users may hide questions only for their own future sessions through `hidden_questions`; RLS prevents access to other users’ preferences.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
-- Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`
+- Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`, `20260715_phase_5_10_reviewed_questions_and_hiding`
 
 Verified working recently:
 - `npm --prefix apps/web test`

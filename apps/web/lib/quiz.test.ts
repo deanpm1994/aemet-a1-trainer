@@ -47,6 +47,27 @@ describe("quiz", () => {
     });
   });
 
+  it("matches an official letter answer key to its labelled option text", () => {
+    const historicQuestion: Question = {
+      ...questions[0]!,
+      options: ["A) Correcta", "B) Incorrecta"],
+      correctAnswer: "A",
+    };
+
+    expect(evaluateQuizAnswer(historicQuestion, "A) Correcta").correct).toBe(true);
+    expect(evaluateQuizAnswer(historicQuestion, "B) Incorrecta").correct).toBe(false);
+  });
+
+  it("does not equate non-labelled answer text by its first letter", () => {
+    const freeTextQuestion: Question = {
+      ...questions[0]!,
+      options: ["Aire", "Viento"],
+      correctAnswer: "Aire",
+    };
+
+    expect(evaluateQuizAnswer(freeTextQuestion, "A").correct).toBe(false);
+  });
+
   it("limits short sessions without repeating their eligible pool", () => {
     expect(getSessionQuestions(questions, 50, 42)).toHaveLength(2);
     expect(getCoverageMessage(2, 50)).toContain("Cobertura limitada");

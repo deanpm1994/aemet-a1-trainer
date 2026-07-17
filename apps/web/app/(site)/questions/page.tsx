@@ -1,23 +1,11 @@
 import { PageHeader } from "@/components/page-header";
 import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { QuestionAttemptForm } from "@/components/question-attempt-form";
-import { QuizRunner } from "@/components/quiz-runner";
 import { SourceStateBanner } from "@/components/source-state-banner";
+import { saveQuestionAttemptAction } from "@/app/actions/question-actions";
 import { buildContentReadiness } from "@/lib/content-readiness";
-import { loadCanonicalQuestionsSource } from "@/lib/canonical-questions-source";
-import { buildDidacticQuestions } from "@/lib/didactic-question-bank";
-import { getHiddenQuestionIds, hideQuestion } from "@/lib/hidden-questions-repository";
 import { loadTopicsSource } from "@/lib/notion-topics";
-import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
-import {
-  getQuestionAttempts,
-  saveQuestionAttempt,
-} from "@/lib/question-attempts-repository";
-import { applyQuestionProgress } from "@/lib/question-progress-persistence";
-import {
-  getQuestionProgress,
-  saveQuestionProgress,
-} from "@/lib/question-progress-repository";
+import { loadQuestionPracticeContext } from "@/lib/question-practice-context";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -25,48 +13,6 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
-import { getSessionQuestions, selectTopicQuestions, type PracticeSessionSize } from "@/lib/quiz";
-import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
-import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
-import type { MistakeType } from "@/lib/types";
-
-type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
-type QuestionAttemptRepositoryClient = Parameters<typeof getQuestionAttempts>[0];
-type HiddenQuestionsRepositoryClient = Parameters<typeof getHiddenQuestionIds>[0];
-
-const allowedMistakeTypes: MistakeType[] = [
-  "concept",
-  "formula",
-  "units",
-  "reading",
-  "legal_wording",
-  "time_management",
-  "none",
-];
-
-function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
-  const parsed = values
-    .map((value) => String(value))
-    .filter((value): value is MistakeType =>
-      allowedMistakeTypes.includes(value as MistakeType),
-    );
-
-  if (parsed.length === 0 || parsed.includes("none")) {
-    return ["none"];
-  }
-
-  return parsed;
-}
-
-function parseConfidenceAfter(value: FormDataEntryValue | null): number {
-  const parsed = Number(value);
-
-  if (!Number.isInteger(parsed)) {
-    return 3;
-  }
-
-  return Math.min(5, Math.max(1, parsed));
-}
 
 type QuestionsPageProps = {
   searchParams: Promise<{ mode?: string; topic?: string; size?: string }>;
@@ -74,43 +20,12 @@ type QuestionsPageProps = {
 
 export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
   const query = await searchParams;
-  const [questionSource, topicSource] = await Promise.all([
-    loadCanonicalQuestionsSource(),
+  const [practiceContext, topicSource] = await Promise.all([
+    loadQuestionPracticeContext(),
     loadTopicsSource(),
   ]);
-  const sourceQuestions = questionSource.questions;
+  const { questions, questionSource, canPersist, progressMessage } = practiceContext;
   const { sourceState, message } = questionSource;
-  const didacticQuestions = buildDidacticQuestions(topicSource.topics);
-  const questionsById = new Map([...sourceQuestions, ...didacticQuestions].map((question) => [question.id, question]));
-  let questions = [...questionsById.values()];
-  let canPersist = false;
-  let hiddenQuestionIds: string[] = [];
-  let progressMessage = "Inicia sesión para guardar progreso de preguntas.";
-
-  try {
-    getSupabaseBrowserConfig();
-
-    const userId = await getAuthenticatedUserId();
-
-    if (userId) {
-      const client = await createSupabaseServerClient();
-      const progress = await getQuestionProgress(
-        client as QuestionProgressRepositoryClient,
-        userId,
-      );
-      questions = applyQuestionProgress(sourceQuestions, progress);
-      hiddenQuestionIds = await getHiddenQuestionIds(client as HiddenQuestionsRepositoryClient, userId);
-      questions = applyQuestionProgress([...questionsById.values()], progress)
-        .filter((question) => !hiddenQuestionIds.includes(question.id));
-      canPersist = true;
-      progressMessage = "Progreso de preguntas cargado desde Supabase.";
-    }
-  } catch (error) {
-    progressMessage =
-      error instanceof SupabaseConfigError
-        ? "El progreso de preguntas en Supabase no está disponible hasta configurar las variables requeridas."
-        : "No se pudo cargar el progreso guardado de preguntas. Mostrando estado fuente.";
-  }
 
   const filters = getDefaultQuestionFilters();
   const visibleQuestions = questions.filter((question) =>
@@ -120,111 +35,26 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
   const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
   const painPoints = getPracticePainPoints(questions);
   const contentReadiness = buildContentReadiness(topicSource.topics, questions);
-  const randomSeed = Number.parseInt(new Date().toISOString().slice(0, 10).replaceAll("-", ""), 10);
-  const sessionSize: PracticeSessionSize = query.size === "50" ? 50 : query.size === "survival" ? "survival" : 20;
-  const sessionPool = query.topic ? selectTopicQuestions(questions, query.topic) : query.mode === "random" ? questions.filter((question) => question.correctAnswer) : [];
-  const quizQuestions = getSessionQuestions(sessionPool, sessionSize, randomSeed);
-
-  async function saveQuestionAttemptAction(formData: FormData) {
-    "use server";
-
-    const userId = await getAuthenticatedUserId();
-
-    if (!userId) {
-      return {
-        ok: false,
-        message: "Inicia sesión para sincronizar intentos de preguntas con Supabase.",
-      };
-    }
-
-    const questionId = String(formData.get("questionId") ?? "");
-
-    if (!questionId) {
-      return {
-        ok: false,
-        message: "Falta el id de la pregunta. Recarga antes de reintentar.",
-      };
-    }
-
-    try {
-      const client = await createSupabaseServerClient();
-      await saveQuestionAttempt(client as QuestionAttemptRepositoryClient, userId, {
-        questionId,
-        attemptedAt: String(formData.get("attemptedAt") ?? ""),
-        selectedAnswer: String(formData.get("selectedAnswer") ?? ""),
-        isCorrect: formData.get("isCorrect") === "true",
-        mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
-        confidenceAfter: parseConfidenceAfter(formData.get("confidenceAfter")),
-        notes: String(formData.get("notes") ?? ""),
-      });
-
-      const attempts = await getQuestionAttempts(
-        client as QuestionAttemptRepositoryClient,
-        userId,
-        questionId,
-      );
-      const progress = buildQuestionProgressFromAttempts(questionId, attempts);
-
-      await saveQuestionProgress(
-        client as QuestionProgressRepositoryClient,
-        userId,
-        questionId,
-        progress,
-      );
-
-      return {
-        ok: true,
-        message: "Intento de pregunta guardado y progreso de revisión actualizado.",
-      };
-    } catch {
-      return {
-        ok: false,
-        message: "No se pudo guardar el intento. Los valores quedan en el formulario.",
-      };
-    }
-  }
-
-  async function hideQuestionAction(formData: FormData) {
-    "use server";
-    const userId = await getAuthenticatedUserId();
-    const questionId = String(formData.get("questionId") ?? "");
-    if (!userId || !questionId) return { ok: false, message: "Inicia sesión para ocultar preguntas en tus futuras sesiones." };
-    try {
-      const client = await createSupabaseServerClient();
-      await hideQuestion(client as HiddenQuestionsRepositoryClient, userId, questionId);
-      return { ok: true, message: "Pregunta oculta de tus próximas sesiones." };
-    } catch {
-      return { ok: false, message: "No se pudo ocultar la pregunta." };
-    }
-  }
-
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Preguntas"
         title="Banco de preguntas MVP"
-        description="Preguntas históricas oficiales y material didáctico revisado, siempre etiquetados por separado y con su procedencia explícita."
+        description="Preguntas históricas oficiales verificadas, con la procedencia del examen y la plantilla de respuestas conservadas."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
 
       <ContentReadinessCard readiness={contentReadiness} />
 
-      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-        <strong>Material didáctico revisado no oficial.</strong> Hay tres preguntas por cada tema verificado, citadas al programa BOE. Las preguntas históricas conservan la procedencia de examen y plantilla oficial.
-      </section>
-
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-lg font-semibold text-slate-900">Nueva sesión</h2>
         <div className="mt-3 flex flex-wrap gap-3">
-          {["20", "50", "survival"].map((size) => <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href={`/questions?mode=random&size=${size}`} key={size}>Aleatorio · {size === "survival" ? "Supervivencia" : size}</a>)}
+          {["20", "50", "survival"].map((size) => <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href={`/questions/session?mode=random&size=${size}`} key={size}>Aleatorio · {size === "survival" ? "Supervivencia" : size}</a>)}
           <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">Por tema</a>
         </div>
-        {query.topic ? <div className="mt-3 flex flex-wrap gap-3 text-sm"><span className="self-center text-slate-600">Sesión por tema:</span>{["20", "50", "survival"].map((size) => <a className="rounded-full border border-slate-300 px-3 py-1.5" href={`/questions?topic=${query.topic}&size=${size}`} key={size}>{size === "survival" ? "Supervivencia" : size}</a>)}</div> : null}
+        {query.topic ? <div className="mt-3 flex flex-wrap gap-3 text-sm"><span className="self-center text-slate-600">Sesión por tema:</span>{["20", "50", "survival"].map((size) => <a className="rounded-full border border-slate-300 px-3 py-1.5" href={`/questions/session?topic=${query.topic}&size=${size}`} key={size}>{size === "survival" ? "Supervivencia" : size}</a>)}</div> : null}
       </section>
-
-      {quizQuestions.length > 0 ? <QuizRunner canPersist={canPersist} onHideQuestion={hideQuestionAction} onSaveAttempt={saveQuestionAttemptAction} questions={quizQuestions} sessionSize={sessionSize} /> : null}
-      {(query.mode === "random" || query.topic) && quizQuestions.length === 0 ? <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">No hay preguntas elegibles para esta sesión. Puede deberse a tus preguntas ocultas o a que el tema aún no tiene cobertura.</section> : null}
 
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>

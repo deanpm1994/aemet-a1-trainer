@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { officialPastExamSubsetSource } from "../lib/official-past-exam-subset";
-import { loadOfficialSyllabusSubset } from "../lib/official-syllabus-subset";
-import { buildDidacticQuestions } from "../lib/didactic-question-bank";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.SUPABASE_SECRET_KEY;
@@ -14,10 +12,7 @@ if (!url || !key) {
 async function main() {
 const client = createClient(url!, key!, { auth: { persistSession: false } });
 
-const syllabus = loadOfficialSyllabusSubset();
-if (!syllabus.ok) throw new Error("Verified syllabus is required to seed didactic questions");
-const didacticQuestions = buildDidacticQuestions(syllabus.topics);
-const questions = [...officialPastExamSubsetSource, ...didacticQuestions].map((question) => ({
+const questions = officialPastExamSubsetSource.map((question) => ({
   id: `aemet-a1-acceso-libre-primer-ejercicio-${question.sourceYear}-${question.questionNumber}`,
   name: `${question.sourceExam} ${question.sourceYear} · Pregunta ${question.questionNumber}`,
   type: "multiple_choice",
@@ -33,8 +28,8 @@ const questions = [...officialPastExamSubsetSource, ...didacticQuestions].map((q
   answer_source_status: question.answerSourceStatus,
   answer_source_url: question.answerSourceUrl,
   answer_retrieved_at: question.answerRetrievedAt,
-  origin: question.sourceYear === 0 ? "didactic_reviewed" : "official_historic",
-  editorial_status: question.sourceYear === 0 ? "reviewed" : "official",
+  origin: "official_historic",
+  editorial_status: "official",
   explanation: "",
   topic_ids: question.topicIds,
   difficulty: question.difficulty,

@@ -37,4 +37,22 @@ describe("loadCanonicalQuestionsSource", () => {
       fallback.questions.map((question) => question.id),
     );
   });
+
+  it("does not treat a reviewed didactic row as an official historic question", async () => {
+    const didactic = {
+      ...fallback.questions[0]!,
+      id: "didactic-reviewed-mathematics-1-1",
+      origin: "didactic_reviewed" as const,
+      editorialStatus: "reviewed" as const,
+      sourceYear: 0,
+    };
+
+    const result = await loadCanonicalQuestionsSource({
+      createClient: async () => ({}),
+      loadQuestions: async () => [...fallback.questions, didactic],
+    });
+
+    expect(result.questions).toHaveLength(52);
+    expect(result.questions.some((question) => question.id.startsWith("didactic-"))).toBe(false);
+  });
 });
