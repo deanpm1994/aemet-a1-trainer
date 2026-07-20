@@ -8,15 +8,28 @@
     "start": "next start",
     "lint": "next typegen && tsc --noEmit",
     "test": "vitest run",
-    "seed:canonical-questions": "tsx scripts/seed-canonical-questions.ts"
+    "seed:canonical-questions": "tsx scripts/seed-canonical-questions.ts",
+    "import:filtered-aemet-questions": "tsx scripts/import-filtered-aemet-a1-questions.ts ../../aemet-a1-acceso-libre-2026-program.csv",
+    "audit:historical-question-extraction": "tsx scripts/audit-historical-question-extraction.ts",
+    "quarantine:historical-question-extraction": "tsx scripts/audit-historical-question-extraction.ts --mark-needs-review",
+    "render:question-source-crop": "tsx scripts/render-question-source-crop.ts",
+    "apply:reviewed-question-text": "tsx scripts/apply-reviewed-question-text.ts",
+    "seed:official-source-manifest": "tsx scripts/seed-official-source-manifest.ts",
+    "reconcile:question-bank": "tsx scripts/reconcile-question-bank.ts",
+    "extract:recent-official-questions": "tsx scripts/extract-recent-official-questions.ts",
+    "extract:recent-practical-cases": "tsx scripts/extract-recent-practical-cases.ts",
+    "stage:recent-question-candidates": "tsx scripts/stage-recent-question-candidates.ts",
+    "verify:question-bank-rollout": "tsx scripts/verify-question-bank-rollout.ts"
   },
   "dependencies": {
     "@notionhq/client": "^5.22.0",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",
+    "katex": "^0.18.0",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-katex": "^3.1.0"
   },
   "devDependencies": {
     "@types/node": "latest",

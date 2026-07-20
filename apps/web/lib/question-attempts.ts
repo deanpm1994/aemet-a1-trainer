@@ -1,4 +1,4 @@
-import type { MistakeType } from "./types";
+import type { MistakeType, PracticalSelfAssessment } from "./types";
 import type { QuestionProgressUpdate } from "./question-progress-persistence";
 
 export type QuestionAttemptRow = {
@@ -11,6 +11,8 @@ export type QuestionAttemptRow = {
   mistake_types: string[];
   confidence_after: number;
   notes: string;
+  draft_response?: string;
+  self_assessment?: PracticalSelfAssessment;
   created_at: string;
 };
 
@@ -29,6 +31,8 @@ export type QuestionAttempt = {
   mistakeTypes: MistakeType[];
   confidenceAfter: number;
   notes: string;
+  draftResponse?: string;
+  selfAssessment?: PracticalSelfAssessment;
 };
 
 export type QuestionAttemptInput = Omit<QuestionAttempt, "id" | "userId">;
@@ -44,6 +48,8 @@ export function mapRowToQuestionAttempt(row: QuestionAttemptRow): QuestionAttemp
     mistakeTypes: row.mistake_types as MistakeType[],
     confidenceAfter: row.confidence_after,
     notes: row.notes,
+    draftResponse: row.draft_response ?? "",
+    selfAssessment: row.self_assessment ?? "ungraded",
   };
 }
 
@@ -60,6 +66,8 @@ export function mapQuestionAttemptInputToRowInput(
     mistake_types: input.mistakeTypes,
     confidence_after: input.confidenceAfter,
     notes: input.notes,
+    draft_response: input.draftResponse ?? "",
+    self_assessment: input.selfAssessment ?? "ungraded",
   };
 }
 
@@ -105,7 +113,7 @@ function getReviewIntervalDays(attempt: QuestionAttempt): number {
 }
 
 function addDays(date: string, days: number): string {
-  const parsedDate = new Date(`${date}T00:00:00.000Z`);
+  const parsedDate = new Date(`${date.slice(0, 10)}T00:00:00.000Z`);
   parsedDate.setUTCDate(parsedDate.getUTCDate() + days);
 
   return parsedDate.toISOString().slice(0, 10);

@@ -3,7 +3,10 @@
 import { useState, useTransition } from "react";
 
 import { evaluateQuizAnswer, selectRandomQuestions, type PracticeSessionSize } from "@/lib/quiz";
+import { getQuestionOptions } from "@/lib/question-options";
 import type { Question } from "@/lib/types";
+import { QuestionRichText } from "@/components/question-rich-text";
+import { QuestionSourceReviewPanel } from "@/components/question-source-review-panel";
 
 type SaveAttempt = (formData: FormData) => Promise<{ ok: boolean; message: string }>;
 type QuizRunnerProps = {
@@ -25,6 +28,7 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }
   const [finished, setFinished] = useState(false);
   const [isPending, startTransition] = useTransition();
   const question = sessionQuestions[index];
+  const options = question ? getQuestionOptions(question) : [];
   const feedback = submitted && selectedAnswer && question ? evaluateQuizAnswer(question, selectedAnswer) : null;
 
   function submit() {
@@ -90,14 +94,30 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }
     {question.origin === "didactic_reviewed" ? <p className="mt-4 w-fit rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-950">Pregunta creada para practicar · no oficial</p> : null}
     {question.selectionInstruction === "choose_correct" ? <p className="mt-4 text-sm font-semibold text-indigo-950">Selecciona la opción correcta.</p> : null}
     {question.selectionInstruction === "choose_incorrect" ? <p className="mt-4 text-sm font-semibold text-indigo-950">Selecciona la opción incorrecta.</p> : null}
-    <h2 className="mt-4 text-lg font-semibold leading-7 text-slate-950 sm:text-xl">{question.statement}</h2>
+    <h2 className="mt-4 text-lg font-semibold leading-7 text-slate-950 sm:text-xl"><QuestionRichText contentFormat={question.contentFormat} text={question.statement} /></h2>
+    <QuestionSourceReviewPanel compact question={question} />
     <div className="mt-5 grid gap-3">
-      {question.options.map((option) => <button aria-pressed={selectedAnswer === option} className={`min-h-12 rounded-2xl border px-4 py-3 text-left text-sm text-slate-800 ${selectedAnswer === option ? "border-indigo-700 bg-indigo-100" : "border-indigo-200 bg-white"} disabled:cursor-not-allowed disabled:opacity-70`} disabled={submitted} key={option} onClick={() => setSelectedAnswer(option)} type="button">{option}</button>)}
+      {options.map((option) => (
+        <button
+          aria-pressed={selectedAnswer === option.key}
+          className={`flex min-h-12 gap-3 rounded-2xl border px-4 py-3 text-left text-sm text-slate-800 ${selectedAnswer === option.key ? "border-indigo-700 bg-indigo-100" : "border-indigo-200 bg-white"} disabled:cursor-not-allowed disabled:opacity-70`}
+          disabled={submitted}
+          key={option.key}
+          onClick={() => setSelectedAnswer(option.key)}
+          type="button"
+        >
+          <span className="font-semibold text-indigo-900">{option.key}</span>
+          <span><QuestionRichText contentFormat={question.contentFormat} text={option.text} /></span>
+        </button>
+      ))}
     </div>
     {!submitted ? <button className="mt-5 min-h-12 rounded-full bg-indigo-700 px-5 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50" disabled={!selectedAnswer} onClick={submit} type="button">Comprobar respuesta</button> : null}
     {feedback ? <div aria-live="polite" className="mt-5 rounded-2xl bg-white p-4 text-sm text-slate-800">
       <p className="font-semibold">{feedback.correct ? "Correcta" : "Incorrecta"}</p>
-      <p className="mt-2">Opción que debías seleccionar: {feedback.selectedAnswerLabel}</p>
+      <p className="mt-2">
+        Opción correcta: <strong>{feedback.selectedAnswerLabel}</strong>{" "}
+        <QuestionRichText contentFormat={question.contentFormat} text={feedback.correctOptionText} />
+      </p>
       <p className="mt-2">{feedback.explanation}</p>
       <a className="mt-2 inline-block text-indigo-800 underline" href={feedback.sourceUrl} rel="noreferrer" target="_blank">Ver fuente de apoyo</a>
       <div className="mt-4 flex flex-wrap gap-3">

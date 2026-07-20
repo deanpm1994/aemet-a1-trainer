@@ -43,6 +43,7 @@ describe("quiz", () => {
     expect(evaluateQuizAnswer(questions[0]!, "B")).toEqual({
       correct: false,
       selectedAnswerLabel: "A",
+      correctOptionText: "A",
       explanation: "Explicación uno.",
       sourceUrl: "https://example.test",
     });
@@ -59,14 +60,17 @@ describe("quiz", () => {
     expect(evaluateQuizAnswer(historicQuestion, "B) Incorrecta").correct).toBe(false);
   });
 
-  it("does not equate non-labelled answer text by its first letter", () => {
+  it("grades an official answer letter against unlabeled option position", () => {
     const freeTextQuestion: Question = {
       ...questions[0]!,
       options: ["Aire", "Viento"],
-      correctAnswer: "Aire",
+      correctAnswer: "A",
     };
 
-    expect(evaluateQuizAnswer(freeTextQuestion, "A").correct).toBe(false);
+    expect(evaluateQuizAnswer(freeTextQuestion, "A").correct).toBe(true);
+    expect(evaluateQuizAnswer(freeTextQuestion, "Aire").correct).toBe(true);
+    expect(evaluateQuizAnswer(freeTextQuestion, "Viento").correct).toBe(false);
+    expect(evaluateQuizAnswer(freeTextQuestion, "A").correctOptionText).toBe("Aire");
   });
 
   it("limits short sessions without repeating their eligible pool", () => {

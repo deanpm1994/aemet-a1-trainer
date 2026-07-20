@@ -152,7 +152,9 @@ Supabase notes:
 - Project URL configured in local env
 - Project ref linked locally: `adwapclevjpltyxprbyx`
 - Supabase now uses publishable and secret keys instead of legacy anon/service-role labels
-- Canonical verified question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The 54 verified historical questions were seeded on 2026-07-12: 2014×35, 2015×4, 2016×5, 2017×5, and 2018×5. Every checked-in historical question has an app-owned syllabus-topic mapping. The 2014 questions 11, 12 and 14 remain `TODO_VERIFY_OFFICIAL_SOURCE` and excluded because formula/OCR transcription is unresolved. The earlier title-derived syllabus prompts were deleted from Supabase; Notion no longer controls runtime question availability.
+- Canonical question content is stored in Supabase `questions`, with provenance hashes in `question_sources`. The filtered 2014–2018 Acceso Libre import contains 513 historical rows. Historical source text is selectable only when `verified` and `available`; rows needing visual review remain quarantined without deleting source data or progress. The checked-in offline fallback contains 54 verified questions (2014×35, 2015×4, 2016×5, 2017×5, 2018×5), each with an app-owned syllabus-topic mapping. The 2014 questions 11, 12 and 14 remain `TODO_VERIFY_OFFICIAL_SOURCE` because formula/OCR transcription is unresolved.
+- `npm --prefix apps/web run audit:historical-question-extraction` writes `aemet-a1-historical-question-extraction-review.csv`, identifying extraction issues and their official source-PDF pages. `docs/HISTORICAL_QUESTION_REVIEW.md` defines the mandatory crop-then-review workflow; reviewed mathematical text stays selectable and the private crop is evidence/fallback only.
+- The bank excludes officially annulled questions and questions tied to repealed Law 30/1992, repealed RDL 3/2011, or the dated 2017–2019 Open Government Action Plan; the exclusions are recorded in `aemet-a1-acceso-libre-2026-program-excluded.csv`. The earlier title-derived syllabus prompts were deleted from Supabase; Notion no longer controls runtime question availability.
 - Title-derived didactic questions are excluded from the question bank and practice sessions. A BOE syllabus title is not sufficient factual context for a subject-matter question. Future didactic items require a factual source and editorial review before import.
 - Signed-in users may hide questions only for their own future sessions through `hidden_questions`; RLS prevents access to other users’ preferences.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
@@ -193,3 +195,42 @@ Next recommended MVP steps:
 Ignored local artifacts:
 - `apps/web/package-lock.json`
 - `supabase/.temp/`
+
+## Question-bank rebuild handoff
+
+Date: 2026-07-20
+
+- Added position-based `QuestionOption` grading, fixing official letter keys
+  against unlabeled stored options and supporting both three- and four-option
+  papers.
+- Added migration `20260720_question_bank_rebuild` for OEP/part/reserve/case
+  metadata, publication disposition, source-document hashes, multiple answer
+  supports, source-asset placement/alt text, model answers/rubrics and
+  practical draft/self-assessment fields.
+- Added learner filtering for `verified` plus `available`, reserve labels, full
+  correct-option feedback, and a practical-case runner that requires a draft
+  or explicit skip before revealing a clearly non-official model answer.
+- Added `data/official-question-source-manifest.json` with 16 hash-pinned
+  historical and recent official documents.
+- Generated a no-write 518-row reconciliation. Under the new evidence
+  standard, all 512 structurally complete historical extractions still need
+  explicit visual-review records; the six incomplete 2016 rows remain
+  quarantined.
+- Extracted 230 recent official multiple-choice candidates with definitive
+  decisions (223 non-annulled, seven annulled) and 32 practical prompt
+  candidates. They remain `needs_review`/`quarantined`; no candidate is
+  promoted by extraction alone.
+- The 32 reviewed model solutions and 128 source-backed authored questions are
+  not complete. Do not claim their acceptance targets or deploy these
+  candidates as learner-visible until the editorial gates in
+  `docs/QUESTION_BANK_REBUILD.md` pass.
+- Remote rollout completed for migrations `20260720`, `20260721` and
+  `20260722`, the
+  16-document source manifest, 230 recent multiple-choice candidates and 32
+  practical candidates. All new content is audit-only/quarantined. The 283
+  verified, structurally complete 2014–2018 historical rows are
+  learner-available; 230 audit-flagged historical rows remain quarantined
+  without deletion or loss of progress references.
+- Read-only remote verification matched OEP 2024 counts 105/5 annulled/100
+  quarantined, OEP 2025 counts 125/2/123, practical 32 quarantined, definitive
+  answers 37=B and 96=B, and activated reserves 121–122.

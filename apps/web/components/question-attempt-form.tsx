@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 
 import type { MistakeType, Question } from "@/lib/types";
+import { getQuestionOptions } from "@/lib/question-options";
 
 type QuestionAttemptActionResult = {
   ok: boolean;
@@ -37,6 +38,7 @@ export function QuestionAttemptForm({
   );
   const [isPending, startTransition] = useTransition();
   const today = new Date().toISOString().slice(0, 10);
+  const options = getQuestionOptions(question);
 
   function submitAttempt(formData: FormData) {
     if (!canPersist) {
@@ -65,9 +67,9 @@ export function QuestionAttemptForm({
               className="rounded-xl border border-slate-200 bg-white px-3 py-2"
               name="selectedAnswer"
             >
-              {question.options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+              {options.map((option) => (
+                <option key={option.key} value={option.key}>
+                  {option.key}) {option.text}
                 </option>
               ))}
             </select>

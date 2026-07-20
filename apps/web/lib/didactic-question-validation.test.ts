@@ -6,15 +6,15 @@ import type { Question } from "./types";
 const question: Question = {
   id: "didactic-mathematics-1", name: "Práctica de matemáticas 1", type: "multiple_choice",
   sourceYear: 0, sourceExam: "Material didáctico no oficial", sourceUrl: "https://www.example.org/source",
-  retrievedAt: "2026-07-17", verificationStatus: "unverified", questionNumber: "1",
-  statement: "¿Qué opción debe seleccionarse?", options: ["A) Uno", "B) Dos", "C) Tres", "D) Cuatro"],
-  correctAnswer: "B) Dos", answerSourceStatus: "inferred", origin: "didactic_reviewed",
+  retrievedAt: "2026-07-17", verificationStatus: "verified", questionNumber: "1",
+  statement: "¿Qué opción debe seleccionarse?", options: ["A) Uno", "B) Dos", "C) Tres"],
+  correctAnswer: "B", answerSourceStatus: "inferred", origin: "didactic_reviewed",
   editorialStatus: "reviewed", selectionInstruction: "choose_incorrect", explanation: "Explicación editorial con apoyo en la fuente.",
   topicIds: ["mathematics-1"], difficulty: 2, attemptsCount: 0, lastAttemptAt: "", nextReviewAt: "", mistakeTypes: ["none"],
 };
 
 describe("validateDidacticQuestion", () => {
-  it("accepts a reviewed, source-backed single-answer four-option question", () => {
+  it("accepts a reviewed, source-backed single-answer three-option question", () => {
     expect(validateDidacticQuestion(question)).toEqual([]);
   });
 
@@ -24,7 +24,7 @@ describe("validateDidacticQuestion", () => {
       options: ["A) Uno", "A) Uno", "C) Tres"],
       selectionInstruction: "as_written",
     });
-    expect(issues.map((issue) => issue.field)).toEqual(expect.arrayContaining(["options", "selectionInstruction", "correctAnswer"]));
+    expect(issues.map((issue) => issue.field)).toEqual(expect.arrayContaining(["options", "selectionInstruction"]));
   });
 
   it("requires exactly one item for each verified syllabus topic", () => {

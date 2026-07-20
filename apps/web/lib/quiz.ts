@@ -1,8 +1,10 @@
 import type { Question } from "./types";
+import { getCorrectOption, gradeQuestionAnswer } from "./question-options";
 
 export type QuizFeedback = {
   correct: boolean;
   selectedAnswerLabel: string;
+  correctOptionText: string;
   explanation: string;
   sourceUrl: string;
 };
@@ -57,32 +59,12 @@ export function evaluateQuizAnswer(
   question: Question,
   selectedAnswer: string,
 ): QuizFeedback {
+  const correctOption = getCorrectOption(question);
   return {
-    correct: answersMatch(selectedAnswer, question.correctAnswer),
-    selectedAnswerLabel: question.correctAnswer,
+    correct: gradeQuestionAnswer(question, selectedAnswer),
+    selectedAnswerLabel: correctOption?.key ?? question.correctAnswer,
+    correctOptionText: correctOption?.text ?? question.correctAnswer,
     explanation: question.explanation,
-    sourceUrl: question.sourceUrl,
+    sourceUrl: question.answerSourceUrl ?? question.sourceUrl,
   };
-}
-
-function answersMatch(selectedAnswer: string, correctAnswer: string): boolean {
-  if (selectedAnswer.trim() === correctAnswer.trim()) {
-    return true;
-  }
-
-  const selectedOptionKey = getOptionKey(selectedAnswer);
-  const correctOptionKey = getOptionKey(correctAnswer);
-
-  return selectedOptionKey !== null && selectedOptionKey === correctOptionKey;
-}
-
-/**
- * Official answer templates store letter keys (for example, "A"), while the
- * imported question options preserve their source wording (for example,
- * "A) …"). Only normalize that explicit option-key format; other answer
- * formats must still match exactly.
- */
-function getOptionKey(value: string): string | null {
-  const match = /^\s*([A-D])(?:\s*[\).:]\s*|\s*$)/i.exec(value);
-  return match ? match[1]!.toUpperCase() : null;
 }

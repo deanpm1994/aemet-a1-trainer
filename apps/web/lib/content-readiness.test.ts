@@ -68,6 +68,19 @@ describe("content readiness", () => {
     });
   });
 
+  it("counts a verified but quarantined question as pending", () => {
+    expect(buildContentReadiness([verifiedTopic], [{
+      ...verifiedQuestion,
+      disposition: "quarantined",
+    }])).toMatchObject({
+      officialContentReady: false,
+      state: "official_verification_pending",
+      totalItems: 2,
+      verifiedItems: 2,
+      pendingOfficialItems: 1,
+    });
+  });
+
   it("treats placeholder official metadata as blocking official readiness", () => {
     const placeholderTopic: Topic = {
       ...verifiedTopic,

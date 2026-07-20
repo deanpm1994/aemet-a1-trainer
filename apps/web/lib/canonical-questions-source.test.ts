@@ -10,7 +10,6 @@ const fallback = loadOfficialPastExamSubset();
 if (!fallback.ok) {
   throw new Error("Expected checked-in verified past-exam questions");
 }
-
 describe("loadCanonicalQuestionsSource", () => {
   it("returns all 54 verified Supabase questions when canonical query succeeds", async () => {
     const result = await loadCanonicalQuestionsSource({
@@ -20,10 +19,11 @@ describe("loadCanonicalQuestionsSource", () => {
 
     expect(result.sourceState).toBe("live");
     expect(result.questions).toHaveLength(54);
+    expect(result.inventoryQuestions).toHaveLength(54);
     expect(new Set(result.questions.map((question) => question.id)).size).toBe(54);
   });
 
-  it("returns the same 54 checked-in verified questions when canonical query fails", async () => {
+  it("serves the checked-in verified historical fallback when Supabase fails", async () => {
     const result = await loadCanonicalQuestionsSource({
       createClient: async () => ({}),
       loadQuestions: async () => {
@@ -33,6 +33,7 @@ describe("loadCanonicalQuestionsSource", () => {
 
     expect(result.sourceState).toBe("fallback_error");
     expect(result.questions).toHaveLength(54);
+    expect(result.inventoryQuestions).toHaveLength(54);
     expect(result.questions.map((question) => question.id)).toEqual(
       fallback.questions.map((question) => question.id),
     );
@@ -53,6 +54,19 @@ describe("loadCanonicalQuestionsSource", () => {
     });
 
     expect(result.questions).toHaveLength(55);
+    expect(result.inventoryQuestions).toHaveLength(55);
     expect(result.questions.find((question) => question.id.startsWith("didactic-"))?.origin).toBe("didactic_reviewed");
+  });
+
+  it("excludes source text awaiting visual review from learner practice", async () => {
+    const needsReview = { ...fallback.questions[0]!, id: "ocr-review-1", verificationStatus: "needs_review" as const };
+    const result = await loadCanonicalQuestionsSource({
+      createClient: async () => ({}),
+      loadQuestions: async () => [...fallback.questions, needsReview],
+    });
+
+    expect(result.questions).toHaveLength(54);
+    expect(result.inventoryQuestions).toHaveLength(55);
+    expect(result.questions.find((question) => question.id === "ocr-review-1")).toBeUndefined();
   });
 });

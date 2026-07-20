@@ -5,7 +5,7 @@ import { getQuestionAttempts, saveQuestionAttempt } from "@/lib/question-attempt
 import { hideQuestion } from "@/lib/hidden-questions-repository";
 import { saveQuestionProgress } from "@/lib/question-progress-repository";
 import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
-import type { MistakeType } from "@/lib/types";
+import type { MistakeType, PracticalSelfAssessment } from "@/lib/types";
 
 type QuestionProgressRepositoryClient = Parameters<typeof saveQuestionProgress>[0];
 type QuestionAttemptRepositoryClient = Parameters<typeof getQuestionAttempts>[0];
@@ -20,6 +20,12 @@ const allowedMistakeTypes: MistakeType[] = [
   "time_management",
   "none",
 ];
+const allowedSelfAssessments: PracticalSelfAssessment[] = [
+  "correct",
+  "partial",
+  "incorrect",
+  "ungraded",
+];
 
 function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
   const parsed = values
@@ -31,6 +37,11 @@ function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
 function parseConfidenceAfter(value: FormDataEntryValue | null): number {
   const parsed = Number(value);
   return Number.isInteger(parsed) ? Math.min(5, Math.max(1, parsed)) : 3;
+}
+
+function parseSelfAssessment(value: FormDataEntryValue | null): PracticalSelfAssessment {
+  const parsed = String(value ?? "ungraded") as PracticalSelfAssessment;
+  return allowedSelfAssessments.includes(parsed) ? parsed : "ungraded";
 }
 
 export async function saveQuestionAttemptAction(formData: FormData) {
@@ -50,6 +61,8 @@ export async function saveQuestionAttemptAction(formData: FormData) {
       mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
       confidenceAfter: parseConfidenceAfter(formData.get("confidenceAfter")),
       notes: String(formData.get("notes") ?? ""),
+      draftResponse: String(formData.get("draftResponse") ?? ""),
+      selfAssessment: parseSelfAssessment(formData.get("selfAssessment")),
     });
     const attempts = await getQuestionAttempts(client as QuestionAttemptRepositoryClient, userId, questionId);
     await saveQuestionProgress(

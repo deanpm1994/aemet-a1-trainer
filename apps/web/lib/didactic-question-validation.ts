@@ -1,4 +1,5 @@
 import type { Question, QuestionSelectionInstruction } from "./types";
+import { getCorrectOption } from "./question-options";
 
 export type DidacticQuestionValidationIssue = {
   field: string;
@@ -34,11 +35,11 @@ export function validateDidacticQuestion(question: Question): DidacticQuestionVa
   if (!didacticInstructions.includes(question.selectionInstruction ?? "as_written")) {
     issues.push({ field: "selectionInstruction", message: "choose_correct or choose_incorrect is required" });
   }
-  if (question.options.length !== 4 || new Set(optionKeys).size !== 4 || optionKeys.some((option) => !option)) {
-    issues.push({ field: "options", message: "exactly four distinct non-empty options are required" });
+  if (question.options.length !== 3 || new Set(optionKeys).size !== 3 || optionKeys.some((option) => !option)) {
+    issues.push({ field: "options", message: "exactly three distinct non-empty options are required" });
   }
-  if (!question.options.includes(question.correctAnswer)) {
-    issues.push({ field: "correctAnswer", message: "the keyed answer must be one of the four options" });
+  if (!getCorrectOption(question)) {
+    issues.push({ field: "correctAnswer", message: "the keyed answer must resolve to one of the three options" });
   }
   if (question.topicIds.length !== 1 || !question.topicIds[0]) {
     issues.push({ field: "topicIds", message: "exactly one verified syllabus topic is required" });
@@ -54,6 +55,12 @@ export function validateDidacticQuestion(question: Question): DidacticQuestionVa
   }
   if (!isHttpUrl(question.sourceUrl) || !isIsoDate(question.retrievedAt)) {
     issues.push({ field: "source", message: "an authoritative source URL and retrieval date are required" });
+  }
+  if (question.verificationStatus !== "verified" || question.answerSourceStatus !== "inferred") {
+    issues.push({
+      field: "review",
+      message: "published didactic questions require reviewed verification and an explicitly inferred answer",
+    });
   }
 
   return issues;
@@ -75,7 +82,30 @@ export function validateDidacticTopicCoverage(
     }
   }
 
+  const normalizedStatements = new Map<string, string>();
+  for (const question of questions) {
+    const normalized = normalizeForDuplicateCheck(question.statement);
+    const existingId = normalizedStatements.get(normalized);
+    if (existingId) {
+      issues.push({
+        field: "statement",
+        message: `duplicate authored content: ${existingId} and ${question.id}`,
+      });
+    } else {
+      normalizedStatements.set(normalized, question.id);
+    }
+  }
+
   return issues;
+}
+
+function normalizeForDuplicateCheck(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("es")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
 }
 
 function isHttpUrl(value: string): boolean {

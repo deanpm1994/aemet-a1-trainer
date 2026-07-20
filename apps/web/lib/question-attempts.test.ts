@@ -33,6 +33,8 @@ describe("question attempts", () => {
       mistakeTypes: ["concept", "reading"],
       confidenceAfter: 2,
       notes: "Mixed up stability criteria.",
+      draftResponse: "",
+      selfAssessment: "ungraded",
     });
   });
 
@@ -45,6 +47,8 @@ describe("question attempts", () => {
       mistakeTypes: ["none"],
       confidenceAfter: 4,
       notes: "Understood after checking hydrostatic balance.",
+      draftResponse: "",
+      selfAssessment: "ungraded",
     };
 
     expect(mapQuestionAttemptInputToRowInput("user-1", input)).toEqual({
@@ -56,6 +60,8 @@ describe("question attempts", () => {
       mistake_types: ["none"],
       confidence_after: 4,
       notes: "Understood after checking hydrostatic balance.",
+      draft_response: "",
+      self_assessment: "ungraded",
     });
   });
 

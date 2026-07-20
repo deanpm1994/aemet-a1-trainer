@@ -1,6 +1,8 @@
 import { PageHeader } from "@/components/page-header";
 import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { QuestionAttemptForm } from "@/components/question-attempt-form";
+import { QuestionRichText } from "@/components/question-rich-text";
+import { QuestionSourceReviewPanel } from "@/components/question-source-review-panel";
 import { SourceStateBanner } from "@/components/source-state-banner";
 import { saveQuestionAttemptAction } from "@/app/actions/question-actions";
 import { buildContentReadiness } from "@/lib/content-readiness";
@@ -13,6 +15,7 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
+import { getQuestionOptions } from "@/lib/question-options";
 
 type QuestionsPageProps = {
   searchParams: Promise<{ mode?: string; topic?: string; size?: string }>;
@@ -26,15 +29,25 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
   ]);
   const { questions, questionSource, canPersist, progressMessage } = practiceContext;
   const { sourceState, message } = questionSource;
+  const inventoryTotal = questionSource.inventoryQuestions.length;
+  const unavailableTotal = Math.max(0, inventoryTotal - questions.length);
 
   const filters = getDefaultQuestionFilters();
   const visibleQuestions = questions.filter((question) =>
     matchesQuestionFilters(question, filters),
   );
   const stats = buildQuestionStats(questions);
-  const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
+  const today = new Date().toISOString().slice(0, 10);
+  const overdueQuestions = getOverdueQuestions(questions, today);
   const painPoints = getPracticePainPoints(questions);
-  const contentReadiness = buildContentReadiness(topicSource.topics, questions);
+  const contentReadiness = buildContentReadiness(
+    topicSource.topics,
+    questionSource.inventoryQuestions,
+  );
+  const practicalQuestions = questions.filter((question) => question.type === "practical_case");
+  const practicalPapers = [...new Set(practicalQuestions
+    .filter((question) => question.oepYear && question.caseGroup)
+    .map((question) => `${question.oepYear}:${question.caseGroup}`))];
   return (
     <div className="space-y-8">
       <PageHeader
@@ -47,6 +60,29 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
 
       <ContentReadinessCard readiness={contentReadiness} />
 
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Inventario del banco</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          «Histórica oficial» significa que la pregunta procede de un examen oficial anterior;
+          no significa que esté obsoleta. Solo se publica para practicar si está verificada,
+          completa y no está anulada, en cuarentena o deprecada.
+        </p>
+        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl bg-slate-50 p-4">
+            <dt className="text-sm text-slate-500">Guardadas en la base de datos</dt>
+            <dd className="mt-1 text-2xl font-semibold text-slate-900">{inventoryTotal}</dd>
+          </div>
+          <div className="rounded-2xl bg-emerald-50 p-4">
+            <dt className="text-sm text-emerald-700">Disponibles para practicar</dt>
+            <dd className="mt-1 text-2xl font-semibold text-emerald-950">{questions.length}</dd>
+          </div>
+          <div className="rounded-2xl bg-amber-50 p-4">
+            <dt className="text-sm text-amber-700">En revisión o solo auditoría</dt>
+            <dd className="mt-1 text-2xl font-semibold text-amber-950">{unavailableTotal}</dd>
+          </div>
+        </dl>
+      </section>
+
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-lg font-semibold text-slate-900">Nueva sesión</h2>
         <div className="mt-3 flex flex-wrap gap-3">
@@ -56,13 +92,36 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
         {query.topic ? <div className="mt-3 flex flex-wrap gap-3 text-sm"><span className="self-center text-slate-600">Sesión por tema:</span>{["20", "50", "survival"].map((size) => <a className="rounded-full border border-slate-300 px-3 py-1.5" href={`/questions/session?topic=${query.topic}&size=${size}`} key={size}>{size === "survival" ? "Supervivencia" : size}</a>)}</div> : null}
       </section>
 
+      {practicalQuestions.length > 0 ? (
+        <section className="rounded-3xl border border-sky-200 bg-sky-50 p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-sky-950">Supuestos prácticos</h2>
+          <p className="mt-2 text-sm text-sky-900">
+            Enunciados oficiales con soluciones modelo revisadas no oficiales. El borrador o la omisión explícita son obligatorios antes de revelar la solución.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            {practicalPapers.map((paper) => {
+              const [oep, group] = paper.split(":");
+              return (
+                <a
+                  className="rounded-full border border-sky-400 bg-white px-4 py-2 text-sm font-medium text-sky-900"
+                  href={`/questions/practical/session?oep=${oep}&paper=${group}`}
+                  key={paper}
+                >
+                  OEP {oep} · Supuesto {group} completo
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>
       </section>
 
       <section className="grid gap-4 md:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Preguntas totales</p>
+          <p className="text-sm text-slate-500">Disponibles para practicar</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">{stats.total}</p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -121,17 +180,21 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
               <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                 <span>{question.type}</span>
                 {question.origin === "didactic_reviewed" ? <span className="rounded-full bg-amber-100 px-2 py-1 text-amber-950">Creada para practicar · no oficial</span> : null}
+                {question.type === "practical_case" ? <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-950">Enunciado oficial · modelo no oficial</span> : null}
+                {question.questionRole === "reserve" ? <span className="rounded-full bg-violet-100 px-2 py-1 text-violet-950">Reserva · {question.reserveDisposition}</span> : null}
                 <span>Dificultad {question.difficulty}</span>
                 <span>{question.verificationStatus}</span>
                 <span>Intentos {question.attemptsCount}</span>
               </div>
               <h2 className="mt-3 text-lg font-semibold text-slate-900">{question.name}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{question.statement}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700"><QuestionRichText contentFormat={question.contentFormat} text={question.statement} /></p>
+              <QuestionSourceReviewPanel question={question} />
               {question.options.length > 0 ? (
                 <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                  {question.options.map((option) => (
-                    <li key={option} className="rounded-2xl bg-slate-50 px-3 py-2">
-                      {option}
+                  {getQuestionOptions(question).map((option) => (
+                    <li key={option.key} className="flex gap-3 rounded-2xl bg-slate-50 px-3 py-2">
+                      <span className="font-semibold text-slate-900">{option.key}</span>
+                      <QuestionRichText contentFormat={question.contentFormat} text={option.text} />
                     </li>
                   ))}
                 </ul>
@@ -160,11 +223,20 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
                   <dd>{question.mistakeTypes.join(", ")}</dd>
                 </div>
               </dl>
-              <QuestionAttemptForm
-                question={question}
-                canPersist={canPersist}
-                onSave={saveQuestionAttemptAction}
-              />
+              {question.type === "practical_case" ? (
+                <a
+                  className="mt-5 inline-flex rounded-full bg-sky-800 px-4 py-2 text-sm font-medium text-white"
+                  href={`/questions/practical/session?id=${question.id}`}
+                >
+                  Practicar este ejercicio
+                </a>
+              ) : (
+                <QuestionAttemptForm
+                  question={question}
+                  canPersist={canPersist}
+                  onSave={saveQuestionAttemptAction}
+                />
+              )}
             </article>
           ))}
         </div>

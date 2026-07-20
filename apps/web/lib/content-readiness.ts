@@ -80,7 +80,11 @@ function isTopicOfficialReady(topic: Topic): boolean {
 }
 
 function isQuestionOfficialReady(question: Question): boolean {
-  return question.verificationStatus === "verified" && questionHasOfficialMetadata(question);
+  return (
+    question.verificationStatus === "verified" &&
+    (question.disposition ?? "available") === "available" &&
+    questionHasOfficialMetadata(question)
+  );
 }
 
 export function buildContentReadiness(
