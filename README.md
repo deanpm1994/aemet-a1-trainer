@@ -38,14 +38,16 @@ Implemented:
 - Phase 1: read-only study checklist MVP.
 - Phase 2: question bank MVP.
 - Phase 3: focus and calendar MVP.
-- Phase 4: Notion sync for topics, questions, and resources.
+- Phase 4: Notion sync for topics and resources; questions remain an optional editorial/import path.
 - Phase 5: Supabase-backed auth, settings, study sessions, focus outcomes, topic progress, question progress, and question attempt history.
 - Phase 6: manual-only monitoring workflow skeleton.
 - Phase 7: basic PWA installability metadata.
+- Complete verified BOE syllabus import, preserving source-owned wording and provenance.
+- Canonical Supabase question bank with a checked-in verified-official fallback for private study.
 
 Not yet fully operating:
 
-- Official BOE/AEMET syllabus and past-question content still needs verified import.
+- The remaining historical and recent past-question candidates require visual/editorial review before they can be learner-visible.
 - Monitoring is not automated; there is no polling, snapshot comparison, event detection, or alert delivery.
 - Reminder settings are saved preferences only; browser notifications, push subscriptions, service worker, offline cache, and scheduled delivery are not active.
 
@@ -54,14 +56,17 @@ Not yet fully operating:
 Phase 4 uses server-side Notion integrations for:
 
 - `/topics`
-- `/questions`
 - `/resources`
+
+The learner-facing question bank is loaded from Supabase and falls back to a
+checked-in verified official subset if Supabase cannot provide learner-eligible
+questions. Notion questions remain an optional editorial/import path and are
+not the runtime source of truth.
 
 Required environment variables:
 
 - `NOTION_TOKEN`
 - `NOTION_TOPICS_DATA_SOURCE_ID`
-- `NOTION_QUESTIONS_DATA_SOURCE_ID`
 - `NOTION_BIBLIOGRAPHY_DATA_SOURCE_ID`
 
 Behavior:

@@ -113,7 +113,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       "Estado manual de BOE/AEMET hasta que exista automatización.",
     "app.nav.questions": "Preguntas",
     "app.nav.questions.description":
-      "Banco de preguntas preparado para sincronización, con fallback local y metadatos de revisión.",
+      "Banco de preguntas de Supabase con fallback oficial local y metadatos de revisión.",
     "app.nav.resources": "Recursos",
     "app.nav.resources.description":
       "Bibliografía y recursos de estudio con contexto de acceso y verificación.",
@@ -123,9 +123,9 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.nav.topics": "Temario",
     "app.nav.topics.description":
       "Lista de temas preparada para Notion, con fallback local explícito.",
-    "app.shell.phase": "Fase base",
+    "app.shell.phase": "MVP de estudio",
     "app.shell.tagline":
-      "Sistema PWA de estudio para la oposición AEMET Grupo A1. Los datos oficiales aún no están cargados.",
+      "Sistema PWA de estudio para la oposición AEMET Grupo A1, con contenido oficial verificado y material didáctico identificado.",
     "contentReadiness.empty.empty": "Vacío",
     "contentReadiness.empty.detail":
       "Añade temas oficiales verificados o elementos iniciales de práctica antes de usar el flujo de estudio.",
@@ -194,7 +194,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       "Manual BOE/AEMET monitoring status until automation exists.",
     "app.nav.questions": "Questions",
     "app.nav.questions.description":
-      "Live-capable question bank with explicit local fallback and review metadata.",
+      "Live-capable question bank in Supabase with an official local fallback and review metadata.",
     "app.nav.resources": "Resources",
     "app.nav.resources.description":
       "Study resources from bibliography data with explicit access and verification context.",
@@ -204,9 +204,9 @@ const dictionaries: Record<Locale, Dictionary> = {
     "app.nav.topics": "Topics",
     "app.nav.topics.description":
       "Live-capable Notion-backed topic checklist with explicit local fallback.",
-    "app.shell.phase": "Foundation phase",
+    "app.shell.phase": "Study MVP",
     "app.shell.tagline":
-      "PWA-first study system scaffold for the AEMET Grupo A1 opposition. Official data is not loaded yet.",
+      "PWA-first study system for the AEMET Grupo A1 opposition, with verified official content and clearly identified study material.",
     "contentReadiness.empty.empty": "Empty",
     "contentReadiness.empty.detail":
       "Add verified official syllabus topics or starter practice items before using the study flow.",
