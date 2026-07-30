@@ -1,5 +1,5 @@
 import { QuizRunner } from "@/components/quiz-runner";
-import { saveQuestionAttemptAction } from "@/app/actions/question-actions";
+import { hideQuestionAction, saveQuestionAttemptAction } from "@/app/actions/question-actions";
 import { loadQuestionPracticeContext } from "@/lib/question-practice-context";
 import { getSessionQuestions, selectTopicQuestions, type PracticeSessionSize } from "@/lib/quiz";
 
@@ -40,6 +40,7 @@ export default async function QuestionSessionPage({ searchParams }: QuestionSess
     <main className="flex min-h-screen items-center justify-center bg-surface px-4 py-8">
       <QuizRunner
         canPersist={canPersist}
+        onHideQuestion={hideQuestionAction}
         onSaveAttempt={saveQuestionAttemptAction}
         questions={sessionQuestions}
         sessionSize={sessionSize}

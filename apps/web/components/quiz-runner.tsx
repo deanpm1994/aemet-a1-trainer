@@ -13,10 +13,17 @@ type QuizRunnerProps = {
   questions: Question[];
   sessionSize: PracticeSessionSize;
   canPersist: boolean;
+  onHideQuestion: SaveAttempt;
   onSaveAttempt: SaveAttempt;
 };
 
-export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }: QuizRunnerProps) {
+export function QuizRunner({
+  questions,
+  sessionSize,
+  canPersist,
+  onHideQuestion,
+  onSaveAttempt,
+}: QuizRunnerProps) {
   const [sessionQuestions, setSessionQuestions] = useState(questions);
   const [index, setIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -27,6 +34,7 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }
   const [bestStreak, setBestStreak] = useState(0);
   const [finished, setFinished] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [hideMessage, setHideMessage] = useState<string | null>(null);
   const question = sessionQuestions[index];
   const options = question ? getQuestionOptions(question) : [];
   const feedback = submitted && selectedAnswer && question ? evaluateQuizAnswer(question, selectedAnswer) : null;
@@ -69,6 +77,17 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }
     }
     setSelectedAnswer(null);
     setSubmitted(false);
+    setHideMessage(null);
+  }
+
+  function hideCurrentQuestion() {
+    if (!question || !canPersist) return;
+    const formData = new FormData();
+    formData.set("questionId", question.id);
+    startTransition(async () => {
+      const result = await onHideQuestion(formData);
+      setHideMessage(result.message);
+    });
   }
 
   if (!question || finished) {
@@ -122,7 +141,9 @@ export function QuizRunner({ questions, sessionSize, canPersist, onSaveAttempt }
       <a className="mt-2 inline-block text-indigo-800 underline" href={feedback.sourceUrl} rel="noreferrer" target="_blank">Ver fuente de apoyo</a>
       <div className="mt-4 flex flex-wrap gap-3">
         <button className="min-h-11 rounded-full bg-indigo-700 px-4 py-2 font-medium text-white disabled:opacity-70" disabled={isPending} onClick={nextQuestion} type="button">Siguiente pregunta</button>
+        {canPersist ? <button className="min-h-11 rounded-full border border-rose-300 bg-white px-4 py-2 font-medium text-rose-800 disabled:opacity-70" disabled={isPending} onClick={hideCurrentQuestion} type="button">Ocultar de futuras sesiones</button> : null}
       </div>
+      {hideMessage ? <p aria-live="polite" className="mt-3 text-sm text-slate-700">{hideMessage}</p> : null}
     </div> : null}
   </section>;
 }

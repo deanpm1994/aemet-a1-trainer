@@ -156,7 +156,7 @@ Supabase notes:
 - `npm --prefix apps/web run audit:historical-question-extraction` writes `aemet-a1-historical-question-extraction-review.csv`, identifying extraction issues and their official source-PDF pages. `docs/HISTORICAL_QUESTION_REVIEW.md` defines the mandatory crop-then-review workflow; reviewed mathematical text stays selectable and the private crop is evidence/fallback only.
 - The bank excludes officially annulled questions and questions tied to repealed Law 30/1992, repealed RDL 3/2011, or the dated 2017–2019 Open Government Action Plan; the exclusions are recorded in `aemet-a1-acceso-libre-2026-program-excluded.csv`. The earlier title-derived syllabus prompts were deleted from Supabase; Notion no longer controls runtime question availability.
 - Title-derived didactic questions are excluded from the question bank and practice sessions. A BOE syllabus title is not sufficient factual context for a subject-matter question. Future didactic items require a factual source and editorial review before import.
-- Signed-in users may hide questions only for their own future sessions through `hidden_questions`; RLS prevents access to other users’ preferences.
+- Signed-in users may hide a question from quiz feedback only for their own future sessions through `hidden_questions`; RLS prevents access to other users’ preferences. Hiding does not alter the shared question or its verification status.
 - Local auth issue was caused by a mistyped publishable key prefix in `.env.local`; working prefix is `sb_publishable_...`
 - Dev server restart is required after local env changes
 - Remote migrations verified applied: `20260623`, `20260630`, `20260701`, `20260702`, `20260703`, `20260715_phase_5_10_reviewed_questions_and_hiding`
