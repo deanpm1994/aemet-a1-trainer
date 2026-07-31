@@ -2,14 +2,33 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { AuthStatus } from "@/components/auth-status";
+import { InAppReminderBanner } from "@/components/in-app-reminder-banner";
 import { DEFAULT_LOCALE, routeCards, t } from "@/lib/i18n";
+import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
+import { buildDefaultUserSettings } from "@/lib/user-settings";
+import { getUserSettings } from "@/lib/user-settings-repository";
 
 type SiteShellProps = {
   children: ReactNode;
 };
 
-export function SiteShell({ children }: SiteShellProps) {
+type SettingsRepositoryClient = Parameters<typeof getUserSettings>[0];
+
+export async function SiteShell({ children }: SiteShellProps) {
   const routes = routeCards(DEFAULT_LOCALE);
+  let reminderPreferences = buildDefaultUserSettings().reminderPreferences;
+
+  try {
+    const userId = await getAuthenticatedUserId();
+
+    if (userId) {
+      const client = await createSupabaseServerClient();
+      const settings = await getUserSettings(client as SettingsRepositoryClient, userId);
+      reminderPreferences = settings.reminderPreferences;
+    }
+  } catch {
+    // The shell remains available when settings persistence is unavailable.
+  }
 
   return (
     <div className="min-h-screen">
@@ -44,6 +63,7 @@ export function SiteShell({ children }: SiteShellProps) {
           </nav>
         </div>
       </header>
+      <InAppReminderBanner reminderPreferences={reminderPreferences} />
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
     </div>
   );

@@ -135,6 +135,15 @@ export const officialPastExamSubsetSource = [
   },
   {
     ...commonSourceFields2014,
+    retrievedAt: "2026-07-15",
+    answerRetrievedAt: "2026-07-15",
+    questionNumber: "4",
+    statement: "Suponga que tiene dos datos a y b, 0 < a < b, para los que se postula que proceden de una población con función de densidad que es uniforme entre 0 y θ y con valor cero en el resto, U[0, θ]. ¿Cuál es el estimador de máxima verosimilitud de θ?",
+    options: ["A) 1", "B) (a+b)²", "C) (a+b)/2", "D) b"],
+    correctAnswer: "D",
+  },
+  {
+    ...commonSourceFields2014,
     questionNumber: "5",
     statement: "Sean X, Y y Z tres variables aleatorias incorrelacionadas de varianza unidad. Se definen los dos conjuntos de variables aleatorias A = {X, Y}, B = {Y + Z}. La primera correlación canónica entre los conjuntos A y B vale:",
     options: ["A) 0", "B) (1/2)⁰·⁵", "C) 1/3", "D) 1"],
@@ -146,6 +155,15 @@ export const officialPastExamSubsetSource = [
     statement: "Sean X e Y dos variables aleatorias con funciones de densidad que son uniformes entre 0 y 1 y con valores cero en el resto, U[0,1], independientes entre sí. La probabilidad P(X + Y ≤ 3/2) vale:",
     options: ["A) 1", "B) 7/8", "C) 3/8", "D) 1/2"],
     correctAnswer: "B",
+  },
+  {
+    ...commonSourceFields2014,
+    retrievedAt: "2026-07-15",
+    answerRetrievedAt: "2026-07-15",
+    questionNumber: "7",
+    statement: "Un conjunto de N datos, xᵢ, i = 1, ..., N, tiene distribución simétrica bimodal y su varianza es 100. Además se sabe que ∑ᵢ₌₁ᴺ (xᵢ − a)² es mínima cuando a = 20. El coeficiente de variación de Pearson de estos datos vale:",
+    options: ["A) 1", "B) 2", "C) 0.5", "D) 0.1"],
+    correctAnswer: "C",
   },
   {
     ...commonSourceFields2014,

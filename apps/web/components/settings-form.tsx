@@ -120,7 +120,7 @@ export function SettingsForm({
         <div className="space-y-2">
           <h2 className="text-xl font-semibold tracking-tight text-ink">Preferencias de recordatorios</h2>
           <p className="text-sm leading-6 text-ink/70">
-            Las preferencias se guardan para una fase futura de notificaciones. Las notificaciones del navegador aún no están activas.
+            Con la aplicación abierta, los recordatorios configurados muestran un aviso en la franja guardada. Las notificaciones del navegador y los avisos en segundo plano aún no están activos.
           </p>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -130,7 +130,7 @@ export function SettingsForm({
               type="checkbox"
               defaultChecked={initialSettings.reminderPreferences.remindersEnabled}
             />
-            <span>Activar preferencias de recordatorio guardadas</span>
+            <span>Activar recordatorios dentro de la aplicación</span>
           </label>
           <label className="space-y-2 text-sm text-ink/80">
             <span>Canal de recordatorio</span>

@@ -68,19 +68,17 @@
 - Add row-level security (complete)
 - Add user settings (complete)
 
-## Phase 6 — Monitoring (manual shell complete; automation pending)
+## Phase 6 — Monitoring (manual persisted checks complete; automation pending)
 
 - Add BOE/AEMET source list skeleton (complete)
-- Add snapshot checking
-- Add keyword detection
-- Add monitoring events
-- Add notification hooks
+- Add manual persisted snapshot/hash checks and review-only events (complete)
+- Add scheduled execution and notification hooks (pending)
 
 ## Phase 7 — PWA and reminders (partial)
 
 - Add PWA manifest (complete)
 - Add installable mobile view metadata (complete)
-- Add reminder settings shell (complete; delivery inactive)
-- Add notifications
+- Add in-app reminders for the configured local minute (complete; only while the app is open)
+- Add browser notifications (pending; not active)
 - Add countdown/status widget shell (complete; no source-backed official dates loaded)
-- Add offline review mode
+- Add offline review mode (pending)
