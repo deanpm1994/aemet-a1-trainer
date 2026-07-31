@@ -227,10 +227,12 @@ Date: 2026-07-20
 - Remote rollout completed for migrations `20260720`, `20260721` and
   `20260722`, the
   16-document source manifest, 230 recent multiple-choice candidates and 32
-  practical candidates. All new content is audit-only/quarantined. The 283
+  practical candidates. All new content is audit-only/quarantined. The 284
   verified, structurally complete 2014–2018 historical rows are
-  learner-available; 230 audit-flagged historical rows remain quarantined
-  without deletion or loss of progress references.
+  learner-available; 229 audit-flagged historical rows remain quarantined
+  without deletion or loss of progress references. On 2026-07-31, 2015
+  question 3 was source-crop reviewed, corrected to remove an embedded page
+  header, and promoted with official answer A.
 - Read-only remote verification matched OEP 2024 counts 105/5 annulled/100
   quarantined, OEP 2025 counts 125/2/123, practical 32 quarantined, definitive
   answers 37=B and 96=B, and activated reserves 121–122.

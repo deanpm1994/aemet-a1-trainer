@@ -42,9 +42,14 @@ role. Unknown historical exam dates remain `TODO_VERIFY_OFFICIAL_SOURCE`.
   absent.
 
 The hardened importer itself promotes no new rows without a review file. In the
-existing Supabase inventory, 283 historical rows are verified, structurally
-complete and free of extraction-audit flags; 230 remain quarantined for review.
+existing Supabase inventory, 284 historical rows are verified, structurally
+complete and free of extraction-audit flags; 229 remain quarantined for review.
 The six rejected 2016 source rows are not learner-visible.
+
+On 2026-07-31, question 3 from the 2015 first exercise was manually compared
+with its hash-pinned official PDF and definitive answer key, corrected to remove
+an embedded page header from its stored option text, and promoted with a private
+source crop. Its official answer is A.
 
 ## Recent official candidates
 
@@ -112,7 +117,7 @@ Read-only verification returned 105 OEP 2024 multiple-choice records
 37=B, 96=B, annulments 41/62 and reserve dispositions 121–123 matched.
 
 The legacy-evidence migration preserved every stable row and user-progress
-reference. The follow-up migration restores the 283 verified, structurally
-complete 2014–2018 questions; the 230 audit-flagged historical rows remain
+reference. The follow-up migration restores the 284 verified, structurally
+complete 2014–2018 questions; the 229 audit-flagged historical rows remain
 quarantined. Recent candidates and practical prompts remain quarantined until
 their editorial review gates pass.
