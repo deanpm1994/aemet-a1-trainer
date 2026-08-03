@@ -123,9 +123,9 @@ Phase 6 status:
 
 Phase 7 status:
 - Basic PWA installability metadata and project-owned icon placeholders implemented
-- Saved reminder preferences now show a dismissible in-app banner at the configured local minute while the signed-in app is open
+- Saved reminder preferences now show a dismissible in-app banner and, after browser permission, a system notification at the configured local minute while the signed-in app is open
 - Countdown/status widget shell implemented; it explicitly shows no verified official date until source-backed date records exist
-- No browser notifications, push subscriptions, service worker, offline cache, or scheduled reminder delivery are active
+- No push subscriptions, service worker, offline cache, or scheduled reminder delivery are active; browser notifications are foreground-only and require an explicit local permission
 
 i18n status:
 - Spanish-first UI foundation implemented with internal `es`/`en` dictionaries

@@ -29,7 +29,7 @@ export default async function SettingsPage() {
       initialSettings = await getUserSettings(client as SettingsRepositoryClient, userId);
       canSave = true;
       statusMessage =
-        "Ajustes cargados desde Supabase. Los avisos aparecen solo dentro de la aplicación abierta.";
+        "Ajustes cargados desde Supabase. Los avisos se activan mientras la aplicación está abierta.";
     }
   } catch (error) {
     persistenceAvailable = false;
@@ -79,7 +79,7 @@ export default async function SettingsPage() {
       return {
         ok: true,
         message:
-          "Ajustes guardados. Los avisos aparecen solo dentro de la aplicación abierta; las notificaciones quedan pendientes.",
+          "Ajustes guardados. Los avisos se activan mientras la aplicación está abierta; el permiso del navegador se gestiona en este dispositivo.",
       };
     } catch {
       return {
@@ -94,7 +94,7 @@ export default async function SettingsPage() {
       <PageHeader
         eyebrow="Ajustes"
         title="Preferencias de estudio guardadas"
-        description="Perfil, valores de estudio y recordatorios dentro de la aplicación se guardan por usuario con sesión de Supabase. No hay notificaciones ni avisos en segundo plano."
+        description="Perfil, valores de estudio y recordatorios se guardan por usuario con sesión de Supabase. Los avisos del navegador requieren permiso y solo se activan mientras la aplicación está abierta; no hay avisos en segundo plano."
       />
       <SettingsForm
         initialSettings={initialSettings}

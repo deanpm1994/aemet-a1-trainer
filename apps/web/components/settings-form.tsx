@@ -1,7 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import {
+  getBrowserNotificationApi,
+  getBrowserNotificationPermission,
+  requestBrowserNotificationPermission,
+  type BrowserNotificationPermission,
+} from "@/lib/browser-notifications";
 import type { UserSettings } from "@/lib/types";
 
 type SaveResult = {
@@ -26,6 +32,19 @@ export function SettingsForm({
 }: SettingsFormProps) {
   const [message, setMessage] = useState(statusMessage);
   const [isSaving, setIsSaving] = useState(false);
+  const [notificationPermission, setNotificationPermission] =
+    useState<BrowserNotificationPermission>("unsupported");
+
+  useEffect(() => {
+    setNotificationPermission(getBrowserNotificationPermission(getBrowserNotificationApi()));
+  }, []);
+
+  const browserNotificationDetail = {
+    unsupported: "Este navegador no admite notificaciones del sistema.",
+    default: "Puedes permitir avisos del navegador mientras la aplicación está abierta.",
+    granted: "Los avisos del navegador están permitidos para esta aplicación.",
+    denied: "Los avisos están bloqueados. Puedes cambiarlos desde los ajustes del navegador.",
+  }[notificationPermission];
 
   return (
     <form
@@ -120,7 +139,7 @@ export function SettingsForm({
         <div className="space-y-2">
           <h2 className="text-xl font-semibold tracking-tight text-ink">Preferencias de recordatorios</h2>
           <p className="text-sm leading-6 text-ink/70">
-            Con la aplicación abierta, los recordatorios configurados muestran un aviso en la franja guardada. Las notificaciones del navegador y los avisos en segundo plano aún no están activos.
+            Con la aplicación abierta, los recordatorios configurados muestran un aviso en la franja guardada. Si permites los avisos del navegador, también se mostrará una notificación del sistema. No hay avisos en segundo plano.
           </p>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -157,6 +176,21 @@ export function SettingsForm({
               className="w-full rounded-2xl border border-ink/10 bg-surface px-4 py-3"
             />
           </label>
+        </div>
+        <div className="mt-4 rounded-2xl border border-ink/10 bg-surface p-4 text-sm text-ink/80">
+          <p>{browserNotificationDetail}</p>
+          <button
+            type="button"
+            disabled={notificationPermission !== "default"}
+            onClick={async () => {
+              setNotificationPermission(
+                await requestBrowserNotificationPermission(getBrowserNotificationApi()),
+              );
+            }}
+            className="mt-3 rounded-full border border-ink/20 bg-white px-4 py-2 font-medium text-ink disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Permitir avisos del navegador
+          </button>
         </div>
       </section>
 
