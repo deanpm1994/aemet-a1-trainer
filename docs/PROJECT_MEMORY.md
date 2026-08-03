@@ -167,7 +167,7 @@ Verified working recently:
 - `npm --prefix apps/web run build`
 - Focus/session persistence issue #2 was closed after focused verification: 4 files, 27 tests passed.
 - Topic/question progress persistence issue #3 was closed after focused verification: 7 files, 24 tests passed.
-- GitHub issues #2, #3, #5, #6, #9, and #12 are closed; issues #8 and #13 remain open. Issue #8 requires a real candidate phone smoke test; issue #13 tracks the next verified historical-exam import batch.
+- GitHub issues #2, #3, #5, #6, #8, #9, #12, and #13 are closed. Because #8 has no recorded phone-test evidence, replacement issue #22 requires a real candidate production smoke test before it can close.
 - Vercel production deployment completed with ready state `READY`
 - Sign-up and sign-in flow worked after env fix
 - Local `/calendar` smoke test returned HTTP 200 and rendered the planner
@@ -187,7 +187,7 @@ Verified working recently:
 
 Next recommended MVP steps:
 - Order of action:
-  1. Run #8 private MVP phone smoke test: sign in, create or use session, focus timer, complete review, reload, verify topic/question progress updates.
+  1. Run #22 production phone smoke test: sign in, create or use session, focus timer, complete review, reload, verify topic/question progress updates, and record device/browser evidence.
   2. Continue official historical past-exam import in a newly scoped issue, starting with 2014 Acceso Libre only after source inspection.
   4. Consider browser notifications or offline support only after a separate scope and verification plan; current reminders are in-app only.
   5. Add a settings language selector if the candidate wants to switch between Spanish and English.
@@ -236,3 +236,12 @@ Date: 2026-07-20
 - Read-only remote verification matched OEP 2024 counts 105/5 annulled/100
   quarantined, OEP 2025 counts 125/2/123, practical 32 quarantined, definitive
   answers 37=B and 96=B, and activated reserves 121–122.
+
+## Release status
+
+Date: 2026-08-03
+
+- Pull requests #20 (historic-question topic mappings) and #21 (question-bank rebuild) were squash-merged into `develop`.
+- Post-resolution verification passed: 47 test files / 211 tests, lint/typecheck, production build, and `git diff --check`.
+- The Vercel deployment attached to merge commit `08875e5` completed successfully. The public deployment returned HTTP 200 during release verification.
+- Do not claim real-phone release validation until issue #22 contains the required evidence.
