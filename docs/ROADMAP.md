@@ -82,3 +82,9 @@
 - Add browser notifications (pending; not active)
 - Add countdown/status widget shell (complete; no source-backed official dates loaded)
 - Add offline review mode (pending)
+
+## Release readiness
+
+- Question-bank release merged to `develop` on 2026-08-03 (complete)
+- Vercel production deployment for that release completed successfully (complete)
+- Real-phone production study-flow evidence is required by GitHub issue #22 (pending)

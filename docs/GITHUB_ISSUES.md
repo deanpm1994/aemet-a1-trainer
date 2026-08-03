@@ -1,6 +1,6 @@
 # GitHub Issue Backlog
 
-Last checked: 2026-07-15
+Last checked: 2026-08-03
 
 Current issues from `gh issue list --state all --limit 50`:
 
@@ -53,9 +53,9 @@ Closure note: closed after `docs/ROADMAP.md`, `docs/GITHUB_ISSUES.md`, and `docs
 
 ## #8 test(release): run private MVP study smoke test
 
-GitHub status: open.
+GitHub status: closed as completed on 2026-07-15, but no completion evidence was recorded in the issue.
 
-Purpose: verify the private working version on the candidate's real phone with a 30-minute end-to-end study flow: sign in, create or load a plan, run focus, complete review, and confirm persisted progress after reload.
+Replacement: #22 `test(release): verify production mobile study flow` is open and requires a recorded real-phone result before it can close.
 
 ## #9 feat(import): continue official historical past exam import
 
@@ -71,6 +71,20 @@ Closure note: reviewed, clearly non-official Spanish notes now cover all 128 ver
 
 ## #13 feat(import): resume verified historical exams
 
+GitHub status: closed as completed on 2026-07-15.
+
+Closure evidence: 2014 questions 27–42 were imported with AEMET questionnaire wording and MITECO answer-template provenance. Questions needing further source review remain outside the verified import and must be tracked in a newly scoped issue if work resumes.
+
+## #20 and #21 question-bank release
+
+GitHub status: merged on 2026-08-03.
+
+- #20 maps the historic-question subset to app-owned syllabus topics and retains unresolved OCR/formula content as `TODO_VERIFY_OFFICIAL_SOURCE`.
+- #21 rebuilds the question-bank workflow with provenance-aware metadata, learner-safe filtering, reviewed-practice safeguards, and quarantined audit-only recent extractions.
+- The production Vercel deployment for the #21 merge commit completed successfully.
+
+## #22 test(release): verify production mobile study flow
+
 GitHub status: open.
 
-Purpose: resume official AEMET/MITECO historical Acceso Libre imports from source inspection. The 2014 batches import questions 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 15 through 22, and 27 through 42 with official answer provenance and app-owned syllabus mappings; questions 11, 12, and 14 remain excluded pending formula/OCR review (`TODO_VERIFY_OFFICIAL_SOURCE`). Keep no-key material as `needs_review`; exclude annulled, formula-heavy, or OCR-uncertain questions from verified practice until manually reviewed. The issue remains open because the pending 2014 items were not safely resolved.
+Purpose: record one real candidate end-to-end study flow on the production deployment. The issue requires device/browser evidence, persistence after reload, and a separately tracked defect for each blocker found.
