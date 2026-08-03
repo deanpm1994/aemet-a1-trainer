@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { getBrowserNotificationApi, showBrowserStudyReminder } from "@/lib/browser-notifications";
 import { getEligibleReminder, type EligibleReminder } from "@/lib/in-app-reminders";
 import type { UserSettings } from "@/lib/types";
 
@@ -24,6 +25,18 @@ function readDismissedReminderKeys() {
   return keys;
 }
 
+function showBrowserReminderOnce(reminder: EligibleReminder) {
+  const notificationKey = `${reminder.dismissalKey}:browser-notified`;
+
+  if (window.localStorage.getItem(notificationKey)) {
+    return;
+  }
+
+  if (showBrowserStudyReminder(getBrowserNotificationApi(), reminder)) {
+    window.localStorage.setItem(notificationKey, "shown");
+  }
+}
+
 export function InAppReminderBanner({
   reminderPreferences,
 }: InAppReminderBannerProps) {
@@ -31,15 +44,19 @@ export function InAppReminderBanner({
 
   useEffect(() => {
     function updateReminder() {
-      setReminder(
-        getEligibleReminder({
-          enabled: reminderPreferences.remindersEnabled,
-          morning: reminderPreferences.morningReminderTime,
-          evening: reminderPreferences.eveningReminderTime,
-          now: new Date(),
-          dismissed: readDismissedReminderKeys(),
-        }),
-      );
+      const nextReminder = getEligibleReminder({
+        enabled: reminderPreferences.remindersEnabled,
+        morning: reminderPreferences.morningReminderTime,
+        evening: reminderPreferences.eveningReminderTime,
+        now: new Date(),
+        dismissed: readDismissedReminderKeys(),
+      });
+
+      if (nextReminder) {
+        showBrowserReminderOnce(nextReminder);
+      }
+
+      setReminder(nextReminder);
     }
 
     updateReminder();
