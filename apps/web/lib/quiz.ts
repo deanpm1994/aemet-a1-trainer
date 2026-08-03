@@ -1,10 +1,31 @@
 import type { Question } from "./types";
+import { getCorrectOption, gradeQuestionAnswer } from "./question-options";
 
 export type QuizFeedback = {
   correct: boolean;
-  correctAnswer: string;
+  selectedAnswerLabel: string;
+  correctOptionText: string;
   explanation: string;
+  sourceUrl: string;
 };
+
+export type PracticeSessionMode = "random" | "topic";
+export type PracticeSessionSize = 20 | 50 | "survival";
+
+export function getSessionQuestions(
+  questions: Question[],
+  size: PracticeSessionSize,
+  seed: number,
+): Question[] {
+  return selectRandomQuestions(questions, size === "survival" ? questions.length : size, seed);
+}
+
+export function getCoverageMessage(available: number, requested: PracticeSessionSize): string | null {
+  if (requested !== "survival" && available < requested) {
+    return `Cobertura limitada: hay ${available} preguntas elegibles; no se repetirán durante esta sesión.`;
+  }
+  return null;
+}
 
 export function selectTopicQuestions(questions: Question[], topicId: string): Question[] {
   return questions.filter(
@@ -38,9 +59,12 @@ export function evaluateQuizAnswer(
   question: Question,
   selectedAnswer: string,
 ): QuizFeedback {
+  const correctOption = getCorrectOption(question);
   return {
-    correct: selectedAnswer === question.correctAnswer,
-    correctAnswer: question.correctAnswer,
+    correct: gradeQuestionAnswer(question, selectedAnswer),
+    selectedAnswerLabel: correctOption?.key ?? question.correctAnswer,
+    correctOptionText: correctOption?.text ?? question.correctAnswer,
     explanation: question.explanation,
+    sourceUrl: question.answerSourceUrl ?? question.sourceUrl,
   };
 }

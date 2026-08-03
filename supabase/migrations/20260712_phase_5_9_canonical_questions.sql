@@ -14,6 +14,8 @@ create table if not exists public.questions (
   answer_source_status text not null,
   answer_source_url text,
   answer_retrieved_at text,
+  origin text not null default 'official_historic' check (origin in ('official_historic', 'didactic_reviewed')),
+  editorial_status text not null default 'official' check (editorial_status in ('official', 'reviewed')),
   explanation text not null default '',
   topic_ids text[] not null default '{}',
   difficulty integer not null check (difficulty between 1 and 5),
@@ -41,5 +43,5 @@ create trigger set_questions_updated_at before update on public.questions for ea
 alter table public.questions enable row level security;
 alter table public.question_sources enable row level security;
 
-create policy "questions_read_verified" on public.questions for select to anon, authenticated using (verification_status = 'verified');
+create policy "questions_read_practice_bank" on public.questions for select to anon, authenticated using (origin in ('official_historic', 'didactic_reviewed'));
 create policy "question_sources_read_verified_questions" on public.question_sources for select to anon, authenticated using (exists (select 1 from public.questions where questions.id = question_sources.question_id and questions.verification_status = 'verified'));

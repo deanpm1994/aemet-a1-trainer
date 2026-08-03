@@ -56,6 +56,72 @@ export type QuestionType =
 
 export type AnswerSourceStatus = "official" | "inferred" | "user" | "unknown";
 
+/** Identifies whether the question comes from an official exam or our study bank. */
+export type QuestionOrigin = "official_historic" | "didactic_reviewed";
+export type EditorialStatus = "official" | "reviewed";
+export type QuestionSelectionInstruction =
+  | "as_written"
+  | "choose_correct"
+  | "choose_incorrect";
+
+/** How reviewed mathematical notation is encoded in the question text. */
+export type QuestionContentFormat = "plain_text" | "latex";
+
+export type ExamPart = "first_exercise_part_1" | "first_exercise_part_2";
+export type QuestionRole = "ordinary" | "reserve";
+export type ReserveDisposition = "not_applicable" | "activated" | "unused";
+export type QuestionDisposition =
+  | "available"
+  | "annulled"
+  | "quarantined"
+  | "deprecated";
+export type PracticalCaseGroup = "A" | "B";
+export type QuestionAnswerFormat = "single_choice" | "developed_response";
+export type SourcePlacement = "statement" | "option" | "diagram" | "model_answer";
+export type PracticalSelfAssessment =
+  | "correct"
+  | "partial"
+  | "incorrect"
+  | "ungraded";
+
+/**
+ * Display labels are derived from position so official answer letters never
+ * depend on an OCR/imported prefix being present in the stored option text.
+ */
+export type QuestionOption = {
+  key: string;
+  text: string;
+  value: string;
+};
+
+export type AnswerSupport = {
+  id: string;
+  label: string;
+  url: string;
+  retrievedAt: string;
+  verificationStatus: VerificationStatus;
+  placement: SourcePlacement;
+  optionKey?: string;
+  contentHash?: string;
+};
+
+/** A private crop rendered directly from an official source PDF. */
+export type QuestionSourceAsset = {
+  id: string;
+  assetType: "official_question_crop";
+  sourceLabel: string;
+  officialPdfUrl: string;
+  officialPdfPage: number;
+  cropBox: { x: number; y: number; width: number; height: number };
+  verificationStatus: VerificationStatus;
+  retrievedAt: string;
+  placement: SourcePlacement;
+  optionKey?: string;
+  altText: string;
+  /** Short-lived URL, generated server-side for the current request. */
+  signedUrl?: string;
+};
+
 export type MistakeType =
   | "concept"
   | "formula"
@@ -70,6 +136,9 @@ export type Question = {
   name: string;
   type: QuestionType;
   sourceYear: number;
+  oepYear?: number;
+  examDate?: string;
+  examPart?: ExamPart;
   sourceExam: string;
   sourceUrl: string;
   retrievedAt: string;
@@ -77,11 +146,32 @@ export type Question = {
   questionNumber: string;
   statement: string;
   options: string[];
+  /** Original machine-extracted text retained when a reviewer corrects it. */
+  rawStatement?: string;
+  rawOptions?: string[];
+  contentFormat?: QuestionContentFormat;
+  reviewedAt?: string;
+  sourceAssets?: QuestionSourceAsset[];
+  answerSupports?: AnswerSupport[];
   correctAnswer: string;
   answerSourceStatus: AnswerSourceStatus;
+  origin?: QuestionOrigin;
+  editorialStatus?: EditorialStatus;
+  /**
+   * Didactic questions state whether the candidate must select a true or a
+   * false option. Historic questions retain their source wording.
+   */
+  selectionInstruction?: QuestionSelectionInstruction;
   answerSourceUrl?: string;
   answerRetrievedAt?: string;
   explanation: string;
+  questionRole?: QuestionRole;
+  reserveDisposition?: ReserveDisposition;
+  disposition?: QuestionDisposition;
+  caseGroup?: PracticalCaseGroup;
+  modelAnswer?: string;
+  answerFormat?: QuestionAnswerFormat;
+  gradingRubric?: string;
   topicIds: string[];
   difficulty: 1 | 2 | 3 | 4 | 5;
   attemptsCount: number;

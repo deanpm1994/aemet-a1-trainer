@@ -90,7 +90,7 @@ export function buildQuestionStats(questions: Question[]): QuestionStats {
 
 export function getOverdueQuestions(questions: Question[], today: string): Question[] {
   return questions
-    .filter((question) => question.nextReviewAt < today)
+    .filter((question) => question.nextReviewAt !== "" && question.nextReviewAt < today)
     .sort((left, right) => left.nextReviewAt.localeCompare(right.nextReviewAt));
 }
 

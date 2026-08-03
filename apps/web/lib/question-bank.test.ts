@@ -129,6 +129,12 @@ describe("question bank helpers", () => {
     ]);
   });
 
+  it("does not treat an unscheduled review as overdue", () => {
+    const unscheduled = { ...questions[0], id: "q-unscheduled", nextReviewAt: "" };
+
+    expect(getOverdueQuestions([unscheduled], "2026-06-22")).toEqual([]);
+  });
+
   it("ranks practice pain points by repeated attempts and mistake count", () => {
     expect(getPracticePainPoints(questions)).toEqual([
       {

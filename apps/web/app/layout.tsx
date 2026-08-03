@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-import { SiteShell } from "@/components/site-shell";
 import { DEFAULT_LOCALE, t } from "@/lib/i18n";
 
 import "./globals.css";
@@ -38,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang={DEFAULT_LOCALE}>
       <body>
-        <SiteShell>{children}</SiteShell>
+        {children}
       </body>
     </html>
   );

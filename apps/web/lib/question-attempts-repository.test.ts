@@ -39,6 +39,8 @@ describe("question attempts repository", () => {
         mistakeTypes: ["concept"],
         confidenceAfter: 2,
         notes: "Needs review.",
+        draftResponse: "",
+        selfAssessment: "ungraded",
       },
     ]);
 
@@ -60,6 +62,8 @@ describe("question attempts repository", () => {
       mistakeTypes: ["none"],
       confidenceAfter: 4,
       notes: "",
+      draftResponse: "",
+      selfAssessment: "ungraded",
     });
 
     expect(insert).toHaveBeenCalledWith({
@@ -71,6 +75,8 @@ describe("question attempts repository", () => {
       mistake_types: ["none"],
       confidence_after: 4,
       notes: "",
+      draft_response: "",
+      self_assessment: "ungraded",
     });
   });
 

@@ -53,6 +53,17 @@ Fields:
 - last_attempt_at
 - next_review_at
 - mistake_type
+- oep_year
+- exam_date
+- exam_part
+- question_role
+- reserve_disposition
+- disposition
+- case_group
+- model_answer
+- answer_format
+- grading_rubric
+- answer_supports
 
 Persistence notes:
 - Source question content is loaded from the canonical Supabase `questions` table.
@@ -63,6 +74,14 @@ Persistence notes:
 - Topic IDs and difficulty for imported past questions are app-owned study metadata, not official-source claims.
 - User-owned practice progress is stored separately in Supabase table `question_progress`.
 - Source provenance/audit records are stored separately in Supabase table `question_sources`.
+- Hash-pinned official documents are stored in `official_source_documents` and
+  linked by placement through `question_source_documents`.
+- Multiple didactic/model-answer supports are stored in
+  `question_answer_supports`.
+- `QuestionOption` labels are derived from option position; source option text
+  is never required to contain an A/B/C/D prefix.
+- Learner-facing reads require both `verification_status=verified` and
+  `disposition=available`.
 - `question_progress` overlays `attempts_count`, `last_attempt_at`, `next_review_at`, and `mistake_types` by `user_id` and `question_id`.
 - Detailed signed-in attempt history is stored in Supabase table `question_attempts`.
 - A saved attempt records the selected answer, user-marked correctness, mistake types, confidence, notes, and attempt date.
@@ -103,11 +122,15 @@ Fields:
 - mistake_types
 - confidence_after
 - notes
+- draft_response
+- self_assessment
 - created_at
 
 Persistence notes:
 - Question attempts are user-owned and protected by row-level security.
 - Correctness is a user-entered practice result, not an official answer-key claim.
+- Practical self-assessment is `correct`, `partial`, `incorrect`, or
+  `ungraded`; revealing a model answer never creates an official grade.
 - Attempt history does not alter official statements, options, answer keys, source URLs, retrieval dates, or verification status.
 
 ## Entity: BibliographyItem

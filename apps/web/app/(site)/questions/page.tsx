@@ -1,21 +1,13 @@
 import { PageHeader } from "@/components/page-header";
 import { ContentReadinessCard } from "@/components/content-readiness-card";
 import { QuestionAttemptForm } from "@/components/question-attempt-form";
-import { QuizRunner } from "@/components/quiz-runner";
+import { QuestionRichText } from "@/components/question-rich-text";
+import { QuestionSourceReviewPanel } from "@/components/question-source-review-panel";
 import { SourceStateBanner } from "@/components/source-state-banner";
+import { saveQuestionAttemptAction } from "@/app/actions/question-actions";
 import { buildContentReadiness } from "@/lib/content-readiness";
-import { loadCanonicalQuestionsSource } from "@/lib/canonical-questions-source";
 import { loadTopicsSource } from "@/lib/notion-topics";
-import { buildQuestionProgressFromAttempts } from "@/lib/question-attempts";
-import {
-  getQuestionAttempts,
-  saveQuestionAttempt,
-} from "@/lib/question-attempts-repository";
-import { applyQuestionProgress } from "@/lib/question-progress-persistence";
-import {
-  getQuestionProgress,
-  saveQuestionProgress,
-} from "@/lib/question-progress-repository";
+import { loadQuestionPracticeContext } from "@/lib/question-practice-context";
 import {
   buildQuestionStats,
   getDefaultQuestionFilters,
@@ -23,188 +15,105 @@ import {
   getPracticePainPoints,
   matchesQuestionFilters,
 } from "@/lib/question-bank";
-import { selectRandomQuestions, selectTopicQuestions } from "@/lib/quiz";
-import { SupabaseConfigError, getSupabaseBrowserConfig } from "@/lib/supabase-config";
-import { createSupabaseServerClient, getAuthenticatedUserId } from "@/lib/supabase-server";
-import type { MistakeType } from "@/lib/types";
-
-type QuestionProgressRepositoryClient = Parameters<typeof getQuestionProgress>[0];
-type QuestionAttemptRepositoryClient = Parameters<typeof getQuestionAttempts>[0];
-
-const allowedMistakeTypes: MistakeType[] = [
-  "concept",
-  "formula",
-  "units",
-  "reading",
-  "legal_wording",
-  "time_management",
-  "none",
-];
-
-function parseMistakeTypes(values: FormDataEntryValue[]): MistakeType[] {
-  const parsed = values
-    .map((value) => String(value))
-    .filter((value): value is MistakeType =>
-      allowedMistakeTypes.includes(value as MistakeType),
-    );
-
-  if (parsed.length === 0 || parsed.includes("none")) {
-    return ["none"];
-  }
-
-  return parsed;
-}
-
-function parseConfidenceAfter(value: FormDataEntryValue | null): number {
-  const parsed = Number(value);
-
-  if (!Number.isInteger(parsed)) {
-    return 3;
-  }
-
-  return Math.min(5, Math.max(1, parsed));
-}
+import { getQuestionOptions } from "@/lib/question-options";
 
 type QuestionsPageProps = {
-  searchParams: Promise<{ mode?: string; topic?: string }>;
+  searchParams: Promise<{ mode?: string; topic?: string; size?: string }>;
 };
 
 export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
   const query = await searchParams;
-  const [questionSource, topicSource] = await Promise.all([
-    loadCanonicalQuestionsSource(),
+  const [practiceContext, topicSource] = await Promise.all([
+    loadQuestionPracticeContext(),
     loadTopicsSource(),
   ]);
-  const sourceQuestions = questionSource.questions;
+  const { questions, questionSource, canPersist, progressMessage } = practiceContext;
   const { sourceState, message } = questionSource;
-  let questions = sourceQuestions;
-  let canPersist = false;
-  let progressMessage = "Inicia sesión para guardar progreso de preguntas.";
-
-  try {
-    getSupabaseBrowserConfig();
-
-    const userId = await getAuthenticatedUserId();
-
-    if (userId) {
-      const client = await createSupabaseServerClient();
-      const progress = await getQuestionProgress(
-        client as QuestionProgressRepositoryClient,
-        userId,
-      );
-      questions = applyQuestionProgress(sourceQuestions, progress);
-      canPersist = true;
-      progressMessage = "Progreso de preguntas cargado desde Supabase.";
-    }
-  } catch (error) {
-    progressMessage =
-      error instanceof SupabaseConfigError
-        ? "El progreso de preguntas en Supabase no está disponible hasta configurar las variables requeridas."
-        : "No se pudo cargar el progreso guardado de preguntas. Mostrando estado fuente.";
-  }
+  const inventoryTotal = questionSource.inventoryQuestions.length;
+  const unavailableTotal = Math.max(0, inventoryTotal - questions.length);
 
   const filters = getDefaultQuestionFilters();
   const visibleQuestions = questions.filter((question) =>
     matchesQuestionFilters(question, filters),
   );
   const stats = buildQuestionStats(questions);
-  const overdueQuestions = getOverdueQuestions(questions, "2026-06-22");
+  const today = new Date().toISOString().slice(0, 10);
+  const overdueQuestions = getOverdueQuestions(questions, today);
   const painPoints = getPracticePainPoints(questions);
-  const contentReadiness = buildContentReadiness(topicSource.topics, questions);
-  const randomSeed = Number.parseInt(new Date().toISOString().slice(0, 10).replaceAll("-", ""), 10);
-  const quizQuestions = query.topic
-    ? selectTopicQuestions(questions, query.topic)
-    : query.mode === "random"
-      ? selectRandomQuestions(questions, 10, randomSeed)
-      : [];
-
-  async function saveQuestionAttemptAction(formData: FormData) {
-    "use server";
-
-    const userId = await getAuthenticatedUserId();
-
-    if (!userId) {
-      return {
-        ok: false,
-        message: "Inicia sesión para sincronizar intentos de preguntas con Supabase.",
-      };
-    }
-
-    const questionId = String(formData.get("questionId") ?? "");
-
-    if (!questionId) {
-      return {
-        ok: false,
-        message: "Falta el id de la pregunta. Recarga antes de reintentar.",
-      };
-    }
-
-    try {
-      const client = await createSupabaseServerClient();
-      await saveQuestionAttempt(client as QuestionAttemptRepositoryClient, userId, {
-        questionId,
-        attemptedAt: String(formData.get("attemptedAt") ?? ""),
-        selectedAnswer: String(formData.get("selectedAnswer") ?? ""),
-        isCorrect: formData.get("isCorrect") === "true",
-        mistakeTypes: parseMistakeTypes(formData.getAll("mistakeTypes")),
-        confidenceAfter: parseConfidenceAfter(formData.get("confidenceAfter")),
-        notes: String(formData.get("notes") ?? ""),
-      });
-
-      const attempts = await getQuestionAttempts(
-        client as QuestionAttemptRepositoryClient,
-        userId,
-        questionId,
-      );
-      const progress = buildQuestionProgressFromAttempts(questionId, attempts);
-
-      await saveQuestionProgress(
-        client as QuestionProgressRepositoryClient,
-        userId,
-        questionId,
-        progress,
-      );
-
-      return {
-        ok: true,
-        message: "Intento de pregunta guardado y progreso de revisión actualizado.",
-      };
-    } catch {
-      return {
-        ok: false,
-        message: "No se pudo guardar el intento. Los valores quedan en el formulario.",
-      };
-    }
-  }
-
+  const contentReadiness = buildContentReadiness(
+    topicSource.topics,
+    questionSource.inventoryQuestions,
+  );
+  const practicalQuestions = questions.filter((question) => question.type === "practical_case");
+  const practicalPapers = [...new Set(practicalQuestions
+    .filter((question) => question.oepYear && question.caseGroup)
+    .map((question) => `${question.oepYear}:${question.caseGroup}`))];
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Preguntas"
         title="Banco de preguntas MVP"
-        description="La sincronización de preguntas prefiere un workspace dedicado de Notion y usa datos locales si no hay sincronización. La redacción oficial y las fuentes de respuesta se mantienen explícitas mediante metadatos."
+        description="Preguntas históricas oficiales verificadas, con la procedencia del examen y la plantilla de respuestas conservadas."
       />
 
       <SourceStateBanner sourceState={sourceState} message={message} />
 
       <ContentReadinessCard readiness={contentReadiness} />
 
-      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-        <strong>Material didáctico no oficial.</strong> Cada tema verificado incluye una
-        pregunta de alcance basada en su título oficial. Las preguntas históricas conservan
-        su fuente y estado de verificación propios.
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Inventario del banco</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          «Histórica oficial» significa que la pregunta procede de un examen oficial anterior;
+          no significa que esté obsoleta. Solo se publica para practicar si está verificada,
+          completa y no está anulada, en cuarentena o deprecada.
+        </p>
+        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl bg-slate-50 p-4">
+            <dt className="text-sm text-slate-500">Guardadas en la base de datos</dt>
+            <dd className="mt-1 text-2xl font-semibold text-slate-900">{inventoryTotal}</dd>
+          </div>
+          <div className="rounded-2xl bg-emerald-50 p-4">
+            <dt className="text-sm text-emerald-700">Disponibles para practicar</dt>
+            <dd className="mt-1 text-2xl font-semibold text-emerald-950">{questions.length}</dd>
+          </div>
+          <div className="rounded-2xl bg-amber-50 p-4">
+            <dt className="text-sm text-amber-700">En revisión o solo auditoría</dt>
+            <dd className="mt-1 text-2xl font-semibold text-amber-950">{unavailableTotal}</dd>
+          </div>
+        </dl>
       </section>
 
-      <section className="flex flex-wrap gap-3">
-        <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href="/questions?mode=random">
-          Test aleatorio
-        </a>
-        <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">
-          Elegir tema
-        </a>
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Nueva sesión</h2>
+        <div className="mt-3 flex flex-wrap gap-3">
+          {["20", "50", "survival"].map((size) => <a className="rounded-full border border-indigo-300 px-4 py-2 text-sm font-medium text-indigo-800" href={`/questions/session?mode=random&size=${size}`} key={size}>Aleatorio · {size === "survival" ? "Supervivencia" : size}</a>)}
+          <a className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800" href="/topics">Por tema</a>
+        </div>
+        {query.topic ? <div className="mt-3 flex flex-wrap gap-3 text-sm"><span className="self-center text-slate-600">Sesión por tema:</span>{["20", "50", "survival"].map((size) => <a className="rounded-full border border-slate-300 px-3 py-1.5" href={`/questions/session?topic=${query.topic}&size=${size}`} key={size}>{size === "survival" ? "Supervivencia" : size}</a>)}</div> : null}
       </section>
 
-      {quizQuestions.length > 0 ? <QuizRunner questions={quizQuestions} /> : null}
+      {practicalQuestions.length > 0 ? (
+        <section className="rounded-3xl border border-sky-200 bg-sky-50 p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-sky-950">Supuestos prácticos</h2>
+          <p className="mt-2 text-sm text-sky-900">
+            Enunciados oficiales con soluciones modelo revisadas no oficiales. El borrador o la omisión explícita son obligatorios antes de revelar la solución.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            {practicalPapers.map((paper) => {
+              const [oep, group] = paper.split(":");
+              return (
+                <a
+                  className="rounded-full border border-sky-400 bg-white px-4 py-2 text-sm font-medium text-sky-900"
+                  href={`/questions/practical/session?oep=${oep}&paper=${group}`}
+                  key={paper}
+                >
+                  OEP {oep} · Supuesto {group} completo
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-sm text-slate-600">{progressMessage}</p>
@@ -212,7 +121,7 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
 
       <section className="grid gap-4 md:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm text-slate-500">Preguntas totales</p>
+          <p className="text-sm text-slate-500">Disponibles para practicar</p>
           <p className="mt-2 text-2xl font-semibold text-slate-900">{stats.total}</p>
         </article>
         <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -270,17 +179,22 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
             >
               <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                 <span>{question.type}</span>
+                {question.origin === "didactic_reviewed" ? <span className="rounded-full bg-amber-100 px-2 py-1 text-amber-950">Creada para practicar · no oficial</span> : null}
+                {question.type === "practical_case" ? <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-950">Enunciado oficial · modelo no oficial</span> : null}
+                {question.questionRole === "reserve" ? <span className="rounded-full bg-violet-100 px-2 py-1 text-violet-950">Reserva · {question.reserveDisposition}</span> : null}
                 <span>Dificultad {question.difficulty}</span>
                 <span>{question.verificationStatus}</span>
                 <span>Intentos {question.attemptsCount}</span>
               </div>
               <h2 className="mt-3 text-lg font-semibold text-slate-900">{question.name}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{question.statement}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700"><QuestionRichText contentFormat={question.contentFormat} text={question.statement} /></p>
+              <QuestionSourceReviewPanel question={question} />
               {question.options.length > 0 ? (
                 <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                  {question.options.map((option) => (
-                    <li key={option} className="rounded-2xl bg-slate-50 px-3 py-2">
-                      {option}
+                  {getQuestionOptions(question).map((option) => (
+                    <li key={option.key} className="flex gap-3 rounded-2xl bg-slate-50 px-3 py-2">
+                      <span className="font-semibold text-slate-900">{option.key}</span>
+                      <QuestionRichText contentFormat={question.contentFormat} text={option.text} />
                     </li>
                   ))}
                 </ul>
@@ -309,11 +223,20 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
                   <dd>{question.mistakeTypes.join(", ")}</dd>
                 </div>
               </dl>
-              <QuestionAttemptForm
-                question={question}
-                canPersist={canPersist}
-                onSave={saveQuestionAttemptAction}
-              />
+              {question.type === "practical_case" ? (
+                <a
+                  className="mt-5 inline-flex rounded-full bg-sky-800 px-4 py-2 text-sm font-medium text-white"
+                  href={`/questions/practical/session?id=${question.id}`}
+                >
+                  Practicar este ejercicio
+                </a>
+              ) : (
+                <QuestionAttemptForm
+                  question={question}
+                  canPersist={canPersist}
+                  onSave={saveQuestionAttemptAction}
+                />
+              )}
             </article>
           ))}
         </div>

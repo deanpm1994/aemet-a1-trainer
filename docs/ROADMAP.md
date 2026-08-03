@@ -41,7 +41,7 @@
 
 - Expose complete verified BOE syllabus (complete)
 - Add Spanish study cards per verified topic (complete)
-- Add one non-official syllabus-scope question per verified topic (complete)
+- Do not generate syllabus-recognition questions; add reviewed, source-backed subject-matter simulacra only
 - Add topic and random quiz feedback (complete)
 - Add detailed Spanish study notes for all 128 verified topics (complete; explicitly non-official)
 

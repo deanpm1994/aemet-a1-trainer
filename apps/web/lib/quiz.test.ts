@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   evaluateQuizAnswer,
+  getCoverageMessage,
+  getSessionQuestions,
   selectRandomQuestions,
   selectTopicQuestions,
 } from "./quiz";
@@ -40,8 +42,39 @@ describe("quiz", () => {
   it("reveals correct answer and explanation after selection", () => {
     expect(evaluateQuizAnswer(questions[0]!, "B")).toEqual({
       correct: false,
-      correctAnswer: "A",
+      selectedAnswerLabel: "A",
+      correctOptionText: "A",
       explanation: "Explicación uno.",
+      sourceUrl: "https://example.test",
     });
+  });
+
+  it("matches an official letter answer key to its labelled option text", () => {
+    const historicQuestion: Question = {
+      ...questions[0]!,
+      options: ["A) Correcta", "B) Incorrecta"],
+      correctAnswer: "A",
+    };
+
+    expect(evaluateQuizAnswer(historicQuestion, "A) Correcta").correct).toBe(true);
+    expect(evaluateQuizAnswer(historicQuestion, "B) Incorrecta").correct).toBe(false);
+  });
+
+  it("grades an official answer letter against unlabeled option position", () => {
+    const freeTextQuestion: Question = {
+      ...questions[0]!,
+      options: ["Aire", "Viento"],
+      correctAnswer: "A",
+    };
+
+    expect(evaluateQuizAnswer(freeTextQuestion, "A").correct).toBe(true);
+    expect(evaluateQuizAnswer(freeTextQuestion, "Aire").correct).toBe(true);
+    expect(evaluateQuizAnswer(freeTextQuestion, "Viento").correct).toBe(false);
+    expect(evaluateQuizAnswer(freeTextQuestion, "A").correctOptionText).toBe("Aire");
+  });
+
+  it("limits short sessions without repeating their eligible pool", () => {
+    expect(getSessionQuestions(questions, 50, 42)).toHaveLength(2);
+    expect(getCoverageMessage(2, 50)).toContain("Cobertura limitada");
   });
 });

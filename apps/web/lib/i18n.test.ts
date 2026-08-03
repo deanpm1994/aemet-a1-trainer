@@ -12,7 +12,7 @@ import {
 describe("i18n", () => {
   it("defaults to Spanish", () => {
     expect(DEFAULT_LOCALE).toBe("es");
-    expect(t(DEFAULT_LOCALE, "app.shell.phase")).toBe("Fase base");
+    expect(t(DEFAULT_LOCALE, "app.shell.phase")).toBe("MVP de estudio");
   });
 
   it("falls back to Spanish for unsupported locales", () => {
