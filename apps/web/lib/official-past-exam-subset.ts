@@ -111,7 +111,7 @@ const commonSourceFields2014 = {
   difficulty: 3,
 };
 
-export const officialPastExamSubsetSource = [
+const officialPastExamSubsetRecords = [
   {
     ...commonSourceFields2014,
     questionNumber: "1",
@@ -585,6 +585,40 @@ export const officialPastExamSubsetSource = [
     correctAnswer: "B",
   },
 ];
+
+/**
+ * App-owned syllabus links. They classify the subject assessed without changing
+ * source-owned exam wording, options, answer keys, or provenance.
+ */
+const historicQuestionTopicMappings: Record<string, string[]> = {
+  "2014-1": ["mathematics-4"], "2014-2": ["mathematics-6"], "2014-3": ["mathematics-17"],
+  "2014-4": ["mathematics-15"], "2014-5": ["mathematics-13"], "2014-6": ["mathematics-13"],
+  "2014-7": ["mathematics-12"], "2014-8": ["mathematics-14"],
+  "2014-9": ["mathematics-13"], "2014-10": ["mathematics-17"], "2014-13": ["mathematics-11"],
+  "2014-15": ["physics-1"], "2014-16": ["physics-2"], "2014-17": ["physics-1"],
+  "2014-18": ["physics-3"], "2014-19": ["physics-6"], "2014-20": ["physics-6"],
+  "2014-21": ["meteorology-and-climatology-8"], "2014-22": ["physics-6"],
+  "2014-27": ["physics-12"], "2014-28": ["physics-12"], "2014-29": ["physics-12"],
+  "2014-30": ["physics-12"], "2014-31": ["physics-14"], "2014-32": ["physics-6"],
+  "2014-33": ["physics-16"], "2014-34": ["physics-16"], "2014-35": ["meteorology-and-climatology-1"],
+  "2014-36": ["meteorology-and-climatology-6"], "2014-37": ["meteorology-and-climatology-1"],
+  "2014-38": ["meteorology-and-climatology-8"], "2014-39": ["meteorology-and-climatology-8"],
+  "2014-40": ["meteorology-and-climatology-8"], "2014-41": ["meteorology-and-climatology-8"],
+  "2014-42": ["meteorology-and-climatology-18"],
+  "2015-19": ["meteorology-and-climatology-18"], "2015-20": ["meteorology-and-climatology-42"],
+  "2015-21": ["physics-17"], "2015-22": ["meteorology-and-climatology-26"],
+  "2016-14": ["mathematics-16"], "2016-15": ["mathematics-12"], "2016-16": ["mathematics-13"],
+  "2016-17": ["mathematics-17"], "2016-20": ["mathematics-18"],
+  "2017-12": ["mathematics-12"], "2017-13": ["mathematics-13"], "2017-14": ["mathematics-18"],
+  "2017-15": ["mathematics-13"], "2017-16": ["physics-2"],
+  "2018-8": ["mathematics-14"], "2018-10": ["mathematics-17"], "2018-13": ["mathematics-17"],
+  "2018-17": ["physics-2"], "2018-19": ["physics-5"],
+};
+
+export const officialPastExamSubsetSource = officialPastExamSubsetRecords.map((question) => ({
+  ...question,
+  topicIds: historicQuestionTopicMappings[`${question.sourceYear}-${question.questionNumber}`] ?? [],
+}));
 
 export function loadOfficialPastExamSubset(): LoadedOfficialPastExamSubset {
   const questions: Question[] = [];
